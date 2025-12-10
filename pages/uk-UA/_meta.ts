@@ -4,12 +4,12 @@ const meta = {
     type: 'menu',
     items: {
       user: {
-        title: 'ВЕБ КОРИСТУВАЧА PPANEL',
+        title: 'ВЕБ КОРИСТУВАЧА ARCHNET',
         href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/user',
         newWindow: true,
       },
       admin: {
-        title: 'ВЕБ АДМІНІСТРАТОРА PPANEL',
+        title: 'ВЕБ АДМІНІСТРАТОРА ARCHNET',
         href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/admin',
         newWindow: true,
       },
@@ -19,7 +19,7 @@ const meta = {
         newWindow: true,
       },
       node: {
-        title: 'PPANEL NODE',
+        title: 'ARCHNET NODE',
         href: 'https://github.com/wyx2685/archnet-node',
         newWindow: true,
       },

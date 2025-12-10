@@ -6,7 +6,7 @@ export default function Footer() {
       <p className='text-xs '>
         GNU {new Date().getFullYear()} ©{' '}
         <Link href='https://archnet.dev' target='_blank'>
-          PPANEL
+          ARCHNET
         </Link>
         .
       </p>

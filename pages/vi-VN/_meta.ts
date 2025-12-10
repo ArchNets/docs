@@ -20,22 +20,22 @@ const meta = {
     type: 'menu',
     items: {
       user: {
-        title: 'PPANEL NGƯỜI DÙNG WEB',
+        title: 'ARCHNET NGƯỜI DÙNG WEB',
         href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/user',
         newWindow: true,
       },
       admin: {
-        title: 'PPANEL QUẢN TRỊ WEB',
+        title: 'ARCHNET QUẢN TRỊ WEB',
         href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/admin',
         newWindow: true,
       },
       server: {
-        title: 'PPANEL SERVER',
+        title: 'ARCHNET SERVER',
         href: 'https://github.com/ArchNets/server',
         newWindow: true,
       },
       node: {
-        title: 'PPANEL NODE',
+        title: 'ARCHNET NODE',
         href: 'https://github.com/wyx2685/archnet-node',
         newWindow: true,
       },
