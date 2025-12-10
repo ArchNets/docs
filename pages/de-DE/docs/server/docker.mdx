@@ -1,0 +1,158 @@
+## Docker installieren
+
+Führen Sie den folgenden Befehl aus, um Docker schnell zu installieren:
+
+```sh
+curl -fsSL https://get.docker.com | bash -s docker
+```
+
+## Schnellstart
+
+### Web-Oberfläche zur Initialisierung
+
+ArchNet unterstützt die webbasierte Initialisierung, die den manuellen Konfigurationsprozess vereinfacht.
+
+### Initialisierungsschritte
+
+1. **Erstellen Sie die erforderlichen Konfigurationsdateien**: Erstellen und konfigurieren Sie zunächst manuell die Datei `/app/etc/archnet.yaml`, um die nachfolgende Konfiguration vorzubereiten.
+
+2. **Docker-Container ausführen**:
+
+   ```sh
+   docker run -d \
+     --network host \
+     --name archnet-server \
+     -v /app/etc/archnet.yaml:/app/etc/archnet.yaml \
+     --restart=always \
+     --log-opt max-size=10m \
+     --log-opt max-file=3 \
+     archnet/archnet-server:latest
+   ```
+
+3. **Zugriff auf die Initialisierungsseite**: Greifen Sie im Browser auf `http://Server-IP:8080/init` zu.
+
+4. **Konfiguration abschließen**: Befolgen Sie die Anweisungen, um ein Administratorkonto einzurichten, die MySQL-Datenbank und den Redis-Server zu konfigurieren.
+
+5. **Klicken Sie auf die Schaltfläche zur Initialisierung**: Nach Abschluss der Konfiguration klicken Sie auf die Schaltfläche „Initialisieren“, die Anwendung speichert automatisch die Konfiguration und startet neu.
+
+   > **Hinweis**: ArchNet verwendet standardmäßig den Port **8080**. Stellen Sie sicher, dass dieser Port zugänglich ist, und passen Sie gegebenenfalls die Firewall-Einstellungen an.
+
+## Docker-Bereitstellung
+
+ArchNet verwendet standardmäßig den Port **8080**. Stellen Sie sicher, dass dieser Port zugänglich ist, und passen Sie gegebenenfalls die Firewall-Einstellungen an.
+
+Wenn Sie die Web-Initialisierung nicht verwenden, können Sie sich mit dem Standard-Administratorkonto anmelden:
+
+- **Benutzername**: `admin@archnet.dev`
+- **Passwort**: `password`
+
+> **Hinweis**: Ändern Sie das Standardpasswort nach dem ersten Login umgehend, um die Sicherheit zu gewährleisten.
+
+### Erstellen der erforderlichen Konfigurationsdateien
+
+Bevor Sie mit der Docker-Bereitstellung beginnen, erstellen und konfigurieren Sie zunächst manuell die Datei `/app/etc/archnet.yaml`, um sicherzustellen, dass das System ordnungsgemäß funktioniert. Für detaillierte Konfigurationsbeispiele siehe den Abschnitt [Konfigurationsbeispiele](#konfigurationsbeispiele) in der Dokumentation.
+
+### Docker-Container ausführen
+
+Führen Sie den folgenden Befehl aus, um den Container zu starten:
+
+```sh
+docker run -d \
+  --network host \
+  --name archnet-server \
+  -v /app/etc/archnet.yaml:/app/etc/archnet.yaml \
+  --restart=always \
+  --log-opt max-size=10m \
+  --log-opt max-file=3 \
+  archnet/archnet-server:latest
+```
+
+## Docker Compose-Bereitstellung
+
+ArchNet verwendet standardmäßig den Port **8080**. Stellen Sie sicher, dass dieser Port zugänglich ist, und passen Sie gegebenenfalls die Firewall-Einstellungen an.
+
+### Erstellen der erforderlichen Konfigurationsdateien
+
+Bevor Sie mit der Docker Compose-Bereitstellung beginnen, erstellen und konfigurieren Sie zunächst manuell die Datei `/app/etc/archnet.yaml`, um sicherzustellen, dass das System ordnungsgemäß funktioniert. Für detaillierte Konfigurationsbeispiele siehe den Abschnitt [Konfigurationsbeispiele](#konfigurationsbeispiele) in der Dokumentation.
+
+### Erstellen der Docker Compose-Konfigurationsdatei
+
+Erstellen Sie die Datei `docker-compose.yml`:
+
+```yaml
+version: '3'
+
+services:
+  archnet-server:
+    image: archnet/archnet-server:latest
+    container_name: archnet-server
+    network_mode: host
+    volumes:
+      - /app/etc/archnet.yaml:/app/etc/archnet.yaml
+    restart: always
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+```
+
+### Dienste starten
+
+Führen Sie den folgenden Befehl aus, um die Dienste zu starten:
+
+```sh
+docker compose up -d
+```
+
+## Wichtige Hinweise
+
+- **Sicherheit**: Ändern Sie unbedingt das Standardpasswort und den Schlüssel, um die Sicherheit der Anwendung zu gewährleisten.
+- **Portkonfiguration**: Stellen Sie sicher, dass die erforderlichen Ports geöffnet sind, um Netzwerkzugriffsprobleme zu vermeiden.
+- **Datenpersistenz**: Es wird empfohlen, beim Ausführen des Containers Datenvolumes zu mounten, um die Datenpersistenz zu gewährleisten.
+
+## Konfigurationsbeispiele
+
+Hier sind Beispiele für die Konfiguration von `archnet.yaml`:
+
+```yaml
+Host: 0.0.0.0 # Überwachungs-IP
+Port: 8080 # Ausführungsport
+Debug: true # Debug-Modus aktivieren
+JwtAuth:
+  AccessSecret: your-secret-key # Token-Schlüssel (bitte ändern)
+  AccessExpire: 604800 # Token-Gültigkeitsdauer (Sekunden)
+Logger:
+  FilePath: ./archnet.log # Pfad zur Protokolldatei
+  MaxSize: 50
+  MaxBackup: 3
+  MaxAge: 30
+  Compress: true
+  LogType: json
+  Level: info # Protokollebene: info, debug, error
+MySQL:
+  Addr: 127.0.0.1:3306 # Datenbankadresse
+  Dbname: vpnboard # Datenbankname
+  Username: root # Datenbankbenutzername
+  Password: your-password # Datenbankpasswort (bitte ändern)
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  LogMode: dev
+  LogZap: false
+  SlowThreshold: 1000
+Redis:
+  Host: 127.0.0.1:6379
+  Pass: # Redis-Passwort (falls vorhanden)
+  DB: 0
+
+Administer:
+  Password: password # Administratorpasswort (sollte geändert werden)
+  Email: admin@archnet.dev # E-Mail-Adresse des Administrators
+```
+
+> **Hinweis**: Starten Sie den Docker-Container neu, um Änderungen an der Konfigurationsdatei anzuwenden.
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

@@ -1,0 +1,227 @@
+# 快速部署指南
+
+## 1. 安裝 Docker
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh ./get-docker.sh
+```
+
+## 2. 創建項目目錄
+
+```bash
+mkdir /opt/archnet && cd /opt/archnet
+```
+
+## 3. 創建配置文件
+
+### 3.1 創建 `compose.yaml`
+
+```yaml
+services:
+  archnet-server:
+    image: archnet/archnet-server:latest
+    container_name: archnet-server
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 8080:8080
+    depends_on:
+      archnet-db:
+        condition: service_healthy
+      archnet-cache:
+        condition: service_healthy
+    volumes:
+      - ./config/archnet.yaml:/app/etc/archnet.yaml
+
+  archnet-db:
+    image: mysql:8.4.5
+    container_name: archnet-db
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: archnet
+      MYSQL_USER: archnet
+      MYSQL_PASSWORD: archnetpassword
+    volumes:
+      - ./db:/var/lib/mysql
+    command:
+      - --mysql-native-password=on
+      - --bind-address=0.0.0.0
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-prootpassword']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-cache:
+    image: redis:7.4.5
+    container_name: archnet-cache
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 6379:6379
+    volumes:
+      - ./cache:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-admin:
+    image: archnet/archnet-admin-web:latest
+    container_name: archnet-admin-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3001:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+  archnet-user:
+    image: archnet/archnet-user-web:latest
+    container_name: archnet-user-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3002:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+networks:
+  archnet-network:
+    driver: bridge
+```
+
+### 3.2 創建 `archnet.yaml`
+
+```yaml
+Host: 0.0.0.0
+Port: 8080
+Debug: false
+JwtAuth:
+  AccessSecret: 1234567890
+  AccessExpire: 604800
+Logger:
+  ServiceName: ArchNet
+  Mode: console
+  Encoding: plain
+  TimeFormat: '2025-01-01 00:00:00.000'
+  Path: logs
+  Level: debug
+  MaxContentLength: 0
+  Compress: false
+  Stat: true
+  KeepDays: 0
+  StackCooldownMillis: 100
+  MaxBackups: 0
+  MaxSize: 0
+  Rotation: daily
+  FileTimeFormat: 2025-01-01T00:00:00.000Z00:00
+MySQL:
+  Addr: archnet-db:3306
+  Dbname: archnet
+  Username: archnet
+  Password: archnetpassword
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FHong_Kong
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  SlowThreshold: 1000
+Redis:
+  Host: archnet-cache:6379
+  Pass:
+  DB: 0
+Administrator:
+  Password: password
+  Email: admin@archnet.dev
+```
+
+## 4. 啟動服務
+
+```bash
+docker-compose up -d
+```
+
+## 服務信息
+
+### 默認訪問地址
+
+- 管理員面板：`http://伺服器IP:3001`
+- 用戶面板：`http://伺服器IP:3002`
+- 後端 API：`http://伺服器IP:8080`
+
+### 默認登錄信息
+
+- 管理員郵箱：`admin@archnet.dev`
+- 初始密碼：`password`
+
+### 常用管理命令
+
+```bash
+# 查看服務狀態
+docker-compose ps
+
+# 查看服務日誌
+docker-compose logs
+
+# 停止服務
+docker-compose down
+
+# 重啟服務
+docker-compose up -d
+```
+
+## 注意事項
+
+1. 首次登錄後請立即修改默認密碼
+2. 建議根據實際需求調整 `archnet.yaml` 中的配置
+3. 生產環境中請更改所有默認密碼
+4. 確保伺服器防火牆已開放相應端口
+
+## 技術支持
+
+如遇到問題，請檢查：
+
+- Docker 服務是否正常運行
+- 網絡配置是否正確
+- 伺服器防火牆設置
+
+## 升級方法
+
+```bash
+docker-compose pull
+docker-compose up -d
+```
+
+# 一鍵部署
+
+> **部署前注意事項**
+>
+> - **管理端默認端口為 8080**：請提前配置好域名解析或確保有可用的 IP 地址，以便順利完成管理端和用戶端的安裝。
+> - 服務端：更多信息請參考 [服務端](/zh-HK/docs/server/config)。
+> - 管理端：更多信息請參考 [管理端](/zh-HK/docs/admin/config)。
+> - 用戶端：更多信息請參考 [用戶端](/zh-HK/docs/user/config)。
+
+## 選項 1：使用 `curl`
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+## 選項 2：使用 `wget`
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

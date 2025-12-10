@@ -1,0 +1,106 @@
+## Завантаження коду
+
+Отримайте код з офіційного репозиторію GitHub:
+
+```bash
+# Завантажте останню версію коду
+curl -LO https://github.com/ArchNets/archnet-web/releases/download/v1.0.0/archnet-admin-web.tar.gz
+
+# Розпакуйте файл
+tar -xzvf archnet-admin-web.tar.gz
+
+# Перейдіть до каталогу з кодом
+cd archnet-admin-web
+```
+
+## Налаштування змінних середовища
+
+Створіть файл `apps/admin/.env` і додайте необхідні змінні середовища (посилаючись на попереднє налаштування змінних середовища).
+
+## Налаштування PM2
+
+Створіть файл `ecosystem.config.js`, вміст якого буде таким:
+
+```javascript
+module.exports = {
+  apps: [
+    {
+      name: 'archnet-admin-web',
+      script: 'apps/admin/server.js',
+      interpreter: 'bun', // можна змінити на node
+      watch: true,
+      instances: 'max',
+      exec_mode: 'cluster',
+      env: {
+        PORT: 3000,
+      },
+    },
+  ],
+};
+```
+
+## Використання PM2 для запуску сервісу
+
+```bash
+pm2 start ecosystem.config.js
+pm2 save
+pm2 startup
+```
+
+## Використання Node.js або Bun для запуску сервісу
+
+- **Запуск через Node.js**:
+
+  ```bash
+  node apps/admin/server.js
+  ```
+
+- **Запуск через Bun**:
+
+  ```bash
+  bun apps/admin/server.js
+  ```
+
+---
+
+## **4. Перевірка розгортання**
+
+### **4.1 Статус сервісу PM2**
+
+Виконайте наступну команду для перевірки:
+
+```bash
+pm2 list
+```
+
+### **4.2 Доступ через браузер**
+
+Перейдіть за адресою `http://<Ваш IP сервера>:3000`, щоб перевірити стан роботи сервісу.
+
+---
+
+## **5. Управління сервісом**
+
+### **Команди PM2**
+
+- Зупинити сервіс:
+
+  ```bash
+  pm2 stop archnet-admin-web
+  ```
+
+- Перезапустити сервіс:
+
+  ```bash
+  pm2 restart archnet-admin-web
+  ```
+
+- Видалити сервіс:
+
+  ```bash
+  pm2 delete archnet-admin-web
+  ```
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

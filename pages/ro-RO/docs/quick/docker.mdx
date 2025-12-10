@@ -1,0 +1,227 @@
+# Ghid rapid de implementare
+
+## 1. Instalare Docker
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh ./get-docker.sh
+```
+
+## 2. Crearea directorului proiectului
+
+```bash
+mkdir /opt/archnet && cd /opt/archnet
+```
+
+## 3. Crearea fișierului de configurare
+
+### 3.1 Crearea `compose.yaml`
+
+```yaml
+services:
+  archnet-server:
+    image: archnet/archnet-server:latest
+    container_name: archnet-server
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 8080:8080
+    depends_on:
+      archnet-db:
+        condition: service_healthy
+      archnet-cache:
+        condition: service_healthy
+    volumes:
+      - ./config/archnet.yaml:/app/etc/archnet.yaml
+
+  archnet-db:
+    image: mysql:8.4.5
+    container_name: archnet-db
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: archnet
+      MYSQL_USER: archnet
+      MYSQL_PASSWORD: archnetpassword
+    volumes:
+      - ./db:/var/lib/mysql
+    command:
+      - --mysql-native-password=on
+      - --bind-address=0.0.0.0
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-prootpassword']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-cache:
+    image: redis:7.4.5
+    container_name: archnet-cache
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 6379:6379
+    volumes:
+      - ./cache:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-admin:
+    image: archnet/archnet-admin-web:latest
+    container_name: archnet-admin-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3001:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+  archnet-user:
+    image: archnet/archnet-user-web:latest
+    container_name: archnet-user-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3002:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+networks:
+  archnet-network:
+    driver: bridge
+```
+
+### 3.2 Crearea `archnet.yaml`
+
+```yaml
+Host: 0.0.0.0
+Port: 8080
+Debug: false
+JwtAuth:
+  AccessSecret: 1234567890
+  AccessExpire: 604800
+Logger:
+  ServiceName: ArchNet
+  Mode: console
+  Encoding: plain
+  TimeFormat: '2025-01-01 00:00:00.000'
+  Path: logs
+  Level: debug
+  MaxContentLength: 0
+  Compress: false
+  Stat: true
+  KeepDays: 0
+  StackCooldownMillis: 100
+  MaxBackups: 0
+  MaxSize: 0
+  Rotation: daily
+  FileTimeFormat: 2025-01-01T00:00:00.000Z00:00
+MySQL:
+  Addr: archnet-db:3306
+  Dbname: archnet
+  Username: archnet
+  Password: archnetpassword
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  SlowThreshold: 1000
+Redis:
+  Host: archnet-cache:6379
+  Pass:
+  DB: 0
+Administrator:
+  Password: password
+  Email: admin@archnet.dev
+```
+
+## 4. Pornirea serviciului
+
+```bash
+docker-compose up -d
+```
+
+## Informații despre serviciu
+
+### Adresa de acces implicită
+
+- Panoul de administrare: `http://IP-ul serverului:3001`
+- Panoul utilizatorului: `http://IP-ul serverului:3002`
+- API-ul backend: `http://IP-ul serverului:8080`
+
+### Informații de conectare implicite
+
+- Email administrator: `admin@archnet.dev`
+- Parola inițială: `password`
+
+### Comenzi de administrare frecvente
+
+```bash
+# Verificarea stării serviciului
+docker-compose ps
+
+# Vizualizarea jurnalelor serviciului
+docker-compose logs
+
+# Oprirea serviciului
+docker-compose down
+
+# Repornirea serviciului
+docker-compose up -d
+```
+
+## Observații
+
+1. Vă rugăm să schimbați imediat parola implicită după prima conectare.
+2. Se recomandă ajustarea configurației din `archnet.yaml` în funcție de nevoile reale.
+3. În medii de producție, schimbați toate parolele implicite.
+4. Asigurați-vă că firewall-ul serverului are porturile corespunzătoare deschise.
+
+## Suport tehnic
+
+Dacă întâmpinați probleme, verificați:
+
+- Dacă serviciul Docker funcționează corect
+- Dacă configurația rețelei este corectă
+- Setările firewall-ului serverului
+
+## Metoda de actualizare
+
+```bash
+docker-compose pull
+docker-compose up -d
+```
+
+# Implementare cu un singur clic
+
+> **Observații înainte de implementare**
+>
+> - **Portul implicit pentru panoul de administrare este 8080**: Vă rugăm să configurați în prealabil rezolvarea domeniului sau să vă asigurați că aveți o adresă IP disponibilă pentru a finaliza cu succes instalarea panoului de administrare și a celui de utilizator.
+> - Server: pentru mai multe informații, consultați [Server](/ro-RO/docs/server/config).
+> - Panou de administrare: pentru mai multe informații, consultați [Panou de administrare](/ro-RO/docs/admin/config).
+> - Panou de utilizator: pentru mai multe informații, consultați [Panou de utilizator](/ro-RO/docs/user/config).
+
+## Opțiunea 1: utilizând `curl`
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+## Opțiunea 2: utilizând `wget`
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

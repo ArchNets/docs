@@ -1,0 +1,22 @@
+## 環境変数
+
+デプロイ前に、デプロイコマンドで以下の環境変数を直接設定してアプリケーションを構成してください：
+
+```bash
+# アプリのデフォルト言語
+NEXT_PUBLIC_DEFAULT_LANGUAGE=<あなたのデフォルト言語 ja-JP | en-US>
+
+# サイトの URL と API エンドポイント
+NEXT_PUBLIC_SITE_URL=<あなたのサイトの URL>
+NEXT_PUBLIC_API_URL=<あなたの API URL>
+
+# デフォルトのユーザー認証情報（初期設定またはテスト目的）
+NEXT_PUBLIC_DEFAULT_USER_EMAIL=<あなたのデフォルトユーザーのメール>
+NEXT_PUBLIC_DEFAULT_USER_PASSWORD=<あなたのデフォルトユーザーのパスワード>
+```
+
+構造化された参考ファイルについては、[サンプル環境ファイル](https://github.com/ArchNets/archnet-web/blob/main/apps/admin/.env.template)を参照してください。
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

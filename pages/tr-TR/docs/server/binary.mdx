@@ -1,0 +1,372 @@
+#### Ön Gereksinimler
+
+- Debian 12
+
+#### Nginx Kurulumu
+
+Nginx'in kurulumu için resmi Nginx DEB deposunu kullanıyoruz.
+
+Gerekli yazılımları yükleyin
+
+```bash
+apt install curl wget gnupg2 ca-certificates lsb-release sudo
+```
+
+Resmi Nginx PGP anahtarını ekleyin
+
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+
+Resmi Nginx deposu yapılandırmasını nginx.list dosyasına yazın
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+Resmi Nginx deposunun önceliğini sistemin yerleşik deposundan daha yüksek ayarlayın
+
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+```
+
+APT önbelleğini güncelleyin
+
+```bash
+apt update
+```
+
+Nginx'i kurun
+
+```bash
+apt install nginx
+```
+
+Son olarak, Nginx hizmetini başlatın ve sistem açılışında otomatik başlatılacak şekilde ayarlayın
+
+```bash
+systemctl start nginx
+systemctl enable nginx
+```
+
+#### Redis Kurulumu
+
+GPG anahtarını içe aktarın
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+```
+
+Resmi Redis deposu yapılandırmasını redis.list dosyasına yazın
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+```
+
+APT önbelleğini güncelleyin
+
+```bash
+apt update
+```
+
+redis-server'ı kurun
+
+```bash
+apt install redis
+```
+
+Redis hizmetini başlatın ve sistem açılışında otomatik başlatılacak şekilde ayarlayın
+
+```bash
+systemctl start redis-server
+systemctl enable redis-server
+```
+
+#### MariaDB Kurulumu
+
+MariaDB, Nginx deposuna benzer bir tam DEB deposu sunmaktadır, bu nedenle gerekli paketleri yüklememiz ve GPG anahtarını içe aktarmamız gerekiyor.
+
+```bash
+apt install apt-transport-https curl
+mkdir -p /etc/apt/keyrings
+curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
+
+`/etc/apt/sources.list.d/mariadb.sources` dosyasını düzenleyin ve aşağıdaki yapılandırmayı yazın:
+
+```
+X-Repolib-Name: MariaDB
+Types: deb
+URIs: https://deb.mariadb.org/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+APT önbelleğini güncelleyin
+
+```bash
+apt update
+```
+
+MariaDB 11.4'ü kurun
+
+```bash
+apt install mariadb-server
+```
+
+MariaDB hizmetini başlatın ve sistem açılışında otomatik başlatılacak şekilde ayarlayın
+
+```bash
+systemctl start mariadb
+systemctl enable mariadb
+```
+
+MariaDB'nin ilk ayarlarını çalıştırın
+
+```bash
+mariadb-secure-installation
+```
+
+#### archnet Kurulumu
+
+1. MariaDB veritabanını yapılandırın
+
+### 1. MariaDB'ye giriş yapın
+
+```bash
+mariadb -u root -p
+```
+
+MariaDB komut satırında, yeni bir archnet_db veritabanı oluşturmak ve karakter setini utf8mb4_unicode_ci olarak ayarlamak için aşağıdaki komutu çalıştırın
+
+```sql
+CREATE DATABASE archnet_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Ardından, yerel bir veritabanı kullanıcısı oluşturun ve bu kullanıcının izinlerini yeni oluşturulan veritabanı ile sınırlayın, kullanıcı adı olarak archnet ve kullanıcı şifresi olarak archnet-password kullanın.
+
+```sql
+CREATE USER 'archnet'@'localhost';
+GRANT ALL PRIVILEGES ON archnet_db.* TO 'archnet'@'localhost' IDENTIFIED BY 'archnet-password';
+FLUSH PRIVILEGES;
+```
+
+MariaDB'den çıkın
+
+```sql
+EXIT;
+```
+
+2. Nginx'i yapılandırın
+
+`/etc/nginx/nginx.conf` dosyasındaki `user` değerini
+
+```nginx
+user nginx;
+```
+
+şu şekilde değiştirin
+
+```nginx
+user www-data;
+```
+
+Nginx sanal ana bilgisayar yapılandırma dosyasını ekleyin
+
+```bash
+nano /etc/nginx/conf.d/website-domain-you-set.conf
+```
+
+Ardından aşağıdaki yapılandırmayı yazın, lütfen web sitesi alan adını ve SSL sertifika dosyasını değiştirin (aksi takdirde hata alırsınız):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name api.example.com *.example.com;   # Alan adınızı değiştirin
+
+    ssl_certificate /path/your/certs/example.crt;  # Sertifika yolunuzu değiştirin
+    ssl_certificate_key /path/your/private/example.key;  # Özel anahtar yolunuzu değiştirin
+
+    ssl_protocols TLSv1.2 TLSv1.3; # Önerilen protokoller
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'; # Önerilen şifreleme seti
+    ssl_prefer_server_ciphers on;
+
+    # cloudflare Başlangıç
+    set_real_ip_from 0.0.0.0/0;  # Cloudflare'ın tüm IP adreslerine güven
+    real_ip_header X-Forwarded-For;  # Gerçek IP'yi almak için X-Forwarded-For başlığını kullan
+    real_ip_recursive on;  # X-Forwarded-For başlığındaki birden fazla IP'yi özyinelemeli olarak çöz
+    # cloudflare Bitiş
+
+    # Varsayılan proxy ayarları
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_http_version 1.1;
+
+        add_header X-Cache $upstream_cache_status;
+
+        # Arka uç hizmetine proxy ayarlayın, arka uç hizmeti 127.0.0.1:8080'deyse
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    # Statik kaynak önbellek ayarları
+    location ~* \.(gif|png|jpg|css|js|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control public;
+    }
+}
+
+# HTTP'den HTTPS'ye yönlendirme
+server {
+    listen 80;
+    server_name api.example.com *.example.com;  # Alan adınızı değiştirin
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+Nginx'i yeniden başlatın
+
+```bash
+systemctl restart nginx
+```
+
+3. Sistem mimarisini belirleyin ve uygun ikili dosyayı indirin
+
+İndirme adresi: `https://github.com/ArchNets/archnet/releases`
+
+Örnek açıklama: Sistem: Debian amd64, Kullanıcı: root, Mevcut dizin: /root
+
+- İndirin
+
+```shell
+wget https://github.com/ArchNets/archnet/releases/download/v0.1.0/archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Çıkarın
+
+```shell
+tar -zxvf archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Taşıyın
+
+```shell
+sudo mv archnet-server /usr/local/bin/archnet
+sudo mkdir -p /usr/local/etc/archnet
+sudo mv ./etc/archnet.yaml /usr/local/etc/archnet/
+```
+
+- İkili dosyaya çalıştırma izni verin
+
+```shell
+sudo chmod +x /usr/local/bin/archnet
+```
+
+- archnet.yaml yapılandırma dosyasını değiştirin
+
+```bash
+nano /usr/local/etc/archnet/archnet.yaml
+```
+
+```yaml
+Host: 127.0.0.1 # Hizmet dinleme adresi, 127.0.0.1 olarak değiştirin
+Port: 8080 # Hizmet dinleme portu, varsayılan: 8080
+Debug: false # Hata ayıklama modunu açma, varsayılan: false
+JwtAuth: # JWT kimlik doğrulama yapılandırması
+  AccessSecret: d2a1b58958f13ab01shekdd123fcd12345xyz67890== # Erişim belirteci anahtarı, lütfen değiştirin
+  AccessExpire: 604800 # Erişim belirteci süresi, birim saniye, varsayılan: 604800
+Logger: # Günlük yapılandırması
+  FilePath: ./archnet.log # Günlük dosyası yolu, varsayılan: ./archnet.log
+  MaxSize: 50 # Günlük dosyasının maksimum boyutu, birim MB, varsayılan: 50
+  MaxBackup: 3 # Günlük dosyasının maksimum yedek sayısı, varsayılan: 3
+  MaxAge: 30 # Günlük dosyasının maksimum saklama süresi, birim gün, varsayılan: 30
+  Compress: true # Günlük dosyalarını sıkıştırma, varsayılan: true
+  Level: info # Günlük seviyesi, varsayılan: info, seçenekler: debug, info, warn, error, panic, fatal
+MySQL:
+  Addr: 127.0.0.1:3306 # MySQL adresi, zorunlu
+  Username: archnet # MySQL kullanıcı adı, zorunlu
+  Password: archnet-password # MySQL şifresi, zorunlu
+  Dbname: archnet_db # MySQL veritabanı adı, zorunlu
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai # MySQL varsayılan yapılandırması
+  MaxIdleConns: 10 # Maksimum boş bağlantı sayısı, varsayılan: 10
+  MaxOpenConns: 100 # Maksimum açık bağlantı sayısı, varsayılan: 100
+  LogMode: info # Günlük seviyesi, varsayılan: info, seçenekler: debug, error, warn, info
+  LogZap: true # SQL'yi kaydetmek için zap günlük kaydını kullanma, varsayılan: true
+  SlowThreshold: 1000 # Yavaş sorgu eşiği, birim milisaniye, varsayılan: 1000
+Redis:
+  Host: 127.0.0.1:6379 # Redis adresi, varsayılan:localhost:6379
+  Pass: '' # Redis şifresi, varsayılan: ""
+  DB: 0 # Redis veritabanı, varsayılan: 0
+
+Administer:
+  Email: admin@archnet.dev # Yönetim paneli giriş e-postası, varsayılan: admin@archnet.dev
+  Password: password # Yönetim paneli giriş şifresi, varsayılan: password
+```
+
+- systemd hizmet dosyası oluşturun
+
+```shell
+$ cat > /etc/systemd/system/archnet.service <<EOF
+[Unit]
+Description=PPANEL Server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/archnet run --config /usr/local/etc/archnet/archnet.yaml
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+- systemd hizmetini yeniden yükleyin
+
+```shell
+systemctl daemon-reload
+```
+
+- Hizmeti başlatın
+
+```shell
+systemctl start archnet
+```
+
+##### Diğer Açıklamalar
+
+1. Kurulum yolu: İkili dosya nihayetinde /usr/local/bin dizinine taşınır.
+
+2. systemd hizmeti:
+
+   - Hizmet adı: archnet
+   - Hizmet yapılandırma dosyası: /etc/systemd/system/archnet.service
+   - Hizmet başlatma komutu: systemctl start archnet
+   - Hizmeti durdurma komutu: systemctl stop archnet
+   - Hizmeti yeniden başlatma komutu: systemctl restart archnet
+   - Hizmet durumu komutu: systemctl status archnet
+   - Hizmet açılışta otomatik başlatma: systemctl enable archnet
+
+3. Açılışta otomatik başlatmayı ayarlamak için aşağıdaki komutu kullanabilirsiniz
+
+   ```shell
+   systemctl enable archnet
+   ```
+
+4. Hizmet günlükleri: Hizmet günlükleri varsayılan olarak /usr/local/bin/archnet.log dosyasına yazılır.
+
+5. Hizmet günlüklerini görmek için `journalctl -u archnet -f` komutunu kullanabilirsiniz.
+
+6. Yapılandırma dosyası boş veya mevcut değilse, hizmet varsayılan yapılandırma ile başlatılır, yapılandırma dosyası yolu: `./etc/archnet.yaml`, lütfen `http://sunucu_adresi:8080/init` adresinden sistem yapılandırmasını başlatın.
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

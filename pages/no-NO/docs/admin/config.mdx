@@ -1,0 +1,22 @@
+## Miljøvariabler
+
+Før distribusjon, vennligst sørg for å sette følgende miljøvariabler direkte i distribusjonskommandoen for å konfigurere applikasjonen:
+
+```bash
+# Standard språk for applikasjonen
+NEXT_PUBLIC_DEFAULT_LANGUAGE=<Ditt standard språk zh-CN | en-US>
+
+# Nettsted URL og API-endepunkt
+NEXT_PUBLIC_SITE_URL=<Din nettsted URL>
+NEXT_PUBLIC_API_URL=<Din API URL>
+
+# Standard brukerlegitimasjon (for initial oppsett eller testformål)
+NEXT_PUBLIC_DEFAULT_USER_EMAIL=<Din standard bruker e-post>
+NEXT_PUBLIC_DEFAULT_USER_PASSWORD=<Ditt standard brukerpassord>
+```
+
+Du kan referere til [eksempel på miljøfil](https://github.com/ArchNets/archnet-web/blob/main/apps/admin/.env.template) for å se en strukturert referansefil.
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

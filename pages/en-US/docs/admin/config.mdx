@@ -1,0 +1,22 @@
+## Environment Variables
+
+Before deployment, please ensure to set the following environment variables directly in the deployment command to configure the application:
+
+```bash
+# Default language of the application
+NEXT_PUBLIC_DEFAULT_LANGUAGE=<Your default language zh-CN | en-US>
+
+# Site URL and API endpoint
+NEXT_PUBLIC_SITE_URL=<Your site URL>
+NEXT_PUBLIC_API_URL=<Your API URL>
+
+# Default user credentials (for initial setup or testing purposes)
+NEXT_PUBLIC_DEFAULT_USER_EMAIL=<Your default user email>
+NEXT_PUBLIC_DEFAULT_USER_PASSWORD=<Your default user password>
+```
+
+You can refer to the [example environment file](https://github.com/ArchNets/archnet-web/blob/main/apps/admin/.env.template) for a structured reference.
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

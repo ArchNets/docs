@@ -1,0 +1,373 @@
+#### Cerințe preliminare ale sistemului
+
+- Debian 12
+
+#### Instalare Nginx
+
+Pentru instalarea Nginx, folosim sursa oficială DEB a Nginx.
+
+Instalarea software-ului necesar
+
+```bash
+apt install curl wget gnupg2 ca-certificates lsb-release sudo
+```
+
+Adăugarea cheii PGP oficiale Nginx
+
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+
+Scrierea configurației sursei oficiale Nginx în nginx.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+Setarea priorității sursei oficiale Nginx mai mare decât sursele încorporate ale sistemului
+
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+```
+
+Actualizarea cache-ului APT
+
+```bash
+apt update
+```
+
+Instalarea Nginx
+
+```bash
+apt install nginx
+```
+
+În final, porniți serviciul Nginx și setați-l să pornească la boot
+
+```bash
+systemctl start nginx
+systemctl enable nginx
+```
+
+#### Instalare Redis
+
+Importarea cheii GPG
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+```
+
+Scrierea configurației sursei oficiale Redis în redis.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+```
+
+Actualizarea cache-ului APT
+
+```bash
+apt update
+```
+
+Instalarea redis-server
+
+```bash
+apt install redis
+```
+
+Pornirea serviciului Redis și setarea acestuia să pornească la boot
+
+```bash
+systemctl start redis-server
+systemctl enable redis-server
+```
+
+#### Instalare MariaDB
+
+MariaDB oferă un depozit DEB complet, similar cu depozitul Nginx, așa că trebuie să instalăm pachetele necesare și să importăm cheia GPG.
+
+```bash
+apt install apt-transport-https curl
+mkdir -p /etc/apt/keyrings
+curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
+
+Editați fișierul `/etc/apt/sources.list.d/mariadb.sources` și scrieți următoarea configurație:
+
+```
+X-Repolib-Name: MariaDB
+Types: deb
+URIs: https://deb.mariadb.org/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+Actualizarea cache-ului APT
+
+```bash
+apt update
+```
+
+Instalarea MariaDB 11.4
+
+```bash
+apt install mariadb-server
+```
+
+Pornirea serviciului MariaDB și setarea acestuia să pornească la boot
+
+```bash
+systemctl start mariadb
+systemctl enable mariadb
+```
+
+Rularea configurării inițiale a MariaDB
+
+```bash
+mariadb-secure-installation
+```
+
+#### Instalare archnet
+
+1. Configurarea bazei de date MariaDB
+
+### 1. Conectarea la MariaDB
+
+```bash
+mariadb -u root -p
+```
+
+În interfața de linie de comandă MariaDB, executați următoarea comandă pentru a crea o nouă bază de date archnet_db și a seta setul de caractere la utf8mb4_unicode_ci
+
+```sql
+CREATE DATABASE archnet_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Apoi, creați un utilizator local de bază de date și restricționați permisiunile acestuia la baza de date nou creată, folosind archnet ca nume de utilizator și archnet-password ca parolă a utilizatorului.
+
+```sql
+CREATE USER 'archnet'@'localhost';
+GRANT ALL PRIVILEGES ON archnet_db.* TO 'archnet'@'localhost' IDENTIFIED BY 'archnet-password';
+FLUSH PRIVILEGES;
+```
+
+Ieșiți din MariaDB
+
+```sql
+EXIT;
+```
+
+2. Configurarea Nginx
+
+Modificați `user` din `/etc/nginx/nginx.conf` de la
+
+```nginx
+user nginx;
+```
+
+la
+
+```nginx
+user www-data;
+```
+
+Adăugați fișierul de configurare a gazdelor virtuale Nginx
+
+```bash
+nano /etc/nginx/conf.d/website-domain-you-set.conf
+```
+
+Apoi scrieți următoarea configurație, asigurându-vă că schimbați numele domeniului site-ului și fișierul certificat SSL (altfel va apărea o eroare):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name api.example.com *.example.com;   # Înlocuiți cu domeniul dvs.
+
+    ssl_certificate /path/your/certs/example.crt;  # Înlocuiți cu calea către certificatul dvs.
+    ssl_certificate_key /path/your/private/example.key;  # Înlocuiți cu calea către cheia dvs. privată.
+
+    ssl_protocols TLSv1.2 TLSv1.3; # Protocoale recomandate
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'; # Suite de criptare recomandate
+    ssl_prefer_server_ciphers on;
+
+    # cloudflare Început
+    set_real_ip_from 0.0.0.0/0;  # Încredere în toate adresele IP Cloudflare
+    real_ip_header X-Forwarded-For;  # Folosiți antetul X-Forwarded-For pentru a obține IP-ul real
+    real_ip_recursive on;  # Rezolvați recursiv mai multe IP-uri din antetul X-Forwarded-For
+    # cloudflare Sfârșit
+
+    # Setări implicite de proxy
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_http_version 1.1;
+
+        add_header X-Cache $upstream_cache_status;
+
+        # Configurați proxy-ul către serviciul backend, dacă serviciul backend este pe 127.0.0.1:8080
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    # Setarea cache-ului pentru resursele statice
+    location ~* \.(gif|png|jpg|css|js|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control public;
+    }
+}
+
+# Redirecționare HTTP către HTTPS
+server {
+    listen 80;
+    server_name api.example.com *.example.com;  # Înlocuiți cu domeniul dvs.
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+Reporniți Nginx
+
+```bash
+systemctl restart nginx
+```
+
+3. Determinarea arhitecturii sistemului și descărcarea fișierelor binare corespunzătoare
+
+Adresa de descărcare: `https://github.com/ArchNets/archnet/releases`
+
+Exemplu de descriere: sistem: Debian amd64, utilizator: root, director curent: /root
+
+- Descărcare
+
+```shell
+wget https://github.com/ArchNets/archnet/releases/download/v0.1.0/archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Dezarhivare
+
+```shell
+tar -zxvf archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Mutare
+
+```shell
+sudo mv archnet-server /usr/local/bin/archnet
+sudo mkdir -p /usr/local/etc/archnet
+sudo mv ./etc/archnet.yaml /usr/local/etc/archnet/
+```
+
+- Acordarea permisiunilor de execuție fișierului binar
+
+```shell
+sudo chmod +x /usr/local/bin/archnet
+```
+
+- Modificarea fișierului de configurare archnet.yaml
+
+```bash
+nano /usr/local/etc/archnet/archnet.yaml
+```
+
+```yaml
+Host: 127.0.0.1 # Adresa de ascultare a serviciului, modificați în: 127.0.0.1
+Port: 8080 # Portul de ascultare al serviciului, implicit: 8080
+Debug: false # Activarea modului de depanare, implicit: false
+JwtAuth: # Configurarea autentificării JWT
+  AccessSecret: d2a1b58958f13ab01shekdd123fcd12345xyz67890== # Cheia token-ului de acces, vă rugăm să o modificați
+  AccessExpire: 604800 # Timpul de expirare al token-ului de acces, unitate în secunde, implicit: 604800
+Logger: # Configurarea jurnalului
+  FilePath: ./archnet.log # Calea fișierului jurnal, implicit: ./archnet.log
+  MaxSize: 50 # Dimensiunea maximă a fișierului jurnal, unitate MB, implicit: 50
+  MaxBackup: 3 # Numărul maxim de copii de rezervă ale fișierului jurnal, implicit: 3
+  MaxAge: 30 # Timpul maxim de păstrare a fișierului jurnal, unitate în zile, implicit: 30
+  Compress: true # Activarea compresiei fișierului jurnal, implicit: true
+  Level: info # Nivelul jurnalului, implicit: info, opțiuni: debug, info, warn, error, panic, fatal
+MySQL:
+  Addr: 127.0.0.1:3306 # Adresa MySQL, obligatorie
+  Username: archnet # Numele de utilizator MySQL, obligatorie
+  Password: archnet-password # Parola MySQL, obligatorie
+  Dbname: archnet_db # Numele bazei de date MySQL, obligatorie
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai # Valori implicite de configurare MySQL
+  MaxIdleConns: 10 # Numărul maxim de conexiuni inactivate, implicit: 10
+  MaxOpenConns: 100 # Numărul maxim de conexiuni deschise, implicit: 100
+  LogMode: info # Nivelul jurnalului, implicit: info, opțiuni: debug, error, warn, info
+  LogZap: true # Activarea utilizării jurnalului zap pentru înregistrarea SQL, implicit: true
+  SlowThreshold: 1000 # Pragul pentru interogările lente, unitate în milisecunde, implicit: 1000
+Redis:
+  Host: 127.0.0.1:6379 # Adresa Redis, implicit:localhost:6379
+  Pass: '' # Parola Redis, implicit: ""
+  DB: 0 # Baza de date Redis, implicit: 0
+
+Administer:
+  Email: admin@archnet.dev # Email pentru autentificarea în backend, implicit: admin@archnet.dev
+  Password: password # Parola pentru autentificarea în backend, implicit: password
+```
+
+- Crearea fișierului de serviciu systemd
+
+```shell
+$ cat > /etc/systemd/system/archnet.service <<EOF
+[Unit]
+Description=PPANEL Server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/archnet run --config /usr/local/etc/archnet/archnet.yaml
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+- Reîncărcarea serviciului systemd
+
+```shell
+systemctl daemon-reload
+```
+
+- Pornirea serviciului
+
+```shell
+systemctl start archnet
+```
+
+##### Alte observații
+
+1. Calea de instalare: fișierul binar este mutat în cele din urmă în directorul /usr/local/bin
+
+2. Serviciul systemd:
+
+   - Numele serviciului: archnet
+   - Fișierul de configurare al serviciului: /etc/systemd/system/archnet.service
+   - Comanda de pornire a serviciului: systemctl start archnet
+   - Comanda de oprire a serviciului: systemctl stop archnet
+   - Comanda de repornire a serviciului: systemctl restart archnet
+   - Comanda de stare a serviciului: systemctl status archnet
+   - Activarea pornirii la boot: systemctl enable archnet
+
+3. Activarea pornirii la boot se poate face cu următoarea comandă
+
+   ```shell
+   systemctl enable archnet
+   ```
+
+4. Jurnalul serviciului: jurnalul serviciului este, în mod implicit, redirecționat către fișierul /usr/local/bin/archnet.log
+
+5. Puteți vizualiza jurnalul serviciului cu `journalctl -u archnet -f`
+
+6. Când fișierul de configurare este gol sau inexistent, serviciul va porni cu configurația implicită, iar calea fișierului de configurare este: `./etc/archnet.yaml`,
+   vă rugăm să inițializați configurația sistemului prin `http://adresa-serverului:8080/init`
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

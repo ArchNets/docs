@@ -1,0 +1,22 @@
+## Umgebungsvariablen
+
+Stellen Sie vor der Bereitstellung sicher, dass Sie die folgenden Umgebungsvariablen direkt in den Bereitstellungsbefehlen festlegen, um die Anwendung zu konfigurieren:
+
+```bash
+# Standard Sprache der Anwendung
+NEXT_PUBLIC_DEFAULT_LANGUAGE=<Ihre Standardsprache zh-CN | en-US>
+
+# Seiten-URL und API-Endpunkt
+NEXT_PUBLIC_SITE_URL=<Ihre Seiten-URL>
+NEXT_PUBLIC_API_URL=<Ihre API-URL>
+
+# Standardbenutzerdaten (für die Erstkonfiguration oder Testzwecke)
+NEXT_PUBLIC_DEFAULT_USER_EMAIL=<Ihre Standardbenutzer-E-Mail>
+NEXT_PUBLIC_DEFAULT_USER_PASSWORD=<Ihr Standardbenutzer-Passwort>
+```
+
+Sie können die [Beispiel-Umgebungsdatei](https://github.com/ArchNets/archnet-web/blob/main/apps/admin/.env.template) als strukturiertes Referenzdokument einsehen.
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

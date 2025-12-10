@@ -1,0 +1,369 @@
+#### Requisitos del sistema
+
+- Debian 12
+
+#### Instalación de Nginx
+
+Para la instalación de Nginx, utilizamos el repositorio oficial de Nginx DEB.
+
+Instalar el software necesario
+
+```bash
+apt install curl wget gnupg2 ca-certificates lsb-release sudo
+```
+
+Agregar la clave PGP oficial de Nginx
+
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+
+Escribir la configuración del repositorio oficial de Nginx en nginx.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+Configurar la prioridad del repositorio oficial de Nginx por encima de los repositorios del sistema
+
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+```
+
+Actualizar la caché de APT
+
+```bash
+apt update
+```
+
+Instalar Nginx
+
+```bash
+apt install nginx
+```
+
+Finalmente, iniciar el servicio de Nginx y configurarlo para que se inicie al arrancar
+
+```bash
+systemctl start nginx
+systemctl enable nginx
+```
+
+#### Instalación de Redis
+
+Importar la clave GPG
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+```
+
+Escribir la configuración del repositorio oficial de Redis en redis.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+```
+
+Actualizar la caché de APT
+
+```bash
+apt update
+```
+
+Instalar redis-server
+
+```bash
+apt install redis
+```
+
+Iniciar el servicio de Redis y configurarlo para que se inicie al arrancar
+
+```bash
+systemctl start redis-server
+systemctl enable redis-server
+```
+
+#### Instalación de MariaDB
+
+MariaDB proporciona un repositorio DEB completo, similar al de Nginx, por lo que necesitamos instalar los paquetes necesarios e importar la clave GPG.
+
+```bash
+apt install apt-transport-https curl
+mkdir -p /etc/apt/keyrings
+curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
+
+Editar el archivo `/etc/apt/sources.list.d/mariadb.sources` y escribir la siguiente configuración:
+
+```
+X-Repolib-Name: MariaDB
+Types: deb
+URIs: https://deb.mariadb.org/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+Actualizar la caché de APT
+
+```bash
+apt update
+```
+
+Instalar MariaDB 11.4
+
+```bash
+apt install mariadb-server
+```
+
+Iniciar el servicio de MariaDB y configurarlo para que se inicie al arrancar
+
+```bash
+systemctl start mariadb
+systemctl enable mariadb
+```
+
+Ejecutar la configuración inicial de MariaDB
+
+```bash
+mariadb-secure-installation
+```
+
+#### Instalación de archnet
+
+1. Configurar la base de datos de MariaDB
+
+### 1. Iniciar sesión en MariaDB
+
+```bash
+mariadb -u root -p
+```
+
+En la interfaz de línea de comandos de MariaDB, ejecutar el siguiente comando para crear una nueva base de datos archnet_db y establecer el conjunto de caracteres en utf8mb4_unicode_ci
+
+```sql
+CREATE DATABASE archnet_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+A continuación, crear un usuario de base de datos local y restringir los permisos de ese usuario a la base de datos recién creada, usando archnet como nombre de usuario y archnet-password como contraseña de usuario.
+
+```sql
+CREATE USER 'archnet'@'localhost';
+GRANT ALL PRIVILEGES ON archnet_db.* TO 'archnet'@'localhost' IDENTIFIED BY 'archnet-password';
+FLUSH PRIVILEGES;
+```
+
+Salir de MariaDB
+
+```sql
+EXIT;
+```
+
+2. Configurar Nginx
+
+Cambiar el `user` en `/etc/nginx/nginx.conf` de
+
+```nginx
+user nginx;
+```
+
+a
+
+```nginx
+user www-data;
+```
+
+Agregar el archivo de configuración del host virtual de Nginx
+
+```bash
+nano /etc/nginx/conf.d/website-domain-you-set.conf
+```
+
+Luego escribir la siguiente configuración, asegurándose de cambiar el nombre de dominio del sitio web y la ruta del archivo del certificado SSL (de lo contrario, habrá un error):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name api.example.com *.example.com;   # Reemplazar con tu dominio
+
+    ssl_certificate /path/your/certs/example.crt;  # Reemplazar con la ruta de tu certificado
+    ssl_certificate_key /path/your/private/example.key;  # Reemplazar con la ruta de tu clave privada
+
+    ssl_protocols TLSv1.2 TLSv1.3; # Protocolos recomendados
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'; # Suites de cifrado recomendadas
+    ssl_prefer_server_ciphers on;
+
+    # cloudflare Inicio
+    set_real_ip_from 0.0.0.0/0;  # Confiar en todas las direcciones IP de Cloudflare
+    real_ip_header X-Forwarded-For;  # Usar el encabezado X-Forwarded-For para obtener la IP real
+    real_ip_recursive on;  # Resolver recursivamente múltiples IP en el encabezado X-Forwarded-For
+    # cloudflare FIN
+
+    # Configuración de proxy por defecto
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_http_version 1.1;
+
+        add_header X-Cache $upstream_cache_status;
+
+        # Configurar proxy a servicio backend, si el servicio backend está en 127.0.0.1:8080
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    # Configurar caché de recursos estáticos
+    location ~* \.(gif|png|jpg|css|js|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control public;
+    }
+}
+
+# Redirección de HTTP a HTTPS
+server {
+    listen 80;
+    server_name api.example.com *.example.com;  # Reemplazar con tu dominio
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+Reiniciar Nginx
+
+```bash
+systemctl restart nginx
+```
+
+3. Determinar la arquitectura del sistema y descargar el archivo binario correspondiente
+
+Dirección de descarga: `https://github.com/ArchNets/archnet/releases`
+
+Ejemplo: sistema: Debian amd64, usuario: root, directorio actual: /root
+
+- Descargar
+
+```shell
+wget https://github.com/ArchNets/archnet/releases/download/v0.1.0/archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Descomprimir
+
+```shell
+tar -zxvf archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Mover
+
+```shell
+sudo mv archnet-server /usr/local/bin/archnet
+sudo mkdir -p /usr/local/etc/archnet
+sudo mv ./etc/archnet.yaml /usr/local/etc/archnet/
+```
+
+- Otorgar permisos de ejecución al archivo binario
+
+```shell
+sudo chmod +x /usr/local/bin/archnet
+```
+
+- Modificar el archivo de configuración archnet.yaml
+
+```bash
+nano /usr/local/etc/archnet/archnet.yaml
+```
+
+```yaml
+Host: 127.0.0.1 # Dirección de escucha del servicio, cambiar a: 127.0.0.1
+Port: 8080 # Puerto de escucha del servicio, por defecto: 8080
+Debug: false # Activar modo de depuración, por defecto: false
+JwtAuth: # Configuración de autenticación JWT
+  AccessSecret: d2a1b58958f13ab01shekdd123fcd12345xyz67890== # Clave del token de acceso, por favor modifíquela
+  AccessExpire: 604800 # Tiempo de expiración del token de acceso, en segundos, por defecto: 604800
+Logger: # Configuración de registro
+  FilePath: ./archnet.log # Ruta del archivo de registro, por defecto: ./archnet.log
+  MaxSize: 50 # Tamaño máximo del archivo de registro, en MB, por defecto: 50
+  MaxBackup: 3 # Número máximo de copias de seguridad del archivo de registro, por defecto: 3
+  MaxAge: 30 # Tiempo máximo de conservación del archivo de registro, en días, por defecto: 30
+  Compress: true # Comprimir el archivo de registro, por defecto: true
+  Level: info # Nivel de registro, por defecto: info, opciones: debug, info, warn, error, panic, fatal
+MySQL:
+  Addr: 127.0.0.1:3306 # Dirección de MySQL, obligatorio
+  Username: archnet # Nombre de usuario de MySQL, obligatorio
+  Password: archnet-password # Contraseña de MySQL, obligatorio
+  Dbname: archnet_db # Nombre de la base de datos de MySQL, obligatorio
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai # Valores de configuración predeterminados de MySQL
+  MaxIdleConns: 10 # Número máximo de conexiones inactivas, por defecto: 10
+  MaxOpenConns: 100 # Número máximo de conexiones abiertas, por defecto: 100
+  LogMode: info # Nivel de registro, por defecto: info, opciones: debug, error, warn, info
+  LogZap: true # Usar zap para registrar SQL, por defecto: true
+  SlowThreshold: 1000 # Umbral de consultas lentas, en milisegundos, por defecto: 1000
+Redis:
+  Host: 127.0.0.1:6379 # Dirección de Redis, por defecto:localhost:6379
+  Pass: '' # Contraseña de Redis, por defecto: ""
+  DB: 0 # Base de datos de Redis, por defecto: 0
+
+Administer:
+  Email: admin@archnet.dev # Correo electrónico de inicio de sesión en el backend, por defecto: admin@archnet.dev
+  Password: password # Contraseña de inicio de sesión en el backend, por defecto: password
+```
+
+- Crear el archivo de servicio systemd
+
+```shell
+$ cat > /etc/systemd/system/archnet.service <<EOF
+[Unit]
+Description=PPANEL Server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/archnet run --config /usr/local/etc/archnet/archnet.yaml
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+- Recargar el servicio systemd
+
+```shell
+systemctl daemon-reload
+```
+
+- Iniciar el servicio
+
+```shell
+systemctl start archnet
+```
+
+##### Otras notas
+
+1. Ruta de instalación: el archivo binario se mueve finalmente al directorio /usr/local/bin
+
+2. Servicio systemd:
+
+   - Nombre del servicio: archnet
+   - Archivo de configuración del servicio: /etc/systemd/system/archnet.service
+   - Comando para iniciar el servicio: systemctl start archnet
+   - Comando para detener el servicio: systemctl stop archnet
+   - Comando para reiniciar el servicio: systemctl restart archnet
+   - Comando para verificar el estado del servicio: systemctl status archnet
+   - Configuración para iniciar el servicio al arrancar: systemctl enable archnet
+
+3. Para habilitar el inicio automático al arrancar, se puede usar el siguiente comando
+
+   ```shell
+   systemctl enable archnet
+   ```
+
+4. Registro del servicio: el registro del servicio se guarda por defecto en el archivo /usr/local/bin/archnet.log
+
+5. Se puede ver el registro del servicio usando `journalctl -u archnet -f`
+
+6. Cuando el archivo de configuración está vacío o no existe, el servicio se iniciará con la configuración predeterminada, la ruta del archivo de configuración es: `./etc/archnet.yaml`,
+   por favor inicialice la configuración del sistema a través de `http://dirección-del-servidor:8080/init`

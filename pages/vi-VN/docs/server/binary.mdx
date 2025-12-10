@@ -1,0 +1,373 @@
+#### Yêu cầu hệ thống trước
+
+- Debian 12
+
+#### Cài đặt Nginx
+
+Để cài đặt Nginx, chúng ta sẽ sử dụng kho DEB chính thức của Nginx.
+
+Cài đặt phần mềm cần thiết
+
+```bash
+apt install curl wget gnupg2 ca-certificates lsb-release sudo
+```
+
+Thêm khóa PGP chính thức của Nginx
+
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+
+Ghi cấu hình kho chính thức của Nginx vào `nginx.list`
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+Đặt ưu tiên của kho chính thức của Nginx cao hơn kho tích hợp sẵn của hệ thống
+
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+```
+
+Cập nhật bộ nhớ cache APT
+
+```bash
+apt update
+```
+
+Cài đặt Nginx
+
+```bash
+apt install nginx
+```
+
+Cuối cùng, khởi động dịch vụ Nginx và thiết lập tự khởi động khi khởi động hệ thống
+
+```bash
+systemctl start nginx
+systemctl enable nginx
+```
+
+#### Cài đặt Redis
+
+Nhập khóa GPG
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+```
+
+Ghi cấu hình kho chính thức của Redis vào `redis.list`
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+```
+
+Cập nhật bộ nhớ cache APT
+
+```bash
+apt update
+```
+
+Cài đặt redis-server
+
+```bash
+apt install redis
+```
+
+Khởi động dịch vụ Redis và thiết lập tự khởi động khi khởi động hệ thống
+
+```bash
+systemctl start redis-server
+systemctl enable redis-server
+```
+
+#### Cài đặt MariaDB
+
+MariaDB cung cấp một kho DEB hoàn chỉnh, tương tự như kho Nginx, vì vậy chúng ta cần cài đặt các gói cần thiết và nhập khóa GPG
+
+```bash
+apt install apt-transport-https curl
+mkdir -p /etc/apt/keyrings
+curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
+
+Chỉnh sửa tệp `/etc/apt/sources.list.d/mariadb.sources` và ghi vào cấu hình sau:
+
+```
+X-Repolib-Name: MariaDB
+Types: deb
+URIs: https://deb.mariadb.org/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+Cập nhật bộ nhớ cache APT
+
+```bash
+apt update
+```
+
+Cài đặt MariaDB 11.4
+
+```bash
+apt install mariadb-server
+```
+
+Khởi động dịch vụ MariaDB và thiết lập tự khởi động khi khởi động hệ thống
+
+```bash
+systemctl start mariadb
+systemctl enable mariadb
+```
+
+Chạy thiết lập ban đầu cho MariaDB
+
+```bash
+mariadb-secure-installation
+```
+
+#### Cài đặt archnet
+
+1. Cấu hình cơ sở dữ liệu MariaDB
+
+### 1. Đăng nhập vào MariaDB
+
+```bash
+mariadb -u root -p
+```
+
+Trong giao diện dòng lệnh của MariaDB, thực hiện lệnh sau để tạo một cơ sở dữ liệu mới `archnet_db` và đặt bộ ký tự là `utf8mb4_unicode_ci`
+
+```sql
+CREATE DATABASE archnet_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Tiếp theo, tạo một người dùng cơ sở dữ liệu cục bộ và giới hạn quyền của người dùng đó cho cơ sở dữ liệu mới tạo, sử dụng `archnet` làm tên người dùng và `archnet-password` làm mật khẩu người dùng.
+
+```sql
+CREATE USER 'archnet'@'localhost';
+GRANT ALL PRIVILEGES ON archnet_db.* TO 'archnet'@'localhost' IDENTIFIED BY 'archnet-password';
+FLUSH PRIVILEGES;
+```
+
+Thoát khỏi MariaDB
+
+```sql
+EXIT;
+```
+
+2. Cấu hình Nginx
+
+Thay đổi `user` trong `/etc/nginx/nginx.conf` từ
+
+```nginx
+user nginx;
+```
+
+thành
+
+```nginx
+user www-data;
+```
+
+Thêm tệp cấu hình máy chủ ảo Nginx
+
+```bash
+nano /etc/nginx/conf.d/website-domain-you-set.conf
+```
+
+Sau đó ghi vào cấu hình sau, hãy chú ý thay đổi tên miền trang web và tệp chứng chỉ SSL (nếu không sẽ báo lỗi):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name api.example.com *.example.com;   # Thay thế bằng tên miền của bạn
+
+    ssl_certificate /path/your/certs/example.crt;  # Thay thế bằng đường dẫn chứng chỉ của bạn
+    ssl_certificate_key /path/your/private/example.key;  # Thay thế bằng đường dẫn khóa riêng của bạn
+
+    ssl_protocols TLSv1.2 TLSv1.3; # Giao thức được khuyến nghị
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'; # Bộ mã hóa được khuyến nghị
+    ssl_prefer_server_ciphers on;
+
+    # cloudflare Bắt đầu
+    set_real_ip_from 0.0.0.0/0;  # Tin tưởng tất cả địa chỉ IP của Cloudflare
+    real_ip_header X-Forwarded-For;  # Sử dụng tiêu đề X-Forwarded-For để lấy IP thực
+    real_ip_recursive on;  # Giải quyết đệ quy nhiều IP trong tiêu đề X-Forwarded-For
+    # cloudflare Kết thúc
+
+    # Cài đặt proxy mặc định
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_http_version 1.1;
+
+        add_header X-Cache $upstream_cache_status;
+
+        # Cấu hình proxy đến dịch vụ backend, nếu dịch vụ backend ở 127.0.0.1:8080
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    # Cài đặt bộ nhớ cache cho tài nguyên tĩnh
+    location ~* \.(gif|png|jpg|css|js|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control public;
+    }
+}
+
+# Chuyển hướng HTTP đến HTTPS
+server {
+    listen 80;
+    server_name api.example.com *.example.com;  # Thay thế bằng tên miền của bạn
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+Khởi động lại Nginx
+
+```bash
+systemctl restart nginx
+```
+
+3. Xác định kiến trúc hệ thống và tải xuống tệp nhị phân tương ứng
+
+Địa chỉ tải xuống: `https://github.com/ArchNets/archnet/releases`
+
+Mô tả ví dụ: Hệ thống: Debian amd64, Người dùng: root, Thư mục hiện tại: /root
+
+- Tải xuống
+
+```shell
+wget https://github.com/ArchNets/archnet/releases/download/v0.1.0/archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Giải nén
+
+```shell
+tar -zxvf archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- Di chuyển
+
+```shell
+sudo mv archnet-server /usr/local/bin/archnet
+sudo mkdir -p /usr/local/etc/archnet
+sudo mv ./etc/archnet.yaml /usr/local/etc/archnet/
+```
+
+- Cấp quyền thực thi cho tệp nhị phân
+
+```shell
+sudo chmod +x /usr/local/bin/archnet
+```
+
+- Chỉnh sửa tệp cấu hình `archnet.yaml`
+
+```bash
+nano /usr/local/etc/archnet/archnet.yaml
+```
+
+```yaml
+Host: 127.0.0.1 # Địa chỉ lắng nghe dịch vụ, thay đổi thành: 127.0.0.1
+Port: 8080 # Cổng lắng nghe dịch vụ, mặc định: 8080
+Debug: false # Có bật chế độ gỡ lỗi hay không, mặc định: false
+JwtAuth: # Cấu hình xác thực JWT
+  AccessSecret: d2a1b58958f13ab01shekdd123fcd12345xyz67890== # Khóa mã thông báo truy cập, vui lòng thay đổi
+  AccessExpire: 604800 # Thời gian hết hạn mã thông báo truy cập, đơn vị giây, mặc định: 604800
+Logger: # Cấu hình nhật ký
+  FilePath: ./archnet.log # Đường dẫn tệp nhật ký, mặc định: ./archnet.log
+  MaxSize: 50 # Kích thước tối đa của tệp nhật ký, đơn vị MB, mặc định: 50
+  MaxBackup: 3 # Số lượng bản sao tối đa của tệp nhật ký, mặc định: 3
+  MaxAge: 30 # Thời gian lưu trữ tối đa của tệp nhật ký, đơn vị ngày, mặc định: 30
+  Compress: true # Có nén tệp nhật ký hay không, mặc định: true
+  Level: info # Cấp độ nhật ký, mặc định: info, có thể: debug, info, warn, error, panic, fatal
+MySQL:
+  Addr: 127.0.0.1:3306 # Địa chỉ MySQL, bắt buộc
+  Username: archnet # Tên người dùng MySQL, bắt buộc
+  Password: archnet-password # Mật khẩu MySQL, bắt buộc
+  Dbname: archnet_db # Tên cơ sở dữ liệu MySQL, bắt buộc
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai # Giá trị cấu hình mặc định của MySQL
+  MaxIdleConns: 10 # Số lượng kết nối nhàn rỗi tối đa, mặc định: 10
+  MaxOpenConns: 100 # Số lượng kết nối mở tối đa, mặc định: 100
+  LogMode: info # Cấp độ nhật ký, mặc định: info, có thể: debug, error, warn, info
+  LogZap: true # Có sử dụng ghi nhật ký zap cho sql hay không, mặc định: true
+  SlowThreshold: 1000 # Ngưỡng truy vấn chậm, đơn vị mili giây, mặc định: 1000
+Redis:
+  Host: 127.0.0.1:6379 # Địa chỉ Redis, mặc định:localhost:6379
+  Pass: '' # Mật khẩu Redis, mặc định: ""
+  DB: 0 # Cơ sở dữ liệu Redis, mặc định: 0
+
+Administer:
+  Email: admin@archnet.dev # Email đăng nhập quản trị, mặc định: admin@archnet.dev
+  Password: password # Mật khẩu đăng nhập quản trị, mặc định: password
+```
+
+- Tạo tệp dịch vụ systemd
+
+```shell
+$ cat > /etc/systemd/system/archnet.service <<EOF
+[Unit]
+Description=PPANEL Server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/archnet run --config /usr/local/etc/archnet/archnet.yaml
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+- Tải lại dịch vụ systemd
+
+```shell
+systemctl daemon-reload
+```
+
+- Khởi động dịch vụ
+
+```shell
+systemctl start archnet
+```
+
+##### Các lưu ý khác
+
+1. Đường dẫn cài đặt: Tệp nhị phân cuối cùng được di chuyển đến thư mục `/usr/local/bin`
+
+2. Dịch vụ systemd:
+
+   - Tên dịch vụ: archnet
+   - Tệp cấu hình dịch vụ: `/etc/systemd/system/archnet.service`
+   - Lệnh khởi động dịch vụ: `systemctl start archnet`
+   - Lệnh dừng dịch vụ: `systemctl stop archnet`
+   - Lệnh khởi động lại dịch vụ: `systemctl restart archnet`
+   - Lệnh kiểm tra trạng thái dịch vụ: `systemctl status archnet`
+   - Tự khởi động khi khởi động hệ thống: `systemctl enable archnet`
+
+3. Để thiết lập tự khởi động khi khởi động hệ thống, có thể sử dụng lệnh sau
+
+   ```shell
+   systemctl enable archnet
+   ```
+
+4. Nhật ký dịch vụ: Nhật ký dịch vụ mặc định được xuất ra tệp `/usr/local/bin/archnet.log`
+
+5. Có thể xem nhật ký dịch vụ bằng lệnh `journalctl -u archnet -f`
+
+6. Khi tệp cấu hình trống hoặc không tồn tại, dịch vụ sẽ sử dụng cấu hình mặc định để khởi động, đường dẫn tệp cấu hình là: `./etc/archnet.yaml`,
+   vui lòng sử dụng `http://địa-chỉ-máy-chủ:8080/init` để khởi tạo cấu hình hệ thống
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

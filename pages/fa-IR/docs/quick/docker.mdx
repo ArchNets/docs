@@ -1,0 +1,227 @@
+# راهنمای استقرار سریع
+
+## 1. نصب Docker
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh ./get-docker.sh
+```
+
+## 2. ایجاد دایرکتوری پروژه
+
+```bash
+mkdir /opt/archnet && cd /opt/archnet
+```
+
+## 3. ایجاد فایل پیکربندی
+
+### 3.1 ایجاد `compose.yaml`
+
+```yaml
+services:
+  archnet-server:
+    image: archnet/archnet-server:latest
+    container_name: archnet-server
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 8080:8080
+    depends_on:
+      archnet-db:
+        condition: service_healthy
+      archnet-cache:
+        condition: service_healthy
+    volumes:
+      - ./config/archnet.yaml:/app/etc/archnet.yaml
+
+  archnet-db:
+    image: mysql:8.4.5
+    container_name: archnet-db
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: archnet
+      MYSQL_USER: archnet
+      MYSQL_PASSWORD: archnetpassword
+    volumes:
+      - ./db:/var/lib/mysql
+    command:
+      - --mysql-native-password=on
+      - --bind-address=0.0.0.0
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-prootpassword']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-cache:
+    image: redis:7.4.5
+    container_name: archnet-cache
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 6379:6379
+    volumes:
+      - ./cache:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-admin:
+    image: archnet/archnet-admin-web:latest
+    container_name: archnet-admin-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3001:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+  archnet-user:
+    image: archnet/archnet-user-web:latest
+    container_name: archnet-user-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3002:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+networks:
+  archnet-network:
+    driver: bridge
+```
+
+### 3.2 ایجاد `archnet.yaml`
+
+```yaml
+Host: 0.0.0.0
+Port: 8080
+Debug: false
+JwtAuth:
+  AccessSecret: 1234567890
+  AccessExpire: 604800
+Logger:
+  ServiceName: ArchNet
+  Mode: console
+  Encoding: plain
+  TimeFormat: '2025-01-01 00:00:00.000'
+  Path: logs
+  Level: debug
+  MaxContentLength: 0
+  Compress: false
+  Stat: true
+  KeepDays: 0
+  StackCooldownMillis: 100
+  MaxBackups: 0
+  MaxSize: 0
+  Rotation: daily
+  FileTimeFormat: 2025-01-01T00:00:00.000Z00:00
+MySQL:
+  Addr: archnet-db:3306
+  Dbname: archnet
+  Username: archnet
+  Password: archnetpassword
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  SlowThreshold: 1000
+Redis:
+  Host: archnet-cache:6379
+  Pass:
+  DB: 0
+Administrator:
+  Password: password
+  Email: admin@archnet.dev
+```
+
+## 4. راه‌اندازی سرویس
+
+```bash
+docker-compose up -d
+```
+
+## اطلاعات سرویس
+
+### آدرس پیش‌فرض دسترسی
+
+- پنل مدیریت: `http://سرورIP:3001`
+- پنل کاربر: `http://سرورIP:3002`
+- API پشتی: `http://سرورIP:8080`
+
+### اطلاعات ورود پیش‌فرض
+
+- ایمیل مدیر: `admin@archnet.dev`
+- رمز عبور اولیه: `password`
+
+### دستورات مدیریت متداول
+
+```bash
+# مشاهده وضعیت سرویس
+docker-compose ps
+
+# مشاهده لاگ‌های سرویس
+docker-compose logs
+
+# توقف سرویس
+docker-compose down
+
+# راه‌اندازی مجدد سرویس
+docker-compose up -d
+```
+
+## نکات مهم
+
+1. پس از ورود اولیه، لطفاً بلافاصله رمز عبور پیش‌فرض را تغییر دهید.
+2. پیشنهاد می‌شود تنظیمات موجود در `archnet.yaml` را بر اساس نیازهای واقعی خود تنظیم کنید.
+3. در محیط تولید، لطفاً تمام رمزهای عبور پیش‌فرض را تغییر دهید.
+4. اطمینان حاصل کنید که فایروال سرور پورت‌های مربوطه را باز کرده است.
+
+## پشتیبانی فنی
+
+در صورت بروز مشکل، لطفاً بررسی کنید:
+
+- آیا سرویس Docker به درستی در حال اجرا است؟
+- آیا پیکربندی شبکه صحیح است؟
+- آیا تنظیمات فایروال سرور درست است؟
+
+## روش‌های به‌روزرسانی
+
+```bash
+docker-compose pull
+docker-compose up -d
+```
+
+# استقرار یک‌کلیک
+
+> **نکات قبل از استقرار**
+>
+> - **پورت پیش‌فرض پنل مدیریت 8080 است**: لطفاً پیش از آن، پیکربندی DNS را انجام دهید یا اطمینان حاصل کنید که یک آدرس IP قابل استفاده دارید تا نصب پنل مدیریت و پنل کاربر به‌خوبی انجام شود.
+> - سرور: برای اطلاعات بیشتر به [سرور](/fa-IR/docs/server/config) مراجعه کنید.
+> - پنل مدیریت: برای اطلاعات بیشتر به [پنل مدیریت](/fa-IR/docs/admin/config) مراجعه کنید.
+> - پنل کاربر: برای اطلاعات بیشتر به [پنل کاربر](/fa-IR/docs/user/config) مراجعه کنید.
+
+## گزینه 1: استفاده از `curl`
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+## گزینه 2: استفاده از `wget`
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

@@ -1,0 +1,227 @@
+# त्वरित तैनाती गाइड
+
+## 1. Docker स्थापित करें
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh ./get-docker.sh
+```
+
+## 2. प्रोजेक्ट निर्देशिका बनाएं
+
+```bash
+mkdir /opt/archnet && cd /opt/archnet
+```
+
+## 3. कॉन्फ़िगरेशन फ़ाइल बनाएं
+
+### 3.1 `compose.yaml` बनाएं
+
+```yaml
+services:
+  archnet-server:
+    image: archnet/archnet-server:latest
+    container_name: archnet-server
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 8080:8080
+    depends_on:
+      archnet-db:
+        condition: service_healthy
+      archnet-cache:
+        condition: service_healthy
+    volumes:
+      - ./config/archnet.yaml:/app/etc/archnet.yaml
+
+  archnet-db:
+    image: mysql:8.4.5
+    container_name: archnet-db
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: archnet
+      MYSQL_USER: archnet
+      MYSQL_PASSWORD: archnetpassword
+    volumes:
+      - ./db:/var/lib/mysql
+    command:
+      - --mysql-native-password=on
+      - --bind-address=0.0.0.0
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-prootpassword']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-cache:
+    image: redis:7.4.5
+    container_name: archnet-cache
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 6379:6379
+    volumes:
+      - ./cache:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  archnet-admin:
+    image: archnet/archnet-admin-web:latest
+    container_name: archnet-admin-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3001:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+  archnet-user:
+    image: archnet/archnet-user-web:latest
+    container_name: archnet-user-web
+    restart: always
+    networks:
+      - archnet-network
+    ports:
+      - 3002:3000
+    environment:
+      NEXT_PUBLIC_API_URL: http://<IP>:8080
+
+networks:
+  archnet-network:
+    driver: bridge
+```
+
+### 3.2 `archnet.yaml` बनाएं
+
+```yaml
+Host: 0.0.0.0
+Port: 8080
+Debug: false
+JwtAuth:
+  AccessSecret: 1234567890
+  AccessExpire: 604800
+Logger:
+  ServiceName: ArchNet
+  Mode: console
+  Encoding: plain
+  TimeFormat: '2025-01-01 00:00:00.000'
+  Path: logs
+  Level: debug
+  MaxContentLength: 0
+  Compress: false
+  Stat: true
+  KeepDays: 0
+  StackCooldownMillis: 100
+  MaxBackups: 0
+  MaxSize: 0
+  Rotation: daily
+  FileTimeFormat: 2025-01-01T00:00:00.000Z00:00
+MySQL:
+  Addr: archnet-db:3306
+  Dbname: archnet
+  Username: archnet
+  Password: archnetpassword
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  SlowThreshold: 1000
+Redis:
+  Host: archnet-cache:6379
+  Pass:
+  DB: 0
+Administrator:
+  Password: password
+  Email: admin@archnet.dev
+```
+
+## 4. सेवा प्रारंभ करें
+
+```bash
+docker-compose up -d
+```
+
+## सेवा जानकारी
+
+### डिफ़ॉल्ट पहुँच पता
+
+- व्यवस्थापक पैनल: `http://सर्वरIP:3001`
+- उपयोगकर्ता पैनल: `http://सर्वरIP:3002`
+- बैकएंड API: `http://सर्वरIP:8080`
+
+### डिफ़ॉल्ट लॉगिन जानकारी
+
+- व्यवस्थापक ईमेल: `admin@archnet.dev`
+- प्रारंभिक पासवर्ड: `password`
+
+### सामान्य प्रबंधन आदेश
+
+```bash
+# सेवा स्थिति देखें
+docker-compose ps
+
+# सेवा लॉग देखें
+docker-compose logs
+
+# सेवा रोकें
+docker-compose down
+
+# सेवा पुनः प्रारंभ करें
+docker-compose up -d
+```
+
+## ध्यान देने योग्य बातें
+
+1. पहली बार लॉगिन करने के बाद कृपया तुरंत डिफ़ॉल्ट पासवर्ड बदलें
+2. वास्तविक आवश्यकताओं के अनुसार `archnet.yaml` में कॉन्फ़िगरेशन समायोजित करने की सिफारिश की जाती है
+3. उत्पादन वातावरण में सभी डिफ़ॉल्ट पासवर्ड बदलें
+4. सुनिश्चित करें कि सर्वर फ़ायरवॉल ने संबंधित पोर्ट खोले हैं
+
+## तकनीकी सहायता
+
+यदि समस्या आती है, तो जांचें:
+
+- क्या Docker सेवा सामान्य रूप से चल रही है
+- क्या नेटवर्क कॉन्फ़िगरेशन सही है
+- क्या सर्वर फ़ायरवॉल सेटिंग्स सही हैं
+
+## अपग्रेड विधि
+
+```bash
+docker-compose pull
+docker-compose up -d
+```
+
+# एक-क्लिक तैनाती
+
+> **तैनाती से पहले ध्यान देने योग्य बातें**
+>
+> - **प्रबंधन端 का डिफ़ॉल्ट पोर्ट 8080 है**: कृपया पहले से डोमेन नाम解析 या सुनिश्चित करें कि एक उपलब्ध IP पता है, ताकि प्रबंधन端 और उपयोगकर्ता端 की स्थापना सफलतापूर्वक की जा सके।
+> - सर्वर: अधिक जानकारी के लिए कृपया [सर्वर](/hi-IN/docs/server/config) देखें।
+> - प्रबंधन端: अधिक जानकारी के लिए कृपया [प्रबंधन端](/hi-IN/docs/admin/config) देखें।
+> - उपयोगकर्ता端: अधिक जानकारी के लिए कृपया [उपयोगकर्ता端](/hi-IN/docs/user/config) देखें।
+
+## विकल्प 1: `curl` का उपयोग करें
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+## विकल्प 2: `wget` का उपयोग करें
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/ArchNets/archnet-script/refs/heads/main/install.sh)
+```
+
+import Giscus from '@/components/giscus';
+
+<Giscus />

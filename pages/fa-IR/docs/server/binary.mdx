@@ -1,0 +1,371 @@
+#### الزامات سیستم پیش‌نیاز
+
+- دبیان 12
+
+#### نصب Nginx
+
+برای نصب Nginx، از مخزن رسمی Nginx DEB استفاده می‌کنیم.
+
+نصب نرم‌افزارهای ضروری
+
+```bash
+apt install curl wget gnupg2 ca-certificates lsb-release sudo
+```
+
+اضافه کردن کلید PGP رسمی Nginx
+
+```bash
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+
+نوشتن پیکربندی مخزن رسمی Nginx در nginx.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+تنظیم اولویت مخزن رسمی Nginx بالاتر از مخازن داخلی سیستم
+
+```bash
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx
+```
+
+به‌روزرسانی کش APT
+
+```bash
+apt update
+```
+
+نصب Nginx
+
+```bash
+apt install nginx
+```
+
+در نهایت، سرویس Nginx را راه‌اندازی کرده و تنظیمات خودکار برای راه‌اندازی در هنگام بوت را انجام دهید.
+
+```bash
+systemctl start nginx
+systemctl enable nginx
+```
+
+#### نصب Redis
+
+وارد کردن کلید GPG
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+```
+
+نوشتن پیکربندی مخزن رسمی Redis در redis.list
+
+```bash
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+```
+
+به‌روزرسانی کش APT
+
+```bash
+apt update
+```
+
+نصب redis-server
+
+```bash
+apt install redis
+```
+
+راه‌اندازی سرویس Redis و تنظیمات خودکار برای راه‌اندازی در هنگام بوت
+
+```bash
+systemctl start redis-server
+systemctl enable redis-server
+```
+
+#### نصب MariaDB
+
+MariaDB یک مخزن DEB کامل ارائه می‌دهد، مشابه مخزن Nginx، بنابراین ما باید بسته‌های ضروری را نصب کرده و کلید GPG را وارد کنیم.
+
+```bash
+apt install apt-transport-https curl
+mkdir -p /etc/apt/keyrings
+curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
+```
+
+ویرایش فایل `/etc/apt/sources.list.d/mariadb.sources` و نوشتن پیکربندی زیر:
+
+```
+X-Repolib-Name: MariaDB
+Types: deb
+URIs: https://deb.mariadb.org/11.4/debian
+Suites: bookworm
+Components: main
+Signed-By: /etc/apt/keyrings/mariadb-keyring.pgp
+```
+
+به‌روزرسانی کش APT
+
+```bash
+apt update
+```
+
+نصب MariaDB 11.4
+
+```bash
+apt install mariadb-server
+```
+
+راه‌اندازی سرویس MariaDB و تنظیمات خودکار برای راه‌اندازی در هنگام بوت
+
+```bash
+systemctl start mariadb
+systemctl enable mariadb
+```
+
+اجرای تنظیمات اولیه MariaDB
+
+```bash
+mariadb-secure-installation
+```
+
+#### نصب archnet
+
+1. پیکربندی پایگاه داده MariaDB
+
+### 1. ورود به MariaDB
+
+```bash
+mariadb -u root -p
+```
+
+در رابط خط فرمان MariaDB، دستورات زیر را برای ایجاد یک پایگاه داده جدید به نام archnet_db و تنظیم مجموعه کاراکتر به utf8mb4_unicode_ci اجرا کنید.
+
+```sql
+CREATE DATABASE archnet_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+سپس یک کاربر پایگاه داده محلی ایجاد کرده و مجوزهای آن کاربر را به پایگاه داده جدید محدود کنید، با استفاده از archnet به عنوان نام کاربری و archnet-password به عنوان رمز عبور کاربر.
+
+```sql
+CREATE USER 'archnet'@'localhost';
+GRANT ALL PRIVILEGES ON archnet_db.* TO 'archnet'@'localhost' IDENTIFIED BY 'archnet-password';
+FLUSH PRIVILEGES;
+```
+
+خروج از MariaDB
+
+```sql
+EXIT;
+```
+
+2. پیکربندی Nginx
+
+در فایل `/etc/nginx/nginx.conf`، `user` را از
+
+```nginx
+user nginx;
+```
+
+به
+
+```nginx
+user www-data;
+```
+
+تغییر دهید.
+
+اضافه کردن فایل پیکربندی میزبان مجازی Nginx
+
+```bash
+nano /etc/nginx/conf.d/website-domain-you-set.conf
+```
+
+سپس پیکربندی زیر را بنویسید، لطفاً نام دامنه وب‌سایت و فایل گواهی SSL را تغییر دهید (در غیر این صورت خطا می‌دهد):
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name api.example.com *.example.com;   # جایگزین با دامنه شما
+
+    ssl_certificate /path/your/certs/example.crt;  # جایگزین با مسیر گواهی شما
+    ssl_certificate_key /path/your/private/example.key;  # جایگزین با مسیر کلید خصوصی شما
+
+    ssl_protocols TLSv1.2 TLSv1.3; # پروتکل‌های پیشنهادی
+    ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384'; # مجموعه‌های رمزنگاری پیشنهادی
+    ssl_prefer_server_ciphers on;
+
+    # شروع cloudflare
+    set_real_ip_from 0.0.0.0/0;  # اعتماد به تمام آدرس‌های IP Cloudflare
+    real_ip_header X-Forwarded-For;  # استفاده از هدر X-Forwarded-For برای دریافت IP واقعی
+    real_ip_recursive on;  # تجزیه بازگشتی چندین IP در هدر X-Forwarded-For
+    # پایان cloudflare
+
+    # تنظیمات پروکسی پیش‌فرض
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header REMOTE-HOST $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_http_version 1.1;
+
+        add_header X-Cache $upstream_cache_status;
+
+        # پیکربندی پروکسی به سرویس‌های پشتی، اگر سرویس پشتی در 127.0.0.1:8080 باشد
+        proxy_pass http://127.0.0.1:8080;
+    }
+
+    # تنظیم کش منابع استاتیک
+    location ~* \.(gif|png|jpg|css|js|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control public;
+    }
+}
+
+# انتقال HTTP به HTTPS
+server {
+    listen 80;
+    server_name api.example.com *.example.com;  # جایگزین با دامنه شما
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+Nginx را مجدداً راه‌اندازی کنید.
+
+```bash
+systemctl restart nginx
+```
+
+3. تعیین معماری سیستم و دانلود فایل‌های باینری مربوطه
+
+آدرس دانلود: `https://github.com/ArchNets/archnet/releases`
+
+توضیحات نمونه: سیستم: دبیان amd64، کاربر: root، دایرکتوری فعلی: /root
+
+- دانلود
+
+```shell
+wget https://github.com/ArchNets/archnet/releases/download/v0.1.0/archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- استخراج
+
+```shell
+tar -zxvf archnet-server-v0.1.0-linux-amd64.tar.gz
+```
+
+- جابجایی
+
+```shell
+sudo mv archnet-server /usr/local/bin/archnet
+sudo mkdir -p /usr/local/etc/archnet
+sudo mv ./etc/archnet.yaml /usr/local/etc/archnet/
+```
+
+- اعطای مجوز اجرای فایل باینری
+
+```shell
+sudo chmod +x /usr/local/bin/archnet
+```
+
+- ویرایش فایل پیکربندی archnet.yaml
+
+```bash
+nano /usr/local/etc/archnet/archnet.yaml
+```
+
+```yaml
+Host: 127.0.0.1 # آدرس گوش دادن سرویس، تغییر به: 127.0.0.1
+Port: 8080 # پورت گوش دادن سرویس، پیش‌فرض: 8080
+Debug: false # آیا حالت اشکال‌زدایی فعال باشد، پیش‌فرض: false
+JwtAuth: # پیکربندی احراز هویت JWT
+  AccessSecret: d2a1b58958f13ab01shekdd123fcd12345xyz67890== # کلید توکن دسترسی، لطفاً تغییر دهید
+  AccessExpire: 604800 # زمان انقضای توکن دسترسی، واحد ثانیه، پیش‌فرض: 604800
+Logger: # پیکربندی لاگ
+  FilePath: ./archnet.log # مسیر فایل لاگ، پیش‌فرض: ./archnet.log
+  MaxSize: 50 # حداکثر اندازه فایل لاگ، واحد MB، پیش‌فرض: 50
+  MaxBackup: 3 # حداکثر تعداد پشتیبان‌های فایل لاگ، پیش‌فرض: 3
+  MaxAge: 30 # حداکثر زمان نگهداری فایل لاگ، واحد روز، پیش‌فرض: 30
+  Compress: true # آیا فایل‌های لاگ فشرده شوند، پیش‌فرض: true
+  Level: info # سطح لاگ، پیش‌فرض: info، گزینه‌ها: debug، info، warn، error، panic، fatal
+MySQL:
+  Addr: 127.0.0.1:3306 # آدرس MySQL، الزامی
+  Username: archnet # نام کاربری MySQL، الزامی
+  Password: archnet-password # رمز عبور MySQL، الزامی
+  Dbname: archnet_db # نام پایگاه داده MySQL، الزامی
+  Config: charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai # مقادیر پیش‌فرض پیکربندی MySQL
+  MaxIdleConns: 10 # حداکثر تعداد اتصالات بیکار، پیش‌فرض: 10
+  MaxOpenConns: 100 # حداکثر تعداد اتصالات باز، پیش‌فرض: 100
+  LogMode: info # سطح لاگ، پیش‌فرض: info، گزینه‌ها: debug، error، warn، info
+  LogZap: true # آیا از zap برای ثبت لاگ SQL استفاده شود، پیش‌فرض: true
+  SlowThreshold: 1000 # آستانه جستجوی کند، واحد میلی‌ثانیه، پیش‌فرض: 1000
+Redis:
+  Host: 127.0.0.1:6379 # آدرس Redis، پیش‌فرض: localhost:6379
+  Pass: '' # رمز عبور Redis، پیش‌فرض: ""
+  DB: 0 # پایگاه داده Redis، پیش‌فرض: 0
+
+Administer:
+  Email: admin@archnet.dev # ایمیل ورود به پنل مدیریت، پیش‌فرض: admin@archnet.dev
+  Password: password # رمز عبور ورود به پنل مدیریت، پیش‌فرض: password
+```
+
+- ایجاد فایل سرویس systemd
+
+```shell
+$ cat > /etc/systemd/system/archnet.service <<EOF
+[Unit]
+Description=PPANEL Server
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/archnet run --config /usr/local/etc/archnet/archnet.yaml
+Restart=always
+User=root
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+- بارگذاری مجدد سرویس systemd
+
+```shell
+systemctl daemon-reload
+```
+
+- راه‌اندازی سرویس
+
+```shell
+systemctl start archnet
+```
+
+##### توضیحات دیگر
+
+1. مسیر نصب: فایل باینری در نهایت به دایرکتوری /usr/local/bin منتقل می‌شود.
+
+2. سرویس systemd:
+
+   - نام سرویس: archnet
+   - فایل پیکربندی سرویس: /etc/systemd/system/archnet.service
+   - دستور راه‌اندازی سرویس: systemctl start archnet
+   - دستور توقف سرویس: systemctl stop archnet
+   - دستور راه‌اندازی مجدد سرویس: systemctl restart archnet
+   - دستور وضعیت سرویس: systemctl status archnet
+   - راه‌اندازی خودکار سرویس در هنگام بوت: systemctl enable archnet
+
+3. برای تنظیم راه‌اندازی خودکار در هنگام بوت می‌توانید از دستور زیر استفاده کنید:
+
+   ```shell
+   systemctl enable archnet
+   ```
+
+4. لاگ سرویس: لاگ سرویس به‌طور پیش‌فرض در فایل /usr/local/bin/archnet.log خروجی می‌شود.
+
+5. می‌توانید با استفاده از `journalctl -u archnet -f` لاگ سرویس را مشاهده کنید.
+
+6. زمانی که فایل پیکربندی خالی یا وجود نداشته باشد، سرویس با پیکربندی پیش‌فرض راه‌اندازی می‌شود، مسیر فایل پیکربندی: `./etc/archnet.yaml`،
+   لطفاً از طریق `http://آدرس-سرور:8080/init` پیکربندی سیستم را اولیه‌سازی کنید.
