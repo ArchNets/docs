@@ -16,7 +16,7 @@ export default function Giscus() {
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
         category='Q&A'
         categoryId={process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID}
-        repo='ArchNets/archnet-docs'
+        repo='ArchNets/docs'
         repoId={process.env.NEXT_PUBLIC_GISCUS_REPO_ID}
         mapping='url'
         lang={lang}

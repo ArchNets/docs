@@ -1,83 +1,169 @@
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { SwatchBook, ShieldCheck, Component } from 'lucide-react';
+import { Zap, Shield, Layers, Globe, Terminal, Lock } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Page() {
   return (
-    <section className="overflow-hidden py-32">
-      <div className="container relative mx-auto max-w-[90rem] px-6">
-        <div className="pointer-events-none absolute inset-0 -top-20 -z-10 mx-auto hidden size-[500px] bg-[radial-gradient(hsl(var(--muted-foreground))_1px,transparent_1px)] opacity-25 [background-size:6px_6px] [mask-image:radial-gradient(circle_at_center,white_250px,transparent_250px)] lg:block"></div>
-        <div className="relative flex justify-between gap-16">
-          <div className="w-full max-w-96 shrink-0 justify-between">
-            <h1 className="mb-3 mt-6 text-3xl font-bold lg:text-4xl">
-              Welcome to ArchNet
+    <div className="min-h-screen bg-b-surface1">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-01/10 via-transparent to-primary-04/10" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary-01/20 to-transparent blur-3xl opacity-30" />
+        
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(42,133,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(42,133,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        
+        <div className="container relative mx-auto max-w-6xl px-6 py-24 lg:py-32">
+          <div className="flex flex-col items-center text-center">
+            {/* Badge */}
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-s-stroke2 bg-b-surface2 px-4 py-2 text-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-02 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-02" />
+              </span>
+              <span className="text-t-secondary">Private & Self-Hosted</span>
+            </div>
+            
+            {/* Main Heading */}
+            <h1 className="mb-6 text-4xl font-bold tracking-tight text-t-primary sm:text-5xl lg:text-6xl">
+              The Modern
+              <span className="block bg-gradient-to-r from-primary-01 via-primary-04 to-primary-01 bg-clip-text text-transparent">
+                Proxy Panel
+              </span>
             </h1>
-            <p className="text text-muted-foreground">
-              ArchNet is a pure, professional, and perfect open-source proxy panel tool, designed to be your ideal choice for learning and practice.
+            
+            {/* Description */}
+            <p className="mb-10 max-w-2xl text-lg text-t-secondary">
+              ArchNet is a pure, professional, and powerful proxy panel. 
+              Built for performance, designed for simplicity, and crafted for developers who demand the best.
             </p>
-            <p className="flex gap-2 mt-4">
-              <Link href="/docs" className={buttonVariants({ variant: "default" })}>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link 
+                href="/docs" 
+                className="group inline-flex items-center gap-2 rounded-lg bg-primary-01 px-6 py-3 font-medium text-t-light transition-all hover:bg-primary-01/90 hover:shadow-lg hover:shadow-primary-01/25"
+              >
                 Get Started
+                <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </Link>
-              <Link href="https://github.com/ArchNets" className={buttonVariants({ variant: "secondary" })}>
-                Github
+              <Link 
+                href="https://github.com/ArchNets" 
+                className="inline-flex items-center gap-2 rounded-lg border border-s-stroke2 bg-b-surface2 px-6 py-3 font-medium text-t-primary transition-all hover:border-primary-01 hover:bg-b-highlight"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="relative border-t border-s-stroke2 bg-b-surface2 py-24">
+        <div className="container mx-auto max-w-6xl px-6">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-t-primary">Why ArchNet?</h2>
+            <p className="mx-auto max-w-2xl text-t-secondary">
+              Built with modern technologies and best practices, ArchNet provides everything you need to manage your proxy infrastructure.
             </p>
           </div>
-          <div className="hidden w-full max-w-3xl shrink-0 lg:block">
-            <Image
-              src="https://urlscan.io/liveshot/?width=1920&height=1080&url=https://test.archnets.org"
-              alt="User"
-              width={1920}
-              height={1080}
-              className="max-h-[450px] w-full min-w-[450px] max-w-3xl rounded-lg border object-cover"
-            />
+          
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* Feature Card 1 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-primary-01/50 hover:shadow-lg hover:shadow-primary-01/5">
+              <div className="mb-4 inline-flex rounded-lg bg-primary-01/10 p-3">
+                <Zap className="h-6 w-6 text-primary-01" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Lightning Fast</h3>
+              <p className="text-sm text-t-secondary">
+                Optimized for performance with minimal latency. Your users won't notice the difference.
+              </p>
+            </div>
+            
+            {/* Feature Card 2 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-primary-02/50 hover:shadow-lg hover:shadow-primary-02/5">
+              <div className="mb-4 inline-flex rounded-lg bg-primary-02/10 p-3">
+                <Shield className="h-6 w-6 text-primary-02" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Privacy First</h3>
+              <p className="text-sm text-t-secondary">
+                No user logs stored. Your data stays private and secure, always.
+              </p>
+            </div>
+            
+            {/* Feature Card 3 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-primary-04/50 hover:shadow-lg hover:shadow-primary-04/5">
+              <div className="mb-4 inline-flex rounded-lg bg-primary-04/10 p-3">
+                <Layers className="h-6 w-6 text-primary-04" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Multi-Protocol</h3>
+              <p className="text-sm text-t-secondary">
+                Supports Shadowsocks, V2Ray, Trojan, and more. Use what works best for you.
+              </p>
+            </div>
+            
+            {/* Feature Card 4 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-primary-05/50 hover:shadow-lg hover:shadow-primary-05/5">
+              <div className="mb-4 inline-flex rounded-lg bg-primary-05/10 p-3">
+                <Globe className="h-6 w-6 text-primary-05" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Multi-Language</h3>
+              <p className="text-sm text-t-secondary">
+                Full internationalization support. Deploy globally with localized interfaces.
+              </p>
+            </div>
+            
+            {/* Feature Card 5 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-secondary-02/50 hover:shadow-lg hover:shadow-secondary-02/5">
+              <div className="mb-4 inline-flex rounded-lg bg-secondary-02/20 p-3">
+                <Terminal className="h-6 w-6 text-primary-04" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Easy Deployment</h3>
+              <p className="text-sm text-t-secondary">
+                Docker support out of the box. Deploy in minutes, not hours.
+              </p>
+            </div>
+            
+            {/* Feature Card 6 */}
+            <div className="group rounded-xl border border-s-stroke2 bg-b-surface1 p-6 transition-all hover:border-primary-03/50 hover:shadow-lg hover:shadow-primary-03/5">
+              <div className="mb-4 inline-flex rounded-lg bg-primary-03/10 p-3">
+                <Lock className="h-6 w-6 text-primary-03" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-t-primary">Secure & Reliable</h3>
+              <p className="text-sm text-t-secondary">
+                Enterprise-grade security with reliable uptime. Built for production environments.
+              </p>
+            </div>
           </div>
         </div>
-        <div className="relative mt-8 grid md:grid-cols-3">
-          <div className="flex flex-col gap-y-6 px-2 py-10 md:p-6 lg:p-8">
-            <SwatchBook />
-            <div>
-              <h3 className="text-lg font-medium">Multi-Protocol Support</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Supports management of various encryption protocols, such as: shadowsocks, v2ray, trojan, etc.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-y-6 px-2 py-10 md:p-6 lg:p-8">
-            <ShieldCheck />
-            <div>
-              <h3 className="text-lg font-medium">Privacy Protection</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                No user logs are stored, ensuring user privacy and security.
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-y-6 px-2 py-10 md:p-6 lg:p-8">
-            <Component />
-            <div>
-              <h3 className="text-lg font-medium">Design</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                A minimalist design ensures the product is easy to use while maintaining the integrity of business logic.
-              </p>
-            </div>
-          </div>
-          <div className="absolute -inset-x-4 top-0 h-px bg-input md:hidden"></div>
-          <div className="absolute -inset-x-4 top-[-0.5px] row-start-2 h-px bg-input md:hidden"></div>
-          <div className="absolute -inset-x-4 top-[-0.5px] row-start-3 h-px bg-input md:hidden"></div>
-          <div className="absolute -inset-x-4 bottom-0 row-start-4 h-px bg-input md:hidden"></div>
-          <div className="absolute -left-2 -top-2 bottom-0 w-px bg-input md:hidden"></div>
-          <div className="absolute -right-2 -top-2 bottom-0 col-start-2 w-px bg-input md:hidden"></div>
-          <div className="absolute -inset-x-2 top-0 hidden h-px bg-input md:block"></div>
-          <div className="absolute -top-2 bottom-0 left-0 hidden w-px bg-input md:block"></div>
-          <div className="absolute -left-[0.5px] -top-2 bottom-0 col-start-2 hidden w-px bg-input md:block"></div>
-          <div className="absolute -left-[0.5px] -top-2 bottom-0 col-start-3 hidden w-px bg-input md:block"></div>
-          <div className="absolute -top-2 bottom-0 right-0 hidden w-px bg-input md:block"></div>
-        </div>
-      </div>
-    </section>
-  );
+      </section>
 
+      {/* CTA Section */}
+      <section className="relative overflow-hidden border-t border-s-stroke2 py-24">
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-01/5 to-transparent" />
+        <div className="container relative mx-auto max-w-4xl px-6 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-t-primary">Ready to get started?</h2>
+          <p className="mb-8 text-t-secondary">
+            Join the growing community of developers using ArchNet for their proxy infrastructure.
+          </p>
+          <Link 
+            href="/docs/quick/docker" 
+            className="inline-flex items-center gap-2 rounded-lg bg-primary-01 px-8 py-4 text-lg font-medium text-t-light transition-all hover:bg-primary-01/90 hover:shadow-lg hover:shadow-primary-01/25"
+          >
+            Quick Start Guide
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
 }

@@ -11,6 +11,32 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Shades (Grayscale)
+        shade: {
+          '01': 'var(--shade-01)',
+          '02': 'var(--shade-02)',
+          '03': 'var(--shade-03)',
+          '04': 'var(--shade-04)',
+          '05': 'var(--shade-05)',
+          '06': 'var(--shade-06)',
+          '07': 'var(--shade-07)',
+          '08': 'var(--shade-08)',
+          '09': 'var(--shade-09)',
+          '10': 'var(--shade-10)',
+        },
+        // Primary Colors
+        'primary-01': 'var(--primary-01)',
+        'primary-02': 'var(--primary-02)',
+        'primary-03': 'var(--primary-03)',
+        'primary-04': 'var(--primary-04)',
+        'primary-05': 'var(--primary-05)',
+        // Secondary Colors
+        'secondary-01': 'var(--secondary-01)',
+        'secondary-02': 'var(--secondary-02)',
+        'secondary-03': 'var(--secondary-03)',
+        'secondary-04': 'var(--secondary-04)',
+        'secondary-05': 'var(--secondary-05)',
+        // Legacy compatibility
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -51,6 +77,39 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+      },
+      // Semantic Background Colors
+      backgroundColor: {
+        'b-surface1': 'var(--b-surface1)',
+        'b-surface2': 'var(--b-surface2)',
+        'b-surface3': 'var(--b-surface3)',
+        'b-pop': 'var(--b-pop)',
+        'b-highlight': 'var(--b-highlight)',
+        'b-primary': 'var(--b-primary)',
+        'b-dark1': 'var(--b-dark1)',
+        'b-dark2': 'var(--b-dark2)',
+      },
+      // Semantic Text Colors
+      textColor: {
+        't-primary': 'var(--t-primary)',
+        't-secondary': 'var(--t-secondary)',
+        't-tertiary': 'var(--t-tertiary)',
+        't-light': 'var(--t-light)',
+        't-blue': 'var(--t-blue)',
+      },
+      // Semantic Fill Colors (for SVGs)
+      fill: {
+        't-primary': 'var(--t-primary)',
+        't-secondary': 'var(--t-secondary)',
+        't-light': 'var(--t-light)',
+      },
+      // Semantic Border Colors
+      borderColor: {
+        's-stroke2': 'var(--s-stroke2)',
+        's-highlight': 'var(--s-highlight)',
+        's-subtle': 'var(--s-subtle)',
+        's-border': 'var(--s-border)',
+        's-focus': 'var(--s-focus)',
       },
       borderRadius: {
         lg: 'var(--radius)',
