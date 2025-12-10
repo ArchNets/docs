@@ -1,5 +1,5 @@
 const meta = {
-  archnode: 'PPNode Deployment',
+  archnode: 'ArchNode Deployment',
   xrayr: 'XrayR Deployment',
 };
 

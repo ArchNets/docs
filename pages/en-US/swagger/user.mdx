@@ -1,5 +1,7 @@
 import Swagger from '@/components/swagger';
 
-<Swagger url='/swagger/user.json' />
-
-This code snippet imports the `Swagger` component from the specified path and renders it with a URL pointing to the user JSON file for Swagger documentation.
+<Swagger 
+  url='/swagger/user.json' 
+  title="User API"
+  description="User-facing endpoints for subscription management and account operations."
+/>
