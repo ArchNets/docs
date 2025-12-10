@@ -70,7 +70,7 @@
           }
         ],
         "tags": [
-          "archnet/public/announcement"
+          "archnets/public/announcement"
         ]
       }
     },
@@ -108,7 +108,7 @@
           }
         ],
         "tags": [
-          "archnet/public/document"
+          "archnets/public/document"
         ]
       }
     },
@@ -137,7 +137,7 @@
           }
         },
         "tags": [
-          "archnet/public/document"
+          "archnets/public/document"
         ]
       }
     },
@@ -174,7 +174,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -208,10 +208,16 @@
             "in": "query",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -253,10 +259,16 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -296,7 +308,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -336,7 +348,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -375,7 +387,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -414,7 +426,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -453,7 +465,7 @@
           }
         ],
         "tags": [
-          "archnet/public/order"
+          "archnets/public/order"
         ]
       }
     },
@@ -482,7 +494,7 @@
           }
         },
         "tags": [
-          "archnet/public/payment"
+          "archnets/public/payment"
         ]
       }
     },
@@ -521,7 +533,7 @@
           }
         ],
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -570,7 +582,7 @@
           }
         ],
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -599,7 +611,7 @@
           }
         },
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -638,7 +650,7 @@
           }
         ],
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -677,7 +689,7 @@
           }
         ],
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -714,7 +726,7 @@
           }
         ],
         "tags": [
-          "archnet/public/portal"
+          "archnets/public/portal"
         ]
       }
     },
@@ -751,7 +763,7 @@
           }
         ],
         "tags": [
-          "archnet/public/subscribe"
+          "archnets/public/subscribe"
         ]
       }
     },
@@ -780,7 +792,7 @@
           }
         },
         "tags": [
-          "archnet/public/subscribe"
+          "archnets/public/subscribe"
         ]
       }
     },
@@ -817,7 +829,7 @@
           }
         ],
         "tags": [
-          "archnet/public/ticket"
+          "archnets/public/ticket"
         ]
       },
       "put": {
@@ -852,7 +864,7 @@
           }
         ],
         "tags": [
-          "archnet/public/ticket"
+          "archnets/public/ticket"
         ]
       }
     },
@@ -890,7 +902,7 @@
           }
         ],
         "tags": [
-          "archnet/public/ticket"
+          "archnets/public/ticket"
         ]
       }
     },
@@ -927,7 +939,7 @@
           }
         ],
         "tags": [
-          "archnet/public/ticket"
+          "archnets/public/ticket"
         ]
       }
     },
@@ -985,7 +997,7 @@
           }
         ],
         "tags": [
-          "archnet/public/ticket"
+          "archnets/public/ticket"
         ]
       }
     },
@@ -1014,7 +1026,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1059,7 +1071,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1087,8 +1099,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1125,7 +1145,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1162,7 +1182,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1201,7 +1221,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1238,7 +1258,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1267,7 +1287,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1309,10 +1329,16 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1351,7 +1377,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1380,7 +1406,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1408,8 +1434,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1454,7 +1488,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1491,7 +1525,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1520,7 +1554,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1557,7 +1591,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1594,7 +1628,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1623,7 +1657,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1668,7 +1702,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1705,7 +1739,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1742,7 +1776,71 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/traffic_log": {
+      "get": {
+        "summary": "Get User Traffic Log",
+        "operationId": "GetUserTrafficLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetUserTrafficLogResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_subscribe_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
         ]
       }
     },
@@ -1779,7 +1877,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1816,7 +1914,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1843,7 +1941,7 @@
           }
         },
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1880,7 +1978,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1919,7 +2017,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -1956,7 +2054,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     },
@@ -2001,7 +2099,7 @@
           }
         ],
         "tags": [
-          "archnet/public/user"
+          "archnets/public/user"
         ]
       }
     }
@@ -3293,6 +3391,54 @@
         "list"
       ]
     },
+    "GetUserTrafficLogRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserTrafficLogRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "GetUserTrafficLogResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserTrafficLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserTrafficLogResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
     "Hysteria2": {
       "type": "object",
       "properties": {
@@ -3413,6 +3559,26 @@
         "enable",
         "enable_whitelist",
         "whitelist"
+      ]
+    },
+    "ModuleConfig": {
+      "type": "object",
+      "properties": {
+        "secret": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "service_version": {
+          "type": "string"
+        }
+      },
+      "title": "ModuleConfig",
+      "required": [
+        "secret",
+        "service_name",
+        "service_version"
       ]
     },
     "NodeConfig": {
@@ -3974,6 +4140,9 @@
         "invite_code": {
           "type": "string"
         },
+        "custom_name": {
+          "type": "string"
+        },
         "turnstile_token": {
           "type": "string"
         }
@@ -4208,6 +4377,10 @@
         "service_name": {
           "type": "string"
         },
+        "accept_proxy_protocol": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "cipher": {
           "type": "string"
         },
@@ -4318,7 +4491,7 @@
         },
         "cert_mode": {
           "type": "string",
-          "description": "Certificate mode, `none`｜`http`｜`dns`｜`self`"
+          "description": "Certificate mode, `none`｜`http`｜`dns`｜`self`｜`file`"
         },
         "cert_dns_provider": {
           "type": "string",
@@ -4327,6 +4500,14 @@
         "cert_dns_env": {
           "type": "string",
           "description": "Environment for DNS provider"
+        },
+        "cert_file": {
+          "type": "string",
+          "description": "Certificate file content (PEM format) for file mode"
+        },
+        "key_file": {
+          "type": "string",
+          "description": "Private key file content (PEM format) for file mode"
         }
       },
       "title": "Protocol",
@@ -4394,6 +4575,9 @@
           "format": "int64"
         },
         "coupon": {
+          "type": "string"
+        },
+        "custom_name": {
           "type": "string"
         }
       },
@@ -4501,6 +4685,9 @@
       "properties": {
         "order_no": {
           "type": "string"
+        },
+        "currency": {
+          "type": "string"
         }
       },
       "title": "QueryOrderDetailRequest",
@@ -4518,6 +4705,9 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "currency": {
+          "type": "string"
         }
       },
       "title": "QueryOrderListRequest",
@@ -4741,6 +4931,15 @@
         "total"
       ]
     },
+    "QueryUserBalanceLogListRequest": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        }
+      },
+      "title": "QueryUserBalanceLogListRequest"
+    },
     "QueryUserBalanceLogListResponse": {
       "type": "object",
       "properties": {
@@ -4771,6 +4970,9 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "currency": {
+          "type": "string"
         }
       },
       "title": "QueryUserCommissionLogListRequest",
@@ -4798,6 +5000,15 @@
         "list",
         "total"
       ]
+    },
+    "QueryUserInfoRequest": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        }
+      },
+      "title": "QueryUserInfoRequest"
     },
     "QueryUserSubscribeListResponse": {
       "type": "object",
@@ -4882,6 +5093,9 @@
         "payment": {
           "type": "integer",
           "format": "int64"
+        },
+        "currency": {
+          "type": "string"
         }
       },
       "title": "RechargeOrderRequest",
@@ -5066,15 +5280,15 @@
       "properties": {
         "code": {
           "type": "integer",
-          "description": "状态码"
+          "description": "Status code"
         },
         "msg": {
           "type": "string",
-          "description": "消息"
+          "description": "Message"
         },
         "data": {
           "type": "object",
-          "description": "数据"
+          "description": "Data"
         }
       }
     },
@@ -5243,6 +5457,9 @@
         "site_logo": {
           "type": "string"
         },
+        "site_favicon": {
+          "type": "string"
+        },
         "keywords": {
           "type": "string"
         },
@@ -5250,6 +5467,9 @@
           "type": "string"
         },
         "custom_data": {
+          "type": "string"
+        },
+        "auth_url": {
           "type": "string"
         }
       },
@@ -5259,9 +5479,11 @@
         "site_name",
         "site_desc",
         "site_logo",
+        "site_favicon",
         "keywords",
         "custom_html",
-        "custom_data"
+        "custom_data",
+        "auth_url"
       ]
     },
     "SiteCustomDataContacts": {
@@ -5535,6 +5757,31 @@
         "description",
         "created_at",
         "updated_at"
+      ]
+    },
+    "SubscribeOnlineConnection": {
+      "type": "object",
+      "properties": {
+        "ip": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "server_name": {
+          "type": "string"
+        }
+      },
+      "title": "SubscribeOnlineConnection",
+      "required": [
+        "ip",
+        "protocol",
+        "server_id",
+        "server_name"
       ]
     },
     "SubscribeType": {
@@ -6219,6 +6466,9 @@
         "subscribe": {
           "$ref": "#/definitions/Subscribe"
         },
+        "custom_name": {
+          "type": "string"
+        },
         "start_time": {
           "type": "integer",
           "format": "int64"
@@ -6250,12 +6500,12 @@
         "token": {
           "type": "string"
         },
+        "short": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
-        },
-        "short": {
-          "type": "string"
         },
         "created_at": {
           "type": "integer",
@@ -6264,6 +6514,16 @@
         "updated_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "online_connections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubscribeOnlineConnection"
+          }
+        },
+        "online_count": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "UserSubscribe",
@@ -6281,10 +6541,11 @@
         "download",
         "upload",
         "token",
-        "status",
         "short",
+        "status",
         "created_at",
-        "updated_at"
+        "updated_at",
+        "online_count"
       ]
     },
     "UserSubscribeInfo": {
@@ -6473,6 +6734,38 @@
         "country",
         "city",
         "created_at"
+      ]
+    },
+    "UserTrafficLog": {
+      "type": "object",
+      "properties": {
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "title": "UserTrafficLog",
+      "required": [
+        "subscribe_id",
+        "upload",
+        "download",
+        "total",
+        "date"
       ]
     },
     "VerifyCodeConfig": {

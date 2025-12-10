@@ -6496,6 +6496,3393 @@
           }
         ]
       }
+    },
+    "/v1/auth/check": {
+      "get": {
+        "summary": "Check user is exist",
+        "operationId": "CheckUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/CheckUserResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/check/telephone": {
+      "get": {
+        "summary": "Check user telephone is exist",
+        "operationId": "CheckUserTelephone",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/TelephoneCheckUserResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "telephone",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "summary": "User login",
+        "operationId": "UserLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "User login request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/login/device": {
+      "post": {
+        "summary": "Device Login",
+        "operationId": "DeviceLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/login/telephone": {
+      "post": {
+        "summary": "User Telephone login",
+        "operationId": "TelephoneLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "login request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TelephoneLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/oauth/callback/apple": {
+      "post": {
+        "summary": "Apple Login Callback",
+        "operationId": "AppleLoginCallback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id_token",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/auth/oauth"
+        ],
+        "consumes": [
+          "multipart/form-data",
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/v1/auth/oauth/login": {
+      "post": {
+        "summary": "OAuth login",
+        "operationId": "OAuthLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/OAuthLoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OAthLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth/oauth"
+        ]
+      }
+    },
+    "/v1/auth/oauth/login/token": {
+      "post": {
+        "summary": "OAuth login get token",
+        "operationId": "OAuthLoginGetToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OAuthLoginGetTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth/oauth"
+        ]
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "summary": "User register",
+        "operationId": "UserRegister",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "User login response",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/register/telephone": {
+      "post": {
+        "summary": "User Telephone register",
+        "operationId": "TelephoneUserRegister",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "User login response",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TelephoneRegisterRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/reset": {
+      "post": {
+        "summary": "Reset password",
+        "operationId": "ResetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "User login response",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/reset/telephone": {
+      "post": {
+        "summary": "Reset password",
+        "operationId": "TelephoneResetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Original-Forwarded-For",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Login-Type",
+            "in": "header",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "description": "User login response",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TelephoneResetPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/common/ads": {
+      "get": {
+        "summary": "Get Ads",
+        "operationId": "GetAds",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetAdsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "device",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "position",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/check_verification_code": {
+      "post": {
+        "summary": "Check verification code",
+        "operationId": "CheckVerificationCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/CheckVerificationCodeRespone"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckVerificationCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/client": {
+      "get": {
+        "summary": "Get Client",
+        "operationId": "GetClient",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetSubscribeClientResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/heartbeat": {
+      "get": {
+        "summary": "Heartbeat",
+        "operationId": "Heartbeat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/HeartbeatResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/send_code": {
+      "post": {
+        "summary": "Get verification code",
+        "operationId": "SendEmailCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/SendCodeResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "GetCodeRequest Get code request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/send_sms_code": {
+      "post": {
+        "summary": "Get sms verification code",
+        "operationId": "SendSmsCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/SendCodeResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendSmsCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/site/config": {
+      "get": {
+        "summary": "Get global config",
+        "operationId": "GetGlobalConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetGlobalConfigResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/site/privacy": {
+      "get": {
+        "summary": "Get Privacy Policy",
+        "operationId": "GetPrivacyPolicy",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PrivacyPolicyConfig"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/site/stat": {
+      "get": {
+        "summary": "Get stat",
+        "operationId": "GetStat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetStatResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/common/site/tos": {
+      "get": {
+        "summary": "Get Tos Content",
+        "operationId": "GetTos",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetTosResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
+    "/v1/public/announcement/list": {
+      "get": {
+        "summary": "Query announcement",
+        "operationId": "QueryAnnouncement",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryAnnouncementResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "required": true,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "popup",
+            "in": "query",
+            "required": true,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "tags": [
+          "archnets/public/announcement"
+        ]
+      }
+    },
+    "/v1/public/document/detail": {
+      "get": {
+        "summary": "Get document detail",
+        "operationId": "QueryDocumentDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/Document"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/public/document"
+        ]
+      }
+    },
+    "/v1/public/document/list": {
+      "get": {
+        "summary": "Get document list",
+        "operationId": "QueryDocumentList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryDocumentListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/document"
+        ]
+      }
+    },
+    "/v1/public/order/close": {
+      "post": {
+        "summary": "Close order",
+        "operationId": "CloseOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CloseOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/detail": {
+      "get": {
+        "summary": "Get order",
+        "operationId": "QueryOrderDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/OrderDetail"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "order_no",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/list": {
+      "get": {
+        "summary": "Get order list",
+        "operationId": "QueryOrderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryOrderListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/pre": {
+      "post": {
+        "summary": "Pre create order",
+        "operationId": "PreCreateOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PreOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "public order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PurchaseOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/purchase": {
+      "post": {
+        "summary": "purchase Subscription",
+        "operationId": "Purchase",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PurchaseOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "public order",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PurchaseOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/recharge": {
+      "post": {
+        "summary": "Recharge",
+        "operationId": "Recharge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/RechargeOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RechargeOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/renewal": {
+      "post": {
+        "summary": "Renewal Subscription",
+        "operationId": "Renewal",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/RenewalOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RenewalOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/order/reset": {
+      "post": {
+        "summary": "Reset traffic",
+        "operationId": "ResetTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/ResetTrafficOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetTrafficOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/order"
+        ]
+      }
+    },
+    "/v1/public/payment/methods": {
+      "get": {
+        "summary": "Get available payment methods",
+        "operationId": "GetAvailablePaymentMethods",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetAvailablePaymentMethodsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/payment"
+        ]
+      }
+    },
+    "/v1/public/portal/order/checkout": {
+      "post": {
+        "summary": "Purchase Checkout",
+        "operationId": "PurchaseCheckout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/CheckoutOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckoutOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/portal/order/status": {
+      "get": {
+        "summary": "Query Purchase Order",
+        "operationId": "QueryPurchaseOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryPurchaseOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "auth_type",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "order_no",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/portal/payment-method": {
+      "get": {
+        "summary": "Get available payment methods",
+        "operationId": "GetAvailablePaymentMethods",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetAvailablePaymentMethodsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/portal/pre": {
+      "post": {
+        "summary": "Pre Purchase Order",
+        "operationId": "PrePurchaseOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PrePurchaseOrderResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PrePurchaseOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/portal/purchase": {
+      "post": {
+        "summary": "Purchase subscription",
+        "operationId": "Purchase",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PortalPurchaseResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PortalPurchaseRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/portal/subscribe": {
+      "get": {
+        "summary": "Get Subscription",
+        "operationId": "GetSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetSubscriptionResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
+    "/v1/public/subscribe/list": {
+      "get": {
+        "summary": "Get subscribe list",
+        "operationId": "QuerySubscribeList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QuerySubscribeListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/subscribe"
+        ]
+      }
+    },
+    "/v1/public/subscribe/node/list": {
+      "get": {
+        "summary": "Get user subscribe node info",
+        "operationId": "QueryUserSubscribeNodeList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserSubscribeNodeListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/subscribe"
+        ]
+      }
+    },
+    "/v1/public/ticket/": {
+      "post": {
+        "summary": "Create ticket",
+        "operationId": "CreateUserTicket",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserTicketRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/ticket"
+        ]
+      },
+      "put": {
+        "summary": "Update ticket status",
+        "operationId": "UpdateUserTicketStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserTicketStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/ticket"
+        ]
+      }
+    },
+    "/v1/public/ticket/detail": {
+      "get": {
+        "summary": "Get ticket detail",
+        "operationId": "GetUserTicketDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/Ticket"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/public/ticket"
+        ]
+      }
+    },
+    "/v1/public/ticket/follow": {
+      "post": {
+        "summary": "Create ticket follow",
+        "operationId": "CreateUserTicketFollow",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserTicketFollowRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/ticket"
+        ]
+      }
+    },
+    "/v1/public/ticket/list": {
+      "get": {
+        "summary": "Get ticket list",
+        "operationId": "GetUserTicketList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetUserTicketListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "uint8"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/ticket"
+        ]
+      }
+    },
+    "/v1/public/user/affiliate/count": {
+      "get": {
+        "summary": "Query User Affiliate Count",
+        "operationId": "QueryUserAffiliate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserAffiliateCountResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/affiliate/list": {
+      "get": {
+        "summary": "Query User Affiliate List",
+        "operationId": "QueryUserAffiliateList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserAffiliateListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/balance_log": {
+      "get": {
+        "summary": "Query User Balance Log",
+        "operationId": "QueryUserBalanceLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserBalanceLogListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/bind_email": {
+      "put": {
+        "summary": "Update Bind Email",
+        "operationId": "UpdateBindEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBindEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/bind_mobile": {
+      "put": {
+        "summary": "Update Bind Mobile",
+        "operationId": "UpdateBindMobile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBindMobileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/bind_oauth": {
+      "post": {
+        "summary": "Bind OAuth",
+        "operationId": "BindOAuth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/BindOAuthResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BindOAuthRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/bind_oauth/callback": {
+      "post": {
+        "summary": "Bind OAuth Callback",
+        "operationId": "BindOAuthCallback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BindOAuthCallbackRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/bind_telegram": {
+      "get": {
+        "summary": "Bind Telegram",
+        "operationId": "BindTelegram",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/BindTelegramResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/commission_log": {
+      "get": {
+        "summary": "Query User Commission Log",
+        "operationId": "QueryUserCommissionLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserCommissionLogListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/commission_withdraw": {
+      "post": {
+        "summary": "Commission Withdraw",
+        "operationId": "CommissionWithdraw",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/WithdrawalLog"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CommissionWithdrawRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/devices": {
+      "get": {
+        "summary": "Get Device List",
+        "operationId": "GetDeviceList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetDeviceListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/info": {
+      "get": {
+        "summary": "Query User Info",
+        "operationId": "QueryUserInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/User"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/login_log": {
+      "get": {
+        "summary": "Get Login Log",
+        "operationId": "GetLoginLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetLoginLogResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/notify": {
+      "put": {
+        "summary": "Update User Notify",
+        "operationId": "UpdateUserNotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserNotifyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/oauth_methods": {
+      "get": {
+        "summary": "Get OAuth Methods",
+        "operationId": "GetOAuthMethods",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetOAuthMethodsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/password": {
+      "put": {
+        "summary": "Update User Password",
+        "operationId": "UpdateUserPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/rules": {
+      "put": {
+        "summary": "Update User Rules",
+        "operationId": "UpdateUserRules",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserRulesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/subscribe": {
+      "get": {
+        "summary": "Query User Subscribe",
+        "operationId": "QueryUserSubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryUserSubscribeListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/subscribe_log": {
+      "get": {
+        "summary": "Get Subscribe Log",
+        "operationId": "GetSubscribeLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetSubscribeLogResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/subscribe_note": {
+      "put": {
+        "summary": "Update User Subscribe Note",
+        "operationId": "UpdateUserSubscribeNote",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserSubscribeNoteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/subscribe_token": {
+      "put": {
+        "summary": "Reset User Subscribe Token",
+        "operationId": "ResetUserSubscribeToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetUserSubscribeTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/traffic_log": {
+      "get": {
+        "summary": "Get User Traffic Log",
+        "operationId": "GetUserTrafficLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetUserTrafficLogResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_subscribe_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/unbind_device": {
+      "put": {
+        "summary": "Unbind Device",
+        "operationId": "UnbindDevice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnbindDeviceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/unbind_oauth": {
+      "post": {
+        "summary": "Unbind OAuth",
+        "operationId": "UnbindOAuth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnbindOAuthRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/unbind_telegram": {
+      "post": {
+        "summary": "Unbind Telegram",
+        "operationId": "UnbindTelegram",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/unsubscribe": {
+      "post": {
+        "summary": "Unsubscribe",
+        "operationId": "Unsubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnsubscribeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/unsubscribe/pre": {
+      "post": {
+        "summary": "Pre Unsubscribe",
+        "operationId": "PreUnsubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/PreUnsubscribeResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PreUnsubscribeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/verify_email": {
+      "post": {
+        "summary": "Verify Email",
+        "operationId": "VerifyEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyEmailRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/withdrawal_log": {
+      "get": {
+        "summary": "Query Withdrawal Log",
+        "operationId": "QueryWithdrawalLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryWithdrawalLogListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/server/alivelist": {
+      "get": {
+        "summary": "Get alive list",
+        "operationId": "GetAliveList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/AliveMap"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/config": {
+      "get": {
+        "summary": "Get server config",
+        "operationId": "GetServerConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetServerConfigResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/online": {
+      "post": {
+        "summary": "Push online users",
+        "operationId": "PushOnlineUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OnlineUsersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/push": {
+      "post": {
+        "summary": "Push user Traffic",
+        "operationId": "ServerPushUserTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServerPushUserTrafficRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/status": {
+      "post": {
+        "summary": "Push server status",
+        "operationId": "ServerPushStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServerPushStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/user": {
+      "get": {
+        "summary": "Get user list",
+        "operationId": "GetServerUserList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetServerUserListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v2/server/{server_id}": {
+      "get": {
+        "summary": "Get Server Protocol Config",
+        "operationId": "QueryServerProtocolConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/QueryServerConfigResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "protocols",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
     }
   },
   "definitions": {
@@ -6567,6 +9954,18 @@
       "title": "AlipayNotifyResponse",
       "required": [
         "return_code"
+      ]
+    },
+    "AliveMap": {
+      "type": "object",
+      "properties": {
+        "alive": {
+          "type": "object"
+        }
+      },
+      "title": "AliveMap",
+      "required": [
+        "alive"
       ]
     },
     "Announcement": {
@@ -6776,6 +10175,26 @@
         "longitude",
         "created_at",
         "download"
+      ]
+    },
+    "AppleLoginCallbackRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id_token": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "AppleLoginCallbackRequest",
+      "required": [
+        "code",
+        "id_token",
+        "state"
       ]
     },
     "Application": {
@@ -7181,6 +10600,134 @@
         "updated_at"
       ]
     },
+    "BindOAuthCallbackRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "callback": {
+          "type": "object"
+        }
+      },
+      "title": "BindOAuthCallbackRequest",
+      "required": [
+        "method",
+        "callback"
+      ]
+    },
+    "BindOAuthRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "redirect": {
+          "type": "string"
+        }
+      },
+      "title": "BindOAuthRequest",
+      "required": [
+        "method",
+        "redirect"
+      ]
+    },
+    "BindOAuthResponse": {
+      "type": "object",
+      "properties": {
+        "redirect": {
+          "type": "string"
+        }
+      },
+      "title": "BindOAuthResponse",
+      "required": [
+        "redirect"
+      ]
+    },
+    "BindTelegramResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "expired_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "BindTelegramResponse",
+      "required": [
+        "url",
+        "expired_at"
+      ]
+    },
+    "CheckUserRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "CheckUserRequest",
+      "required": [
+        "email"
+      ]
+    },
+    "CheckUserResponse": {
+      "type": "object",
+      "properties": {
+        "exist": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "CheckUserResponse",
+      "required": [
+        "exist"
+      ]
+    },
+    "CheckVerificationCodeRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "email",
+            "mobile"
+          ]
+        },
+        "account": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "uint8"
+        }
+      },
+      "title": "CheckVerificationCodeRequest",
+      "required": [
+        "method",
+        "account",
+        "code",
+        "type"
+      ]
+    },
+    "CheckVerificationCodeRespone": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "CheckVerificationCodeRespone",
+      "required": [
+        "status"
+      ]
+    },
     "CheckoutOrderRequest": {
       "type": "object",
       "properties": {
@@ -7256,6 +10803,23 @@
         "amount",
         "order_no",
         "timestamp"
+      ]
+    },
+    "CommissionWithdrawRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "CommissionWithdrawRequest",
+      "required": [
+        "amount",
+        "content"
       ]
     },
     "Coupon": {
@@ -8116,6 +11680,64 @@
         "subscribe_id"
       ]
     },
+    "CreateUserTicketFollowRequest": {
+      "type": "object",
+      "properties": {
+        "ticket_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "CreateUserTicketFollowRequest",
+      "required": [
+        "ticket_id",
+        "from",
+        "type",
+        "content"
+      ]
+    },
+    "CreateUserTicketRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "CreateUserTicketRequest",
+      "required": [
+        "title",
+        "description"
+      ]
+    },
+    "Currency": {
+      "type": "object",
+      "properties": {
+        "currency_unit": {
+          "type": "string"
+        },
+        "currency_symbol": {
+          "type": "string"
+        }
+      },
+      "title": "Currency",
+      "required": [
+        "currency_unit",
+        "currency_symbol"
+      ]
+    },
     "CurrencyConfig": {
       "type": "object",
       "properties": {
@@ -8393,6 +12015,25 @@
         "show_ads",
         "enable_security",
         "only_real_device"
+      ]
+    },
+    "DeviceLoginRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "user_agent": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "DeviceLoginRequest",
+      "required": [
+        "identifier",
+        "user_agent"
       ]
     },
     "Document": {
@@ -9234,6 +12875,37 @@
         "list"
       ]
     },
+    "GetAdsRequest": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        }
+      },
+      "title": "GetAdsRequest",
+      "required": [
+        "device",
+        "position"
+      ]
+    },
+    "GetAdsResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ads"
+          }
+        }
+      },
+      "title": "GetAdsResponse",
+      "required": [
+        "list"
+      ]
+    },
     "GetAnnouncementListRequest": {
       "type": "object",
       "properties": {
@@ -9486,6 +13158,26 @@
         "id"
       ]
     },
+    "GetDeviceListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserDevice"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetDeviceListResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
     "GetDocumentDetailRequest": {
       "type": "object",
       "properties": {
@@ -9541,6 +13233,92 @@
       "required": [
         "total",
         "list"
+      ]
+    },
+    "GetGlobalConfigResponse": {
+      "type": "object",
+      "properties": {
+        "site": {
+          "$ref": "#/definitions/SiteConfig"
+        },
+        "verify": {
+          "$ref": "#/definitions/VeifyConfig"
+        },
+        "auth": {
+          "$ref": "#/definitions/AuthConfig"
+        },
+        "invite": {
+          "$ref": "#/definitions/InviteConfig"
+        },
+        "currency": {
+          "$ref": "#/definitions/Currency"
+        },
+        "subscribe": {
+          "$ref": "#/definitions/SubscribeConfig"
+        },
+        "verify_code": {
+          "$ref": "#/definitions/PubilcVerifyCodeConfig"
+        },
+        "oauth_methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "web_ad": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "GetGlobalConfigResponse",
+      "required": [
+        "site",
+        "verify",
+        "auth",
+        "invite",
+        "currency",
+        "subscribe",
+        "verify_code",
+        "oauth_methods",
+        "web_ad"
+      ]
+    },
+    "GetLoginLogRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetLoginLogRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "GetLoginLogResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLoginLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetLoginLogResponse",
+      "required": [
+        "list",
+        "total"
       ]
     },
     "GetMessageLogListRequest": {
@@ -9602,6 +13380,21 @@
       "title": "GetNodeMultiplierResponse",
       "required": [
         "periods"
+      ]
+    },
+    "GetOAuthMethodsResponse": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserAuthMethod"
+          }
+        }
+      },
+      "title": "GetOAuthMethodsResponse",
+      "required": [
+        "methods"
       ]
     },
     "GetOrderListRequest": {
@@ -9739,6 +13532,42 @@
         "count"
       ]
     },
+    "GetServerConfigRequest": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "secret_key": {
+          "type": "string"
+        }
+      },
+      "title": "GetServerConfigRequest"
+    },
+    "GetServerConfigResponse": {
+      "type": "object",
+      "properties": {
+        "basic": {
+          "$ref": "#/definitions/ServerBasic"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object"
+        }
+      },
+      "title": "GetServerConfigResponse",
+      "required": [
+        "basic",
+        "protocol",
+        "config"
+      ]
+    },
     "GetServerProtocolsRequest": {
       "type": "object",
       "properties": {
@@ -9765,6 +13594,67 @@
       "title": "GetServerProtocolsResponse",
       "required": [
         "protocols"
+      ]
+    },
+    "GetServerUserListRequest": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "secret_key": {
+          "type": "string"
+        }
+      },
+      "title": "GetServerUserListRequest"
+    },
+    "GetServerUserListResponse": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ServerUser"
+          }
+        }
+      },
+      "title": "GetServerUserListResponse",
+      "required": [
+        "users"
+      ]
+    },
+    "GetStatResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "node": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "country": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "protocol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetStatResponse",
+      "required": [
+        "user",
+        "node",
+        "country",
+        "protocol"
       ]
     },
     "GetSubscribeApplicationListRequest": {
@@ -9800,6 +13690,26 @@
         }
       },
       "title": "GetSubscribeApplicationListResponse",
+      "required": [
+        "total",
+        "list"
+      ]
+    },
+    "GetSubscribeClientResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubscribeClient"
+          }
+        }
+      },
+      "title": "GetSubscribeClientResponse",
       "required": [
         "total",
         "list"
@@ -9882,6 +13792,71 @@
         "total"
       ]
     },
+    "GetSubscribeLogRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetSubscribeLogRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "GetSubscribeLogResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserSubscribeLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetSubscribeLogResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
+    "GetSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "GetSubscriptionRequest",
+      "required": [
+        "language"
+      ]
+    },
+    "GetSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Subscribe"
+          }
+        }
+      },
+      "title": "GetSubscriptionResponse",
+      "required": [
+        "list"
+      ]
+    },
     "GetTicketListRequest": {
       "type": "object",
       "properties": {
@@ -9942,6 +13917,18 @@
       "title": "GetTicketRequest",
       "required": [
         "id"
+      ]
+    },
+    "GetTosResponse": {
+      "type": "object",
+      "properties": {
+        "tos_content": {
+          "type": "string"
+        }
+      },
+      "title": "GetTosResponse",
+      "required": [
+        "tos_content"
       ]
     },
     "GetUserAuthMethodRequest": {
@@ -10320,6 +14307,112 @@
         "total"
       ]
     },
+    "GetUserTicketDetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserTicketDetailRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "GetUserTicketListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "search": {
+          "type": "string"
+        }
+      },
+      "title": "GetUserTicketListRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "GetUserTicketListResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ticket"
+          }
+        }
+      },
+      "title": "GetUserTicketListResponse",
+      "required": [
+        "total",
+        "list"
+      ]
+    },
+    "GetUserTrafficLogRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserTrafficLogRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "GetUserTrafficLogResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserTrafficLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetUserTrafficLogResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
     "GiftLog": {
       "type": "object",
       "properties": {
@@ -10365,6 +14458,22 @@
         "timestamp"
       ]
     },
+    "GoogleLoginCallbackRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "title": "GoogleLoginCallbackRequest",
+      "required": [
+        "code",
+        "state"
+      ]
+    },
     "HasMigrateSeverNodeResponse": {
       "type": "object",
       "properties": {
@@ -10376,6 +14485,26 @@
       "title": "HasMigrateSeverNodeResponse",
       "required": [
         "has_migrate"
+      ]
+    },
+    "HeartbeatResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "HeartbeatResponse",
+      "required": [
+        "status"
       ]
     },
     "Hysteria2": {
@@ -10507,6 +14636,18 @@
         "user_agent",
         "success",
         "timestamp"
+      ]
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "LoginResponse",
+      "required": [
+        "token"
       ]
     },
     "MessageLog": {
@@ -10810,6 +14951,84 @@
         "host",
         "port",
         "prefix"
+      ]
+    },
+    "OAthLoginRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "google, facebook, apple, telegram, github etc."
+        },
+        "redirect": {
+          "type": "string"
+        }
+      },
+      "title": "OAthLoginRequest",
+      "required": [
+        "method",
+        "redirect"
+      ]
+    },
+    "OAuthLoginGetTokenRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "google, facebook, apple, telegram, github etc."
+        },
+        "callback": {
+          "type": "object"
+        }
+      },
+      "title": "OAuthLoginGetTokenRequest",
+      "required": [
+        "method",
+        "callback"
+      ]
+    },
+    "OAuthLoginResponse": {
+      "type": "object",
+      "properties": {
+        "redirect": {
+          "type": "string"
+        }
+      },
+      "title": "OAuthLoginResponse",
+      "required": [
+        "redirect"
+      ]
+    },
+    "OnlineUser": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ip": {
+          "type": "string"
+        }
+      },
+      "title": "OnlineUser",
+      "required": [
+        "uid",
+        "ip"
+      ]
+    },
+    "OnlineUsersRequest": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OnlineUser"
+          }
+        }
+      },
+      "title": "OnlineUsersRequest",
+      "required": [
+        "users"
       ]
     },
     "Order": {
@@ -11241,6 +15460,64 @@
         "list"
       ]
     },
+    "PortalPurchaseRequest": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "payment": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "coupon": {
+          "type": "string"
+        },
+        "invite_code": {
+          "type": "string"
+        },
+        "custom_name": {
+          "type": "string"
+        },
+        "turnstile_token": {
+          "type": "string"
+        }
+      },
+      "title": "PortalPurchaseRequest",
+      "required": [
+        "auth_type",
+        "identifier",
+        "payment",
+        "subscribe_id",
+        "quantity"
+      ]
+    },
+    "PortalPurchaseResponse": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        }
+      },
+      "title": "PortalPurchaseResponse",
+      "required": [
+        "order_no"
+      ]
+    },
     "PreOrderResponse": {
       "type": "object",
       "properties": {
@@ -11283,6 +15560,68 @@
         "fee_amount"
       ]
     },
+    "PrePurchaseOrderRequest": {
+      "type": "object",
+      "properties": {
+        "payment": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "coupon": {
+          "type": "string"
+        }
+      },
+      "title": "PrePurchaseOrderRequest",
+      "required": [
+        "subscribe_id",
+        "quantity"
+      ]
+    },
+    "PrePurchaseOrderResponse": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "coupon": {
+          "type": "string"
+        },
+        "coupon_discount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fee_amount": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PrePurchaseOrderResponse",
+      "required": [
+        "price",
+        "amount",
+        "discount",
+        "coupon",
+        "coupon_discount",
+        "fee_amount"
+      ]
+    },
     "PreRenewalOrderResponse": {
       "type": "object",
       "properties": {
@@ -11293,6 +15632,32 @@
       "title": "PreRenewalOrderResponse",
       "required": [
         "orderNo"
+      ]
+    },
+    "PreUnsubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PreUnsubscribeRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "PreUnsubscribeResponse": {
+      "type": "object",
+      "properties": {
+        "deduction_amount": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PreUnsubscribeResponse",
+      "required": [
+        "deduction_amount"
       ]
     },
     "PreViewNodeMultiplierResponse": {
@@ -11848,6 +16213,93 @@
         "list"
       ]
     },
+    "QueryPurchaseOrderRequest": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "order_no": {
+          "type": "string"
+        }
+      },
+      "title": "QueryPurchaseOrderRequest",
+      "required": [
+        "auth_type",
+        "identifier",
+        "order_no"
+      ]
+    },
+    "QueryPurchaseOrderResponse": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        },
+        "subscribe": {
+          "$ref": "#/definitions/Subscribe"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "coupon": {
+          "type": "string"
+        },
+        "coupon_discount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fee_amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment": {
+          "$ref": "#/definitions/PaymentMethod"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "QueryPurchaseOrderResponse",
+      "required": [
+        "order_no",
+        "subscribe",
+        "quantity",
+        "price",
+        "amount",
+        "discount",
+        "coupon",
+        "coupon_discount",
+        "fee_amount",
+        "payment",
+        "status",
+        "created_at"
+      ]
+    },
     "QueryQuotaTaskListRequest": {
       "type": "object",
       "properties": {
@@ -11974,6 +16426,84 @@
         "errors"
       ]
     },
+    "QueryServerConfigRequest": {
+      "type": "object",
+      "properties": {
+        "secret_key": {
+          "type": "string"
+        },
+        "protocols": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "QueryServerConfigRequest",
+      "required": [
+        "secret_key"
+      ]
+    },
+    "QueryServerConfigResponse": {
+      "type": "object",
+      "properties": {
+        "traffic_report_threshold": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "push_interval": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pull_interval": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ip_strategy": {
+          "type": "string"
+        },
+        "dns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeDNS"
+          }
+        },
+        "block": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outbound": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeOutbound"
+          }
+        },
+        "protocols": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Protocol"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryServerConfigResponse",
+      "required": [
+        "traffic_report_threshold",
+        "push_interval",
+        "pull_interval",
+        "ip_strategy",
+        "dns",
+        "block",
+        "outbound",
+        "protocols",
+        "total"
+      ]
+    },
     "QuerySubscribeGroupListResponse": {
       "type": "object",
       "properties": {
@@ -11992,6 +16522,18 @@
       "required": [
         "list",
         "total"
+      ]
+    },
+    "QuerySubscribeListRequest": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "QuerySubscribeListRequest",
+      "required": [
+        "language"
       ]
     },
     "QuerySubscribeListResponse": {
@@ -12065,6 +16607,158 @@
         }
       },
       "title": "QueryUserAffiliateListResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
+    "QueryUserBalanceLogListRequest": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        }
+      },
+      "title": "QueryUserBalanceLogListRequest"
+    },
+    "QueryUserBalanceLogListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BalanceLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryUserBalanceLogListResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
+    "QueryUserCommissionLogListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "currency": {
+          "type": "string"
+        }
+      },
+      "title": "QueryUserCommissionLogListRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "QueryUserCommissionLogListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommissionLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryUserCommissionLogListResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
+    "QueryUserInfoRequest": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        }
+      },
+      "title": "QueryUserInfoRequest"
+    },
+    "QueryUserSubscribeListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserSubscribe"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryUserSubscribeListResponse",
+      "required": [
+        "list",
+        "total"
+      ]
+    },
+    "QueryUserSubscribeNodeListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserSubscribeInfo"
+          }
+        }
+      },
+      "title": "QueryUserSubscribeNodeListResponse",
+      "required": [
+        "list"
+      ]
+    },
+    "QueryWithdrawalLogListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "QueryWithdrawalLogListRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "QueryWithdrawalLogListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WithdrawalLog"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryWithdrawalLogListResponse",
       "required": [
         "list",
         "total"
@@ -12329,6 +17023,32 @@
         "success"
       ]
     },
+    "ResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "ResetPasswordRequest",
+      "required": [
+        "identifier",
+        "email",
+        "password"
+      ]
+    },
     "ResetSortRequest": {
       "type": "object",
       "properties": {
@@ -12436,6 +17156,19 @@
         "order_no"
       ]
     },
+    "ResetUserSubscribeTokenRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ResetUserSubscribeTokenRequest",
+      "required": [
+        "user_subscribe_id"
+      ]
+    },
     "Response": {
       "type": "object",
       "properties": {
@@ -12515,6 +17248,60 @@
         "reality_short_id"
       ]
     },
+    "SendCodeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "uint8"
+        }
+      },
+      "title": "SendCodeRequest",
+      "required": [
+        "email",
+        "type"
+      ]
+    },
+    "SendCodeResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "SendCodeResponse",
+      "required": [
+        "status"
+      ]
+    },
+    "SendSmsCodeRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "telephone_area_code": {
+          "type": "string"
+        }
+      },
+      "title": "SendSmsCodeRequest",
+      "required": [
+        "type",
+        "telephone",
+        "telephone_area_code"
+      ]
+    },
     "Server": {
       "type": "object",
       "properties": {
@@ -12573,6 +17360,45 @@
         "status",
         "created_at",
         "updated_at"
+      ]
+    },
+    "ServerBasic": {
+      "type": "object",
+      "properties": {
+        "push_interval": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pull_interval": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ServerBasic",
+      "required": [
+        "push_interval",
+        "pull_interval"
+      ]
+    },
+    "ServerCommon": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "secret_key": {
+          "type": "string"
+        }
+      },
+      "title": "ServerCommon",
+      "required": [
+        "protocol",
+        "server_id",
+        "secret_key"
       ]
     },
     "ServerGroup": {
@@ -12659,6 +17485,49 @@
         "subscribe_id",
         "traffic",
         "expired_at"
+      ]
+    },
+    "ServerPushStatusRequest": {
+      "type": "object",
+      "properties": {
+        "cpu": {
+          "type": "number",
+          "format": "double"
+        },
+        "mem": {
+          "type": "number",
+          "format": "double"
+        },
+        "disk": {
+          "type": "number",
+          "format": "double"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ServerPushStatusRequest",
+      "required": [
+        "cpu",
+        "mem",
+        "disk",
+        "updated_at"
+      ]
+    },
+    "ServerPushUserTrafficRequest": {
+      "type": "object",
+      "properties": {
+        "traffic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserTraffic"
+          }
+        }
+      },
+      "title": "ServerPushUserTrafficRequest",
+      "required": [
+        "traffic"
       ]
     },
     "ServerRuleGroup": {
@@ -12901,6 +17770,33 @@
         "details"
       ]
     },
+    "ServerUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "speed_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "device_limit": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ServerUser",
+      "required": [
+        "id",
+        "uuid",
+        "speed_limit",
+        "device_limit"
+      ]
+    },
     "SetNodeMultiplierRequest": {
       "type": "object",
       "properties": {
@@ -12935,6 +17831,23 @@
         "method",
         "port",
         "server_key"
+      ]
+    },
+    "ShadowsocksProtocol": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "method": {
+          "type": "string"
+        }
+      },
+      "title": "ShadowsocksProtocol",
+      "required": [
+        "port",
+        "method"
       ]
     },
     "SiteConfig": {
@@ -13237,6 +18150,40 @@
         "output_format",
         "created_at",
         "updated_at"
+      ]
+    },
+    "SubscribeClient": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "download_link": {
+          "$ref": "#/definitions/DownloadLink"
+        }
+      },
+      "title": "SubscribeClient",
+      "required": [
+        "id",
+        "name",
+        "is_default"
       ]
     },
     "SubscribeConfig": {
@@ -13550,6 +18497,126 @@
         "telegram_web_hook_domain"
       ]
     },
+    "TelephoneCheckUserRequest": {
+      "type": "object",
+      "properties": {
+        "telephone_area_code": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneCheckUserRequest",
+      "required": [
+        "telephone",
+        "telephone_area_code"
+      ]
+    },
+    "TelephoneCheckUserResponse": {
+      "type": "object",
+      "properties": {
+        "exist": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "TelephoneCheckUserResponse",
+      "required": [
+        "exist"
+      ]
+    },
+    "TelephoneLoginRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "telephone_code": {
+          "type": "string"
+        },
+        "telephone_area_code": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneLoginRequest",
+      "required": [
+        "identifier",
+        "telephone",
+        "telephone_code",
+        "telephone_area_code",
+        "password"
+      ]
+    },
+    "TelephoneRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "telephone_area_code": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "invite": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneRegisterRequest",
+      "required": [
+        "identifier",
+        "telephone",
+        "telephone_area_code",
+        "password"
+      ]
+    },
+    "TelephoneResetPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "telephone_area_code": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "TelephoneResetPasswordRequest",
+      "required": [
+        "identifier",
+        "telephone",
+        "telephone_area_code",
+        "password"
+      ]
+    },
     "TestEmailSendRequest": {
       "type": "object",
       "properties": {
@@ -13824,6 +18891,40 @@
         "security_config"
       ]
     },
+    "TrojanProtocol": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enable_tls": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "tls_config": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        }
+      },
+      "title": "TrojanProtocol",
+      "required": [
+        "host",
+        "port",
+        "enable_tls",
+        "tls_config",
+        "network",
+        "transport"
+      ]
+    },
     "Tuic": {
       "type": "object",
       "properties": {
@@ -13857,6 +18958,44 @@
         "udp_relay_mode",
         "congestion_controller",
         "security_config"
+      ]
+    },
+    "UnbindDeviceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UnbindDeviceRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "UnbindOAuthRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        }
+      },
+      "title": "UnbindOAuthRequest",
+      "required": [
+        "method"
+      ]
+    },
+    "UnsubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UnsubscribeRequest",
+      "required": [
+        "id"
       ]
     },
     "UpdateAdsRequest": {
@@ -13985,6 +19124,38 @@
         "method",
         "config",
         "enabled"
+      ]
+    },
+    "UpdateBindEmailRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateBindEmailRequest",
+      "required": [
+        "email"
+      ]
+    },
+    "UpdateBindMobileRequest": {
+      "type": "object",
+      "properties": {
+        "area_code": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateBindMobileRequest",
+      "required": [
+        "area_code",
+        "mobile",
+        "code"
       ]
     },
     "UpdateCouponRequest": {
@@ -14576,6 +19747,34 @@
         "is_admin"
       ]
     },
+    "UpdateUserNotifyRequest": {
+      "type": "object",
+      "properties": {
+        "enable_balance_notify": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable_login_notify": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable_subscribe_notify": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable_trade_notify": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "UpdateUserNotifyRequest",
+      "required": [
+        "enable_balance_notify",
+        "enable_login_notify",
+        "enable_subscribe_notify",
+        "enable_trade_notify"
+      ]
+    },
     "UpdateUserNotifySettingRequest": {
       "type": "object",
       "properties": {
@@ -14607,6 +19806,51 @@
         "enable_login_notify",
         "enable_subscribe_notify",
         "enable_trade_notify"
+      ]
+    },
+    "UpdateUserPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateUserPasswordRequest",
+      "required": [
+        "password"
+      ]
+    },
+    "UpdateUserRulesRequest": {
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "UpdateUserRulesRequest",
+      "required": [
+        "rules"
+      ]
+    },
+    "UpdateUserSubscribeNoteRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "title": "UpdateUserSubscribeNoteRequest",
+      "required": [
+        "user_subscribe_id",
+        "note"
       ]
     },
     "UpdateUserSubscribeRequest": {
@@ -14648,6 +19892,24 @@
         "expired_at",
         "upload",
         "download"
+      ]
+    },
+    "UpdateUserTicketStatusRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        }
+      },
+      "title": "UpdateUserTicketStatusRequest",
+      "required": [
+        "id",
+        "status"
       ]
     },
     "User": {
@@ -14902,6 +20164,58 @@
         "timestamp"
       ]
     },
+    "UserLoginRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "UserLoginRequest",
+      "required": [
+        "identifier",
+        "email",
+        "password"
+      ]
+    },
+    "UserRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "invite": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "cf_token": {
+          "type": "string"
+        }
+      },
+      "title": "UserRegisterRequest",
+      "required": [
+        "identifier",
+        "email",
+        "password"
+      ]
+    },
     "UserStatistics": {
       "type": "object",
       "properties": {
@@ -15146,6 +20460,100 @@
         "updated_at"
       ]
     },
+    "UserSubscribeInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "order_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "start_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expire_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reset_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "token": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_try_out": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserSubscribeNodeInfo"
+          }
+        }
+      },
+      "title": "UserSubscribeInfo",
+      "required": [
+        "id",
+        "user_id",
+        "order_id",
+        "subscribe_id",
+        "start_time",
+        "expire_time",
+        "finished_at",
+        "reset_time",
+        "traffic",
+        "download",
+        "upload",
+        "token",
+        "status",
+        "created_at",
+        "updated_at",
+        "is_try_out",
+        "nodes"
+      ]
+    },
     "UserSubscribeLog": {
       "type": "object",
       "properties": {
@@ -15184,6 +20592,60 @@
         "ip",
         "user_agent",
         "timestamp"
+      ]
+    },
+    "UserSubscribeNodeInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "uin16"
+        },
+        "address": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserSubscribeNodeInfo",
+      "required": [
+        "id",
+        "name",
+        "uuid",
+        "protocol",
+        "port",
+        "address",
+        "tags",
+        "country",
+        "city",
+        "created_at"
       ]
     },
     "UserSubscribeTrafficLog": {
@@ -15235,6 +20697,29 @@
         "details"
       ]
     },
+    "UserTraffic": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserTraffic",
+      "required": [
+        "uid",
+        "upload",
+        "download"
+      ]
+    },
     "UserTrafficData": {
       "type": "object",
       "properties": {
@@ -15256,6 +20741,65 @@
         "sid",
         "upload",
         "download"
+      ]
+    },
+    "UserTrafficLog": {
+      "type": "object",
+      "properties": {
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "title": "UserTrafficLog",
+      "required": [
+        "subscribe_id",
+        "upload",
+        "download",
+        "total",
+        "date"
+      ]
+    },
+    "VeifyConfig": {
+      "type": "object",
+      "properties": {
+        "turnstile_site_key": {
+          "type": "string"
+        },
+        "enable_login_verify": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable_register_verify": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enable_reset_password_verify": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "VeifyConfig",
+      "required": [
+        "turnstile_site_key",
+        "enable_login_verify",
+        "enable_register_verify",
+        "enable_reset_password_verify"
       ]
     },
     "VerifyCodeConfig": {
@@ -15312,6 +20856,22 @@
         "enable_reset_password_verify"
       ]
     },
+    "VerifyEmailRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "VerifyEmailRequest",
+      "required": [
+        "email",
+        "code"
+      ]
+    },
     "VersionResponse": {
       "type": "object",
       "properties": {
@@ -15357,6 +20917,43 @@
         "security_config"
       ]
     },
+    "VlessProtocol": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "network": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "security": {
+          "type": "string"
+        },
+        "security_config": {
+          "type": "string"
+        },
+        "xtls": {
+          "type": "string"
+        }
+      },
+      "title": "VlessProtocol",
+      "required": [
+        "host",
+        "port",
+        "network",
+        "transport",
+        "security",
+        "security_config",
+        "xtls"
+      ]
+    },
     "Vmess": {
       "type": "object",
       "properties": {
@@ -15384,6 +20981,85 @@
         "transport_config",
         "security",
         "security_config"
+      ]
+    },
+    "VmessProtocol": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enable_tls": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "tls_config": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        }
+      },
+      "title": "VmessProtocol",
+      "required": [
+        "host",
+        "port",
+        "enable_tls",
+        "tls_config",
+        "network",
+        "transport"
+      ]
+    },
+    "WithdrawalLog": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "WithdrawalLog",
+      "required": [
+        "id",
+        "user_id",
+        "amount",
+        "content",
+        "status",
+        "created_at",
+        "updated_at"
       ]
     }
   },
