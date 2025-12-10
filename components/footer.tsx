@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className='py-4 flex w-full text-center flex-col items-center border-t border-muted'>
       <p className='text-xs '>
         GNU {new Date().getFullYear()} ©{' '}
-        <Link href='https://archnet.dev' target='_blank'>
+        <Link href='https://archnets.com' target='_blank'>
           ARCHNET
         </Link>
         .

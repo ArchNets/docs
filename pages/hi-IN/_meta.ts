@@ -15,52 +15,6 @@ const meta = {
     type: 'page',
     title: 'API दस्तावेज़',
   },
-  source: {
-    title: 'स्रोत कोड',
-    type: 'menu',
-    items: {
-      user: {
-        title: 'उपयोगकर्ता वेबसाइट',
-        href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/user',
-        newWindow: true,
-      },
-      admin: {
-        title: 'प्रशासक वेबसाइट',
-        href: 'https://github.com/ArchNets/archnet-web/tree/main/apps/admin',
-        newWindow: true,
-      },
-      server: {
-        title: 'सर्वर',
-        href: 'https://github.com/ArchNets/server',
-        newWindow: true,
-      },
-      node: {
-        title: 'नोड',
-        href: 'https://github.com/wyx2685/archnet-node',
-      },
-      subscription: {
-        title: 'सब्सक्रिप्शन टेम्पलेट',
-        href: 'https://github.com/ArchNets/subscription-template',
-        newWindow: true,
-      },
-    },
-  },
-  demo: {
-    title: 'ऑनलाइन डेमो',
-    type: 'menu',
-    items: {
-      user: {
-        title: 'उपयोगकर्ता डेमो',
-        href: 'https://user.archnet.dev',
-        newWindow: true,
-      },
-      admin: {
-        title: 'प्रशासक डेमो',
-        href: 'https://admin.archnet.dev',
-        newWindow: true,
-      },
-    },
-  },
   changelog: {
     type: 'page',
     title: 'चेंजलॉग',
