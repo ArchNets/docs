@@ -2566,9 +2566,6 @@
       "properties": {
         "order_no": {
           "type": "string"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "QueryOrderDetailRequest",
@@ -2586,9 +2583,6 @@
         "size": {
           "type": "integer",
           "format": "int32"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "QueryOrderListRequest",
@@ -2801,9 +2795,6 @@
         "payment": {
           "type": "integer",
           "format": "int64"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "RechargeOrderRequest",

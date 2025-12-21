@@ -6674,6 +6674,45 @@
         ]
       }
     },
+    "/v1/auth/login/telegram": {
+      "post": {
+        "summary": "Telegram Login",
+        "operationId": "TelegramLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TelegramLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
     "/v1/auth/login/telephone": {
       "post": {
         "summary": "User Telephone login",
@@ -6905,6 +6944,12 @@
             "type": "string"
           },
           {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "body",
             "description": "User login response",
             "in": "body",
@@ -6960,6 +7005,12 @@
             "name": "Login-Type",
             "in": "header",
             "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Accept-Language",
+            "in": "header",
+            "required": true,
             "type": "string"
           },
           {
@@ -7621,12 +7672,6 @@
             "in": "query",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "currency",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -7672,12 +7717,6 @@
             "required": true,
             "type": "integer",
             "format": "int32"
-          },
-          {
-            "name": "currency",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -8512,14 +8551,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "currency",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "archnets/public/user"
         ]
@@ -8742,12 +8773,6 @@
             "required": true,
             "type": "integer",
             "format": "int32"
-          },
-          {
-            "name": "currency",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -8847,12 +8872,41 @@
             }
           }
         },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/lang": {
+      "put": {
+        "summary": "Update User Language",
+        "operationId": "UpdateUserLang",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
         "parameters": [
           {
-            "name": "currency",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserLangRequest"
+            }
           }
         ],
         "tags": [
@@ -16162,9 +16216,6 @@
       "properties": {
         "order_no": {
           "type": "string"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "QueryOrderDetailRequest",
@@ -16182,9 +16233,6 @@
         "size": {
           "type": "integer",
           "format": "int32"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "QueryOrderListRequest",
@@ -16614,11 +16662,7 @@
     },
     "QueryUserBalanceLogListRequest": {
       "type": "object",
-      "properties": {
-        "currency": {
-          "type": "string"
-        }
-      },
+      "properties": {},
       "title": "QueryUserBalanceLogListRequest"
     },
     "QueryUserBalanceLogListResponse": {
@@ -16651,9 +16695,6 @@
         "size": {
           "type": "integer",
           "format": "int32"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "QueryUserCommissionLogListRequest",
@@ -16684,11 +16725,7 @@
     },
     "QueryUserInfoRequest": {
       "type": "object",
-      "properties": {
-        "currency": {
-          "type": "string"
-        }
-      },
+      "properties": {},
       "title": "QueryUserInfoRequest"
     },
     "QueryUserSubscribeListResponse": {
@@ -16868,9 +16905,6 @@
         "payment": {
           "type": "integer",
           "format": "int64"
-        },
-        "currency": {
-          "type": "string"
         }
       },
       "title": "RechargeOrderRequest",
@@ -18497,6 +18531,40 @@
         "telegram_web_hook_domain"
       ]
     },
+    "TelegramLoginRequest": {
+      "type": "object",
+      "properties": {
+        "telegram_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "title": "TelegramLoginRequest",
+      "required": [
+        "telegram_id",
+        "timestamp",
+        "signature"
+      ]
+    },
     "TelephoneCheckUserRequest": {
       "type": "object",
       "properties": {
@@ -19745,6 +19813,18 @@
         "referer_id",
         "enable",
         "is_admin"
+      ]
+    },
+    "UpdateUserLangRequest": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateUserLangRequest",
+      "required": [
+        "lang"
       ]
     },
     "UpdateUserNotifyRequest": {
