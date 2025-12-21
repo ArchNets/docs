@@ -4425,6 +4425,9 @@
         "lang": {
           "type": "string"
         },
+        "photo_url": {
+          "type": "string"
+        },
         "timestamp": {
           "type": "integer",
           "format": "int64"
