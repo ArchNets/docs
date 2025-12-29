@@ -3314,64 +3314,6 @@
         ]
       }
     },
-    "/v1/admin/server/migrate/has": {
-      "get": {
-        "summary": "Check if there is any server or node to migrate",
-        "operationId": "HasMigrateSeverNode",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "$ref": "#/definitions/HasMigrateSeverNodeResponse"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "tags": [
-          "archnets/admin/server"
-        ]
-      }
-    },
-    "/v1/admin/server/migrate/run": {
-      "post": {
-        "summary": "Migrate server and node data to new database",
-        "operationId": "MigrateServerNode",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "$ref": "#/definitions/MigrateServerNodeResponse"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "tags": [
-          "archnets/admin/server"
-        ]
-      }
-    },
     "/v1/admin/server/node/create": {
       "post": {
         "summary": "Create Node",
@@ -5891,6 +5833,13 @@
             "format": "int64"
           },
           {
+            "name": "unscoped",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
             "name": "subscribe_id",
             "in": "query",
             "required": false,
@@ -6407,6 +6356,133 @@
             "required": true,
             "type": "integer",
             "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/user"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/user/subscribe/reset/token": {
+      "post": {
+        "summary": "Reset user subscribe token",
+        "operationId": "ResetUserSubscribeToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "reset user subscribe token",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetUserSubscribeTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/user"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/user/subscribe/reset/traffic": {
+      "post": {
+        "summary": "Reset user subscribe traffic",
+        "operationId": "ResetUserSubscribeTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetUserSubscribeTrafficRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/user"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/user/subscribe/toggle": {
+      "post": {
+        "summary": "Stop user subscribe",
+        "operationId": "ToggleUserSubscribeStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ToggleUserSubscribeStatusRequest"
+            }
           }
         ],
         "tags": [
@@ -7137,6 +7213,43 @@
             "schema": {
               "$ref": "#/definitions/TelephoneResetPasswordRequest"
             }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
+    "/v1/auth/token/exchange": {
+      "post": {
+        "summary": "Exchange device token for web token",
+        "operationId": "TokenExchange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -9235,6 +9348,7 @@
         "parameters": [
           {
             "name": "body",
+            "description": "reset user subscribe token",
             "in": "body",
             "required": true,
             "schema": {
@@ -11558,6 +11672,10 @@
         "renewal_reset": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "show_original_price": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "CreateSubscribeRequest",
@@ -11581,7 +11699,8 @@
         "deduction_ratio",
         "allow_deduction",
         "reset_cycle",
-        "renewal_reset"
+        "renewal_reset",
+        "show_original_price"
       ]
     },
     "CreateTicketFollowRequest": {
@@ -14030,6 +14149,10 @@
         "user_id": {
           "type": "integer",
           "format": "int64"
+        },
+        "unscoped": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "subscribe_id": {
           "type": "integer",
@@ -17203,6 +17326,19 @@
         "user_subscribe_id"
       ]
     },
+    "ResetUserSubscribeTrafficRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ResetUserSubscribeTrafficRequest",
+      "required": [
+        "user_subscribe_id"
+      ]
+    },
     "Response": {
       "type": "object",
       "properties": {
@@ -18093,6 +18229,10 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "show_original_price": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -18126,6 +18266,7 @@
         "allow_deduction",
         "reset_cycle",
         "renewal_reset",
+        "show_original_price",
         "created_at",
         "updated_at"
       ]
@@ -18263,8 +18404,8 @@
           "format": "int64"
         },
         "discount": {
-          "type": "integer",
-          "format": "int64"
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "SubscribeDiscount",
@@ -18395,6 +18536,10 @@
           "format": "int64"
         },
         "renewal_reset": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "show_original_price": {
           "type": "boolean",
           "format": "boolean"
         },
@@ -18814,6 +18959,24 @@
         "id",
         "enable"
       ]
+    },
+    "ToggleUserSubscribeStatusRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ToggleUserSubscribeStatusRequest",
+      "required": [
+        "user_subscribe_id"
+      ]
+    },
+    "TokenExchangeRequest": {
+      "type": "object",
+      "properties": {},
+      "title": "TokenExchangeRequest"
     },
     "TosConfig": {
       "type": "object",
@@ -19681,6 +19844,10 @@
         "renewal_reset": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "show_original_price": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "UpdateSubscribeRequest",
@@ -19706,7 +19873,8 @@
         "deduction_ratio",
         "allow_deduction",
         "reset_cycle",
-        "renewal_reset"
+        "renewal_reset",
+        "show_original_price"
       ]
     },
     "UpdateTicketStatusRequest": {
@@ -20089,10 +20257,6 @@
         "deleted_at": {
           "type": "integer",
           "format": "int64"
-        },
-        "is_del": {
-          "type": "boolean",
-          "format": "boolean"
         }
       },
       "title": "User",
