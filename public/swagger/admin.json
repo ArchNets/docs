@@ -7464,6 +7464,18 @@
         },
         "content": {
           "type": "string"
+        },
+        "show": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "pinned": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "popup": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "CreateAnnouncementRequest",

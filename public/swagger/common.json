@@ -231,6 +231,45 @@
         ]
       }
     },
+    "/v1/auth/login/telegram/webapp": {
+      "post": {
+        "summary": "Telegram WebApp Login",
+        "operationId": "TelegramWebAppLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TelegramWebAppLoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
     "/v1/auth/login/telephone": {
       "post": {
         "summary": "User Telephone login",
@@ -4496,6 +4535,18 @@
         "telegram_id",
         "timestamp",
         "signature"
+      ]
+    },
+    "TelegramWebAppLoginRequest": {
+      "type": "object",
+      "properties": {
+        "init_data": {
+          "type": "string"
+        }
+      },
+      "title": "TelegramWebAppLoginRequest",
+      "required": [
+        "init_data"
       ]
     },
     "TelephoneCheckUserRequest": {
