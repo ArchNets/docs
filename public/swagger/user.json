@@ -4231,12 +4231,17 @@
         },
         "coupon": {
           "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "uint8"
         }
       },
       "title": "PrePurchaseOrderRequest",
       "required": [
         "subscribe_id",
-        "quantity"
+        "quantity",
+        "type"
       ]
     },
     "PrePurchaseOrderResponse": {
@@ -4583,12 +4588,19 @@
         },
         "custom_name": {
           "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "uint8",
+          "default": "1",
+          "description": "1: Default Subscribe, 5: Reseller Package"
         }
       },
       "title": "PurchaseOrderRequest",
       "required": [
         "subscribe_id",
-        "quantity"
+        "quantity",
+        "type"
       ]
     },
     "PurchaseOrderResponse": {
@@ -5183,6 +5195,224 @@
       "title": "RenewalOrderResponse",
       "required": [
         "order_no"
+      ]
+    },
+    "ResellerDiscount": {
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discount": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "ResellerDiscount",
+      "required": [
+        "quantity",
+        "discount"
+      ]
+    },
+    "ResellerPackage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "unit_time": {
+          "type": "string"
+        },
+        "discount": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResellerDiscount"
+          }
+        },
+        "inventory": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Max users allowed, 0 = unlimited"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "reset_cycle": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "speed_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "device_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "show": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ResellerPackage",
+      "required": [
+        "id",
+        "name",
+        "language",
+        "description",
+        "price",
+        "currency",
+        "unit_time",
+        "discount",
+        "inventory",
+        "traffic",
+        "user_limit",
+        "nodes",
+        "reset_cycle",
+        "speed_limit",
+        "device_limit",
+        "status",
+        "sort",
+        "show",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "ResellerSubscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "speed_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "device_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reset_cycle": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_reset_date": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ResellerSubscription",
+      "required": [
+        "id",
+        "user_id",
+        "package_id",
+        "traffic",
+        "traffic_total",
+        "user_limit",
+        "user_count",
+        "nodes",
+        "speed_limit",
+        "device_limit",
+        "expire_at",
+        "reset_cycle",
+        "next_reset_date",
+        "status",
+        "created_at",
+        "updated_at"
       ]
     },
     "ResetSubscribeTrafficLog": {
@@ -6234,11 +6464,19 @@
           "type": "integer",
           "format": "int64"
         },
+        "reseller_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "enable": {
           "type": "boolean",
           "format": "boolean"
         },
         "is_admin": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_reseller": {
           "type": "boolean",
           "format": "boolean"
         },
