@@ -3189,92 +3189,6 @@
         ]
       }
     },
-    "/v1/admin/reseller/adjust-traffic": {
-      "post": {
-        "summary": "Adjust reseller traffic",
-        "operationId": "AdjustResellerTraffic",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Traffic Adjustment",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AdjustResellerTrafficRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/reseller"
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
-    "/v1/admin/reseller/adjust-user-limit": {
-      "post": {
-        "summary": "Adjust reseller user limit",
-        "operationId": "AdjustResellerUserLimit",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "User Limit Adjustment (additive - consistent with traffic adjustment)",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AdjustResellerUserLimitRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/reseller"
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
     "/v1/admin/reseller/list": {
       "get": {
         "summary": "Get reseller list with stats",
@@ -3547,6 +3461,90 @@
         ]
       }
     },
+    "/v1/admin/reseller/profile": {
+      "get": {
+        "summary": "Get reseller profile",
+        "operationId": "GetResellerProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetResellerProfileResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update reseller profile (user_limit, device_limit, speed_limit)",
+        "operationId": "UpdateResellerProfile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Reseller Profile Update (unified endpoint for profile limits - no traffic)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateResellerProfileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
     "/v1/admin/reseller/stats": {
       "get": {
         "summary": "Get reseller aggregate stats",
@@ -3571,6 +3569,51 @@
             }
           }
         },
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/reseller/subscription": {
+      "post": {
+        "summary": "Create subscription for reseller (admin assigns package)",
+        "operationId": "CreateResellerSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/CreateResellerSubscriptionResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Admin creates subscription for reseller",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateResellerSubscriptionRequest"
+            }
+          }
+        ],
         "tags": [
           "archnets/admin/reseller"
         ],
@@ -11043,51 +11086,6 @@
     }
   },
   "definitions": {
-    "AdjustResellerTrafficRequest": {
-      "type": "object",
-      "properties": {
-        "subscription_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "amount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "reason": {
-          "type": "string"
-        }
-      },
-      "title": "AdjustResellerTrafficRequest",
-      "required": [
-        "subscription_id",
-        "amount",
-        "reason"
-      ]
-    },
-    "AdjustResellerUserLimitRequest": {
-      "type": "object",
-      "properties": {
-        "subscription_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "amount": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Additive: positive to increase, negative to decrease (clamped to 0)"
-        },
-        "reason": {
-          "type": "string"
-        }
-      },
-      "title": "AdjustResellerUserLimitRequest",
-      "required": [
-        "subscription_id",
-        "amount",
-        "reason"
-      ]
-    },
     "Ads": {
       "type": "object",
       "properties": {
@@ -12731,6 +12729,46 @@
         "nodes",
         "show",
         "sell"
+      ]
+    },
+    "CreateResellerSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Reseller user ID"
+        },
+        "package_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Package to assign"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "Number of periods"
+        }
+      },
+      "title": "CreateResellerSubscriptionRequest",
+      "required": [
+        "user_id",
+        "package_id",
+        "quantity"
+      ]
+    },
+    "CreateResellerSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateResellerSubscriptionResponse",
+      "required": [
+        "subscription_id"
       ]
     },
     "CreateResellerUserRequest": {
@@ -15171,6 +15209,62 @@
       "required": [
         "list",
         "total"
+      ]
+    },
+    "GetResellerProfileRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetResellerProfileRequest",
+      "required": [
+        "user_id"
+      ]
+    },
+    "GetResellerProfileResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "device_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "speed_limit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_used": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetResellerProfileResponse",
+      "required": [
+        "user_id",
+        "user_limit",
+        "user_count",
+        "device_limit",
+        "speed_limit",
+        "traffic_total",
+        "traffic_used"
       ]
     },
     "GetResellerSubscribeListRequest": {
@@ -21678,6 +21772,39 @@
         "status",
         "sort",
         "show"
+      ]
+    },
+    "UpdateResellerProfileRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Reseller user ID"
+        },
+        "user_limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Max users allowed (nil = no change)"
+        },
+        "device_limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Device limit for clients (nil = no change)"
+        },
+        "speed_limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Speed limit for clients (nil = no change)"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Optional reason for audit log"
+        }
+      },
+      "title": "UpdateResellerProfileRequest",
+      "required": [
+        "user_id"
       ]
     },
     "UpdateResellerSubscribeRequest": {
