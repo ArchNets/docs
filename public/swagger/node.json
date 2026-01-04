@@ -492,6 +492,10 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "tg": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -509,6 +513,7 @@
         "show",
         "pinned",
         "popup",
+        "tg",
         "created_at",
         "updated_at"
       ]
