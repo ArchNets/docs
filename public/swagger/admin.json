@@ -48,8 +48,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ads",
-          "archnets/admin/ads",
+          "archnets/admin/ads"
         ]
       },
       "post": {
@@ -84,8 +83,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ads",
-          "archnets/admin/ads",
+          "archnets/admin/ads"
         ]
       },
       "put": {
@@ -120,8 +118,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ads",
-          "archnets/admin/ads",
+          "archnets/admin/ads"
         ]
       }
     },
@@ -159,8 +156,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ads",
-          "archnets/admin/ads",
+          "archnets/admin/ads"
         ]
       }
     },
@@ -218,8 +214,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ads",
-          "archnets/admin/ads",
+          "archnets/admin/ads"
         ]
       }
     },
@@ -256,8 +251,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/announcement",
-          "archnets/admin/announcement",
+          "archnets/admin/announcement"
         ]
       },
       "post": {
@@ -292,8 +286,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/announcement",
-          "archnets/admin/announcement",
+          "archnets/admin/announcement"
         ]
       },
       "put": {
@@ -328,8 +321,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/announcement",
-          "archnets/admin/announcement",
+          "archnets/admin/announcement"
         ]
       }
     },
@@ -367,8 +359,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/announcement",
-          "archnets/admin/announcement",
+          "archnets/admin/announcement"
         ]
       }
     },
@@ -440,8 +431,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/announcement",
-          "archnets/admin/announcement",
+          "archnets/admin/announcement"
         ]
       }
     },
@@ -480,8 +470,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/application",
-          "archnets/admin/application",
+          "archnets/admin/application"
         ]
       }
     },
@@ -519,8 +508,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/application",
-          "archnets/admin/application",
+          "archnets/admin/application"
         ]
       }
     },
@@ -557,8 +545,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/application",
-          "archnets/admin/application",
+          "archnets/admin/application"
         ]
       },
       "put": {
@@ -595,8 +582,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/application",
-          "archnets/admin/application",
+          "archnets/admin/application"
         ]
       }
     },
@@ -641,8 +627,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/application",
-          "archnets/admin/application",
+          "archnets/admin/application"
         ]
       }
     },
@@ -679,8 +664,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       },
       "put": {
@@ -717,8 +701,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -747,8 +730,7 @@
           }
         },
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -777,8 +759,7 @@
           }
         },
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -807,8 +788,7 @@
           }
         },
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -846,8 +826,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -884,8 +863,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/authMethod",
-          "archnets/admin/authMethod",
+          "archnets/admin/authMethod"
         ]
       }
     },
@@ -914,8 +892,7 @@
           }
         },
         "tags": [
-          "archnets/admin/console",
-          "archnets/admin/console",
+          "archnets/admin/console"
         ]
       }
     },
@@ -944,8 +921,7 @@
           }
         },
         "tags": [
-          "archnets/admin/console",
-          "archnets/admin/console",
+          "archnets/admin/console"
         ]
       }
     },
@@ -974,8 +950,7 @@
           }
         },
         "tags": [
-          "archnets/admin/console",
-          "archnets/admin/console",
+          "archnets/admin/console"
         ]
       }
     },
@@ -1004,8 +979,7 @@
           }
         },
         "tags": [
-          "archnets/admin/console",
-          "archnets/admin/console",
+          "archnets/admin/console"
         ]
       }
     },
@@ -1042,8 +1016,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/coupon",
-          "archnets/admin/coupon",
+          "archnets/admin/coupon"
         ]
       },
       "post": {
@@ -1078,8 +1051,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/coupon",
-          "archnets/admin/coupon",
+          "archnets/admin/coupon"
         ]
       },
       "put": {
@@ -1114,8 +1086,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/coupon",
-          "archnets/admin/coupon",
+          "archnets/admin/coupon"
         ]
       }
     },
@@ -1152,8 +1123,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/coupon",
-          "archnets/admin/coupon",
+          "archnets/admin/coupon"
         ]
       }
     },
@@ -1211,7 +1181,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/coupon",
+          "archnets/admin/coupon"
         ]
       }
     },
@@ -1248,7 +1218,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/currency",
+          "archnets/admin/currency"
         ]
       },
       "post": {
@@ -1283,7 +1253,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/currency",
+          "archnets/admin/currency"
         ]
       },
       "put": {
@@ -1318,7 +1288,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/currency",
+          "archnets/admin/currency"
         ]
       }
     },
@@ -1363,7 +1333,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/currency",
+          "archnets/admin/currency"
         ]
       }
     },
@@ -1392,189 +1362,7 @@
           }
         },
         "tags": [
-          "archnets/admin/currency",
-          "archnets/admin/coupon",
-        ]
-      }
-    },
-    "/v1/admin/currency/override": {
-      "delete": {
-        "summary": "Delete currency override",
-        "operationId": "DeleteCurrencyOverride",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteCurrencyOverrideRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/currency",
-        ]
-      },
-      "post": {
-        "summary": "Create currency override",
-        "operationId": "CreateCurrencyOverride",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CreateCurrencyOverrideRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/currency",
-        ]
-      },
-      "put": {
-        "summary": "Update currency override",
-        "operationId": "UpdateCurrencyOverride",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateCurrencyOverrideRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/currency",
-        ]
-      }
-    },
-    "/v1/admin/currency/override/list": {
-      "get": {
-        "summary": "Get currency override list",
-        "operationId": "QueryCurrencyOverrideList",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "$ref": "#/definitions/QueryCurrencyOverrideListResponse"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "archnets/admin/currency",
-        ]
-      }
-    },
-    "/v1/admin/currency/override/{id}": {
-      "get": {
-        "summary": "Get currency override by ID",
-        "operationId": "GetCurrencyOverride",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "$ref": "#/definitions/CurrencyOverrideResponse"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "tags": [
-          "archnets/admin/currency",
+          "archnets/admin/currency"
         ]
       }
     },
@@ -1611,8 +1399,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       },
       "post": {
@@ -1647,8 +1434,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       },
       "put": {
@@ -1683,8 +1469,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       }
     },
@@ -1721,8 +1506,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       }
     },
@@ -1751,8 +1535,7 @@
           }
         },
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       }
     },
@@ -1809,8 +1592,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/document",
-          "archnets/admin/document",
+          "archnets/admin/document"
         ]
       }
     },
@@ -1874,8 +1656,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -1939,8 +1720,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -1997,8 +1777,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2062,8 +1841,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2127,8 +1905,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2186,8 +1963,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2244,8 +2020,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2309,8 +2084,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2374,8 +2148,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2404,8 +2177,7 @@
           }
         },
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       },
       "post": {
@@ -2440,8 +2212,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2512,8 +2283,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2577,8 +2347,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2649,8 +2418,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2728,8 +2496,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/log",
-          "archnets/admin/log",
+          "archnets/admin/log"
         ]
       }
     },
@@ -2788,8 +2555,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -2828,8 +2594,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -2866,8 +2631,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -2906,8 +2670,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -2944,8 +2707,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -2982,8 +2744,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -3035,8 +2796,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -3075,8 +2835,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/marketing",
-          "archnets/admin/marketing",
+          "archnets/admin/marketing"
         ]
       }
     },
@@ -3113,8 +2872,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/order",
-          "archnets/admin/order",
+          "archnets/admin/order"
         ]
       }
     },
@@ -3186,8 +2944,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/order",
-          "archnets/admin/order",
+          "archnets/admin/order"
         ]
       }
     },
@@ -3224,8 +2981,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/order",
-          "archnets/admin/order",
+          "archnets/admin/order"
         ]
       }
     },
@@ -3262,8 +3018,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/payment",
-          "archnets/admin/payment",
+          "archnets/admin/payment"
         ]
       },
       "post": {
@@ -3300,8 +3055,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/payment",
-          "archnets/admin/payment",
+          "archnets/admin/payment"
         ]
       },
       "put": {
@@ -3338,8 +3092,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/payment",
-          "archnets/admin/payment",
+          "archnets/admin/payment"
         ]
       }
     },
@@ -3403,8 +3156,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/payment",
-          "archnets/admin/payment",
+          "archnets/admin/payment"
         ]
       }
     },
@@ -3433,8 +3185,7 @@
           }
         },
         "tags": [
-          "archnets/admin/payment",
-          "archnets/admin/payment",
+          "archnets/admin/payment"
         ]
       }
     },
@@ -3485,7 +3236,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3527,7 +3278,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3535,11 +3286,6 @@
           }
         ]
       },
-          "archnets/admin/server",
-        ]
-      }
-    },
-    "/v1/admin/server/delete": {
       "post": {
         "summary": "Create reseller package",
         "operationId": "CreateResellerPackage",
@@ -3573,7 +3319,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3613,7 +3359,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3623,11 +3369,6 @@
       }
     },
     "/v1/admin/reseller/package/details": {
-          "archnets/admin/server",
-        ]
-      }
-    },
-    "/v1/admin/server/list": {
       "get": {
         "summary": "Get reseller package details",
         "operationId": "GetResellerPackageDetails",
@@ -3661,7 +3402,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3711,7 +3452,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3754,7 +3495,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3795,7 +3536,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3829,7 +3570,7 @@
           }
         },
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3874,7 +3615,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/reseller",
+          "archnets/admin/reseller"
         ],
         "security": [
           {
@@ -3916,7 +3657,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -3953,7 +3694,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4004,8 +3745,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4042,8 +3782,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4080,8 +3819,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4132,8 +3870,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4170,8 +3907,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4208,8 +3944,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4238,8 +3973,7 @@
           }
         },
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4276,8 +4010,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4315,8 +4048,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4353,8 +4085,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4391,8 +4122,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/server",
-          "archnets/admin/server",
+          "archnets/admin/server"
         ]
       }
     },
@@ -4429,8 +4159,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       },
       "post": {
@@ -4465,8 +4194,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       },
       "put": {
@@ -4501,8 +4229,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4539,8 +4266,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4578,8 +4304,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4616,8 +4341,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       },
       "post": {
@@ -4652,8 +4376,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       },
       "put": {
@@ -4688,8 +4411,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4726,8 +4448,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4756,8 +4477,7 @@
           }
         },
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4814,8 +4534,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4844,8 +4563,7 @@
           }
         },
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4882,8 +4600,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/subscribe",
-          "archnets/admin/subscribe",
+          "archnets/admin/subscribe"
         ]
       }
     },
@@ -4912,8 +4629,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -4948,8 +4664,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -4978,8 +4693,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5008,8 +4722,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5044,8 +4757,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5074,8 +4786,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5104,8 +4815,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5140,8 +4850,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5170,8 +4879,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5200,8 +4908,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5236,8 +4943,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5266,8 +4972,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5302,8 +5007,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5341,8 +5045,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5369,8 +5072,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5399,8 +5101,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5435,8 +5136,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5465,8 +5165,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5501,8 +5200,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5531,8 +5229,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5567,8 +5264,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5597,8 +5293,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5633,8 +5328,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5663,8 +5357,7 @@
           }
         },
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       },
       "put": {
@@ -5699,8 +5392,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/system",
-          "archnets/admin/system",
+          "archnets/admin/system"
         ]
       }
     },
@@ -5737,8 +5429,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ticket",
-          "archnets/admin/ticket",
+          "archnets/admin/ticket"
         ]
       }
     },
@@ -5776,8 +5467,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ticket",
-          "archnets/admin/ticket",
+          "archnets/admin/ticket"
         ]
       }
     },
@@ -5814,8 +5504,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ticket",
-          "archnets/admin/ticket",
+          "archnets/admin/ticket"
         ]
       }
     },
@@ -5880,8 +5569,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/ticket",
-          "archnets/admin/ticket",
+          "archnets/admin/ticket"
         ]
       }
     },
@@ -5918,8 +5606,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/tool",
-          "archnets/admin/tool",
+          "archnets/admin/tool"
         ]
       }
     },
@@ -5948,8 +5635,7 @@
           }
         },
         "tags": [
-          "archnets/admin/tool",
-          "archnets/admin/tool",
+          "archnets/admin/tool"
         ]
       }
     },
@@ -5976,8 +5662,7 @@
           }
         },
         "tags": [
-          "archnets/admin/tool",
-          "archnets/admin/tool",
+          "archnets/admin/tool"
         ]
       }
     },
@@ -6006,8 +5691,7 @@
           }
         },
         "tags": [
-          "archnets/admin/tool",
-          "archnets/admin/tool",
+          "archnets/admin/tool"
         ]
       }
     },
@@ -6043,8 +5727,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6084,8 +5767,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6119,8 +5801,7 @@
           }
         },
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6160,8 +5841,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6201,8 +5881,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6242,8 +5921,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6285,8 +5963,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6328,8 +6005,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6363,8 +6039,7 @@
           }
         },
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6407,8 +6082,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6450,8 +6124,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6491,8 +6164,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6534,8 +6206,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6604,13 +6275,6 @@
             "format": "boolean"
           },
           {
-            "name": "unscoped",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "format": "boolean"
-          },
-          {
             "name": "subscribe_id",
             "in": "query",
             "required": false,
@@ -6626,8 +6290,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6684,8 +6347,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6727,8 +6389,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6785,8 +6446,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6826,8 +6486,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6867,8 +6526,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6908,8 +6566,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -6952,8 +6609,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7017,8 +6673,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7082,8 +6737,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7140,7 +6794,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7183,7 +6837,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7225,7 +6879,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7267,135 +6921,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
-    "/v1/admin/user/subscribe/reset/token": {
-      "post": {
-        "summary": "Reset user subscribe token",
-        "operationId": "ResetUserSubscribeToken",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "reset user subscribe token",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ResetUserSubscribeTokenRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/user",
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
-    "/v1/admin/user/subscribe/reset/traffic": {
-      "post": {
-        "summary": "Reset user subscribe traffic",
-        "operationId": "ResetUserSubscribeTraffic",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ResetUserSubscribeTrafficRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/user",
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
-    "/v1/admin/user/subscribe/toggle": {
-      "post": {
-        "summary": "Stop user subscribe",
-        "operationId": "ToggleUserSubscribeStatus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {}
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ToggleUserSubscribeStatusRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -7473,8 +6999,7 @@
           }
         ],
         "tags": [
-          "archnets/admin/user",
-          "archnets/admin/user",
+          "archnets/admin/user"
         ],
         "security": [
           {
@@ -8386,18 +7911,6 @@
         "popup": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "show": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "pinned": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "popup": {
-          "type": "boolean",
-          "format": "boolean"
         }
       },
       "title": "CreateAnnouncementRequest",
@@ -8506,36 +8019,6 @@
         "discount",
         "start_time",
         "expire_time"
-      ]
-    },
-    "CreateCurrencyOverrideRequest": {
-      "type": "object",
-      "properties": {
-        "from_currency": {
-          "type": "string"
-        },
-        "to_currency": {
-          "type": "string"
-        },
-        "rate": {
-          "type": "number",
-          "format": "double"
-        },
-        "enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "note": {
-          "type": "string"
-        }
-      },
-      "title": "CreateCurrencyOverrideRequest",
-      "required": [
-        "from_currency",
-        "to_currency",
-        "rate",
-        "enabled",
-        "note"
       ]
     },
     "CreateCurrencyOverrideRequest": {
@@ -9109,10 +8592,6 @@
         "show_original_price": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "show_original_price": {
-          "type": "boolean",
-          "format": "boolean"
         }
       },
       "title": "CreateSubscribeRequest",
@@ -9136,8 +8615,6 @@
         "deduction_ratio",
         "allow_deduction",
         "reset_cycle",
-        "renewal_reset",
-        "show_original_price"
         "renewal_reset",
         "show_original_price"
       ]
@@ -9245,10 +8722,6 @@
         "is_reseller": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "is_reseller": {
-          "type": "boolean",
-          "format": "boolean"
         }
       },
       "title": "CreateUserRequest",
@@ -9266,8 +8739,6 @@
         "balance",
         "commission",
         "gift_amount",
-        "is_admin",
-        "is_reseller"
         "is_admin",
         "is_reseller"
       ]
@@ -9290,9 +8761,6 @@
         "subscribe_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "custom_name": {
-          "type": "string"
         },
         "custom_name": {
           "type": "string"
@@ -9324,51 +8792,6 @@
         "access_key",
         "currency_unit",
         "currency_symbol"
-      ]
-    },
-    "CurrencyOverrideResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "from_currency": {
-          "type": "string"
-        },
-        "to_currency": {
-          "type": "string"
-        },
-        "rate": {
-          "type": "number",
-          "format": "double"
-        },
-        "enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "note": {
-          "type": "string"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "CurrencyOverrideResponse",
-      "required": [
-        "id",
-        "from_currency",
-        "to_currency",
-        "rate",
-        "enabled",
-        "note",
-        "created_at",
-        "updated_at"
       ]
     },
     "CurrencyOverrideResponse": {
@@ -9451,19 +8874,6 @@
         }
       },
       "title": "DeleteCouponRequest",
-      "required": [
-        "id"
-      ]
-    },
-    "DeleteCurrencyOverrideRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "DeleteCurrencyOverrideRequest",
       "required": [
         "id"
       ]
@@ -11436,10 +10846,6 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "unscoped": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "subscribe_id": {
           "type": "integer",
           "format": "int64"
@@ -12054,14 +11460,11 @@
       "properties": {
         "secret": {
           "type": "string"
-          "type": "string"
         },
         "service_name": {
           "type": "string"
-          "type": "string"
         },
         "service_version": {
-          "type": "string"
           "type": "string"
         }
       },
@@ -12862,10 +12265,6 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "accept_proxy_protocol": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "cipher": {
           "type": "string"
         },
@@ -12977,7 +12376,6 @@
         "cert_mode": {
           "type": "string",
           "description": "Certificate mode, `none`｜`http`｜`dns`｜`self`｜`file`"
-          "description": "Certificate mode, `none`｜`http`｜`dns`｜`self`｜`file`"
         },
         "cert_dns_provider": {
           "type": "string",
@@ -12986,14 +12384,6 @@
         "cert_dns_env": {
           "type": "string",
           "description": "Environment for DNS provider"
-        },
-        "cert_file": {
-          "type": "string",
-          "description": "Certificate file content (PEM format) for file mode"
-        },
-        "key_file": {
-          "type": "string",
-          "description": "Private key file content (PEM format) for file mode"
         },
         "cert_file": {
           "type": "string",
@@ -13079,22 +12469,11 @@
           "format": "uint8",
           "default": "1",
           "description": "1: Default Subscribe, 5: Reseller Package"
-        },
-        "custom_name": {
-          "type": "string"
-        },
-        "type": {
-          "type": "integer",
-          "format": "uint8",
-          "default": "1",
-          "description": "1: Default Subscribe, 5: Reseller Package"
         }
       },
       "title": "PurchaseOrderRequest",
       "required": [
         "subscribe_id",
-        "quantity",
-        "type"
         "quantity",
         "type"
       ]
@@ -13157,44 +12536,6 @@
       "required": [
         "total",
         "announcements"
-      ]
-    },
-    "QueryCurrencyOverrideListRequest": {
-      "type": "object",
-      "properties": {
-        "page": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "size": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "QueryCurrencyOverrideListRequest",
-      "required": [
-        "page",
-        "size"
-      ]
-    },
-    "QueryCurrencyOverrideListResponse": {
-      "type": "object",
-      "properties": {
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "list": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CurrencyOverrideResponse"
-          }
-        }
-      },
-      "title": "QueryCurrencyOverrideListResponse",
-      "required": [
-        "total",
-        "list"
       ]
     },
     "QueryCurrencyOverrideListRequest": {
@@ -14111,224 +13452,6 @@
         "created_at"
       ]
     },
-    "ResellerDiscount": {
-      "type": "object",
-      "properties": {
-        "quantity": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "discount": {
-          "type": "number",
-          "format": "double"
-        }
-      },
-      "title": "ResellerDiscount",
-      "required": [
-        "quantity",
-        "discount"
-      ]
-    },
-    "ResellerPackage": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "language": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "price": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "unit_time": {
-          "type": "string"
-        },
-        "discount": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResellerDiscount"
-          }
-        },
-        "inventory": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "traffic": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_limit": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Max users allowed, 0 = unlimited"
-        },
-        "nodes": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "reset_cycle": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "speed_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "device_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "status": {
-          "type": "integer",
-          "format": "uint8"
-        },
-        "sort": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "show": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ResellerPackage",
-      "required": [
-        "id",
-        "name",
-        "language",
-        "description",
-        "price",
-        "currency",
-        "unit_time",
-        "discount",
-        "inventory",
-        "traffic",
-        "user_limit",
-        "nodes",
-        "reset_cycle",
-        "speed_limit",
-        "device_limit",
-        "status",
-        "sort",
-        "show",
-        "created_at",
-        "updated_at"
-      ]
-    },
-    "ResellerSubscription": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "package_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "traffic": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "traffic_total": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "user_count": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "nodes": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
-        },
-        "speed_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "device_limit": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "expire_at": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "reset_cycle": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "next_reset_date": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "status": {
-          "type": "integer",
-          "format": "uint8"
-        },
-        "created_at": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "updated_at": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ResellerSubscription",
-      "required": [
-        "id",
-        "user_id",
-        "package_id",
-        "traffic",
-        "traffic_total",
-        "user_limit",
-        "user_count",
-        "nodes",
-        "speed_limit",
-        "device_limit",
-        "expire_at",
-        "reset_cycle",
-        "next_reset_date",
-        "status",
-        "created_at",
-        "updated_at"
-      ]
-    },
     "ResetAllSubscribeTokenResponse": {
       "type": "object",
       "properties": {
@@ -14475,48 +13598,19 @@
         "user_subscribe_id"
       ]
     },
-    "ResetUserSubscribeTokenRequest": {
-      "type": "object",
-      "properties": {
-        "user_subscribe_id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ResetUserSubscribeTokenRequest",
-      "required": [
-        "user_subscribe_id"
-      ]
-    },
-    "ResetUserSubscribeTrafficRequest": {
-      "type": "object",
-      "properties": {
-        "user_subscribe_id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ResetUserSubscribeTrafficRequest",
-      "required": [
-        "user_subscribe_id"
-      ]
-    },
     "Response": {
       "type": "object",
       "properties": {
         "code": {
           "type": "integer",
           "description": "Status code"
-          "description": "Status code"
         },
         "msg": {
           "type": "string",
           "description": "Message"
-          "description": "Message"
         },
         "data": {
           "type": "object",
-          "description": "Data"
           "description": "Data"
         }
       }
@@ -15023,9 +14117,6 @@
         "site_favicon": {
           "type": "string"
         },
-        "site_favicon": {
-          "type": "string"
-        },
         "keywords": {
           "type": "string"
         },
@@ -15033,9 +14124,6 @@
           "type": "string"
         },
         "custom_data": {
-          "type": "string"
-        },
-        "auth_url": {
           "type": "string"
         },
         "auth_url": {
@@ -15049,11 +14137,8 @@
         "site_desc",
         "site_logo",
         "site_favicon",
-        "site_favicon",
         "keywords",
         "custom_html",
-        "custom_data",
-        "auth_url"
         "custom_data",
         "auth_url"
       ]
@@ -15227,10 +14312,6 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "show_original_price": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -15264,7 +14345,6 @@
         "allow_deduction",
         "reset_cycle",
         "renewal_reset",
-        "show_original_price",
         "show_original_price",
         "created_at",
         "updated_at"
@@ -15369,8 +14449,6 @@
           "format": "int64"
         },
         "discount": {
-          "type": "number",
-          "format": "double"
           "type": "number",
           "format": "double"
         }
@@ -15510,10 +14588,6 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "show_original_price": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -15565,31 +14639,6 @@
         "client_ip",
         "user_subscribe_id",
         "timestamp"
-      ]
-    },
-    "SubscribeOnlineConnection": {
-      "type": "object",
-      "properties": {
-        "ip": {
-          "type": "string"
-        },
-        "protocol": {
-          "type": "string"
-        },
-        "server_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "server_name": {
-          "type": "string"
-        }
-      },
-      "title": "SubscribeOnlineConnection",
-      "required": [
-        "ip",
-        "protocol",
-        "server_id",
-        "server_name"
       ]
     },
     "SubscribeOnlineConnection": {
@@ -15797,19 +14846,6 @@
       "required": [
         "id",
         "enable"
-      ]
-    },
-    "ToggleUserSubscribeStatusRequest": {
-      "type": "object",
-      "properties": {
-        "user_subscribe_id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "ToggleUserSubscribeStatusRequest",
-      "required": [
-        "user_subscribe_id"
       ]
     },
     "ToggleUserSubscribeStatusRequest": {
@@ -16196,41 +15232,6 @@
         "discount",
         "start_time",
         "expire_time"
-      ]
-    },
-    "UpdateCurrencyOverrideRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "from_currency": {
-          "type": "string"
-        },
-        "to_currency": {
-          "type": "string"
-        },
-        "rate": {
-          "type": "number",
-          "format": "double"
-        },
-        "enabled": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "note": {
-          "type": "string"
-        }
-      },
-      "title": "UpdateCurrencyOverrideRequest",
-      "required": [
-        "id",
-        "from_currency",
-        "to_currency",
-        "rate",
-        "enabled",
-        "note"
       ]
     },
     "UpdateCurrencyOverrideRequest": {
@@ -16754,10 +15755,6 @@
         "show_original_price": {
           "type": "boolean",
           "format": "boolean"
-        },
-        "show_original_price": {
-          "type": "boolean",
-          "format": "boolean"
         }
       },
       "title": "UpdateSubscribeRequest",
@@ -16783,8 +15780,6 @@
         "deduction_ratio",
         "allow_deduction",
         "reset_cycle",
-        "renewal_reset",
-        "show_original_price"
         "renewal_reset",
         "show_original_price"
       ]
@@ -16884,10 +15879,6 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "is_reseller": {
-          "type": "boolean",
-          "format": "boolean"
-        },
         "delete_reseller_data": {
           "type": "boolean",
           "format": "boolean",
@@ -16908,8 +15899,6 @@
         "refer_code",
         "referer_id",
         "enable",
-        "is_admin",
-        "is_reseller"
         "is_admin",
         "is_reseller"
       ]
@@ -16957,9 +15946,6 @@
         "subscribe_id": {
           "type": "integer",
           "format": "int64"
-        },
-        "custom_name": {
-          "type": "string"
         },
         "custom_name": {
           "type": "string"
@@ -17036,19 +16022,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "reseller_id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "enable": {
           "type": "boolean",
           "format": "boolean"
         },
         "is_admin": {
-          "type": "boolean",
-          "format": "boolean"
-        },
-        "is_reseller": {
           "type": "boolean",
           "format": "boolean"
         },
@@ -17332,9 +16310,6 @@
         "custom_name": {
           "type": "string"
         },
-        "custom_name": {
-          "type": "string"
-        },
         "start_time": {
           "type": "integer",
           "format": "int64"
@@ -17369,9 +16344,6 @@
         "short": {
           "type": "string"
         },
-        "short": {
-          "type": "string"
-        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -17383,16 +16355,6 @@
         "updated_at": {
           "type": "integer",
           "format": "int64"
-        },
-        "online_connections": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SubscribeOnlineConnection"
-          }
-        },
-        "online_count": {
-          "type": "integer",
-          "format": "int32"
         },
         "online_connections": {
           "type": "array",
@@ -17422,10 +16384,7 @@
         "token",
         "short",
         "status",
-        "status",
         "created_at",
-        "updated_at",
-        "online_count"
         "updated_at",
         "online_count"
       ]
@@ -17454,9 +16413,6 @@
         },
         "subscribe": {
           "$ref": "#/definitions/Subscribe"
-        },
-        "custom_name": {
-          "type": "string"
         },
         "custom_name": {
           "type": "string"
