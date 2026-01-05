@@ -12030,6 +12030,13 @@
           "type": "integer",
           "format": "int64"
         },
+        "original_amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "original_currency": {
+          "type": "string"
+        },
         "order_no": {
           "type": "string"
         },
@@ -20747,6 +20754,9 @@
       "type": "object",
       "properties": {
         "init_data": {
+          "type": "string"
+        },
+        "invite_code": {
           "type": "string"
         }
       },
