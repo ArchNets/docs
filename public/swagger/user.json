@@ -1384,6 +1384,35 @@
         ]
       }
     },
+    "/v1/public/user/generate_connect_token": {
+      "post": {
+        "summary": "Generate Connect Token for Web-to-App",
+        "operationId": "GenerateConnectToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GenerateConnectTokenResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
     "/v1/public/user/info": {
       "get": {
         "summary": "Query User Info",
@@ -1488,6 +1517,85 @@
             "required": true,
             "type": "integer",
             "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/merge/confirm": {
+      "post": {
+        "summary": "Confirm Account Merge",
+        "operationId": "ConfirmMerge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/ConfirmMergeResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConfirmMergeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/public/user"
+        ]
+      }
+    },
+    "/v1/public/user/merge/request": {
+      "post": {
+        "summary": "Request Account Merge",
+        "operationId": "RequestMerge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/MergeAccountResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Account Merge Types",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MergeAccountRequest"
+            }
           }
         ],
         "tags": [
@@ -2790,6 +2898,36 @@
         "content"
       ]
     },
+    "ConfirmMergeRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "ConfirmMergeRequest",
+      "required": [
+        "token"
+      ]
+    },
+    "ConfirmMergeResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "New auth token for merged account"
+        },
+        "merged_data": {
+          "$ref": "#/definitions/MergedDataSummary",
+          "description": "Summary of merged data"
+        }
+      },
+      "title": "ConfirmMergeResponse",
+      "required": [
+        "token",
+        "merged_data"
+      ]
+    },
     "Coupon": {
       "type": "object",
       "properties": {
@@ -3136,6 +3274,35 @@
         "type",
         "content",
         "created_at"
+      ]
+    },
+    "GenerateConnectTokenRequest": {
+      "type": "object",
+      "properties": {},
+      "title": "GenerateConnectTokenRequest"
+    },
+    "GenerateConnectTokenResponse": {
+      "type": "object",
+      "properties": {
+        "deep_link": {
+          "type": "string",
+          "description": "archnet:connect?token=..."
+        },
+        "token": {
+          "type": "string",
+          "description": "Raw token for QR code"
+        },
+        "expires_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Token expiry timestamp"
+        }
+      },
+      "title": "GenerateConnectTokenResponse",
+      "required": [
+        "deep_link",
+        "token",
+        "expires_at"
       ]
     },
     "GetAvailablePaymentMethodsResponse": {
@@ -3506,6 +3673,78 @@
         "forced_invite",
         "referral_percentage",
         "only_first_purchase"
+      ]
+    },
+    "MergeAccountRequest": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "email",
+            "telegram"
+          ],
+          "description": "\"email\" or \"telegram\""
+        },
+        "email": {
+          "type": "string",
+          "description": "Required if method=email"
+        }
+      },
+      "title": "MergeAccountRequest",
+      "required": [
+        "method"
+      ]
+    },
+    "MergeAccountResponse": {
+      "type": "object",
+      "properties": {
+        "expires_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Token expiry timestamp"
+        },
+        "message": {
+          "type": "string",
+          "description": "User-friendly message"
+        }
+      },
+      "title": "MergeAccountResponse",
+      "required": [
+        "expires_at",
+        "message"
+      ]
+    },
+    "MergedDataSummary": {
+      "type": "object",
+      "properties": {
+        "subscriptions": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of subs transferred"
+        },
+        "balance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Balance added"
+        },
+        "commission": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Commission added"
+        },
+        "orders": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Orders transferred"
+        }
+      },
+      "title": "MergedDataSummary",
+      "required": [
+        "subscriptions",
+        "balance",
+        "commission",
+        "orders"
       ]
     },
     "MessageLog": {

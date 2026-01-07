@@ -89,6 +89,46 @@
         ]
       }
     },
+    "/v1/auth/connect": {
+      "post": {
+        "summary": "Connect from Web - binds device to account",
+        "operationId": "Connect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/LoginResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Connect Request - for Web-to-App connection with device binding",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConnectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/auth"
+        ]
+      }
+    },
     "/v1/auth/login": {
       "post": {
         "summary": "User login",
@@ -1763,6 +1803,29 @@
         "amount",
         "order_no",
         "timestamp"
+      ]
+    },
+    "ConnectRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "Token from generate_connect_token"
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Device ID"
+        },
+        "user_agent": {
+          "type": "string",
+          "description": "Device user agent"
+        }
+      },
+      "title": "ConnectRequest",
+      "required": [
+        "token",
+        "identifier",
+        "user_agent"
       ]
     },
     "Coupon": {
