@@ -891,6 +891,15 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "admin_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "archnets/admin/console"
         ]
@@ -978,6 +987,15 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "admin_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "tags": [
           "archnets/admin/console"
         ]
@@ -2941,6 +2959,13 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "admin_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -6287,6 +6312,20 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "admin_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "is_admin",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -10428,6 +10467,10 @@
         },
         "search": {
           "type": "string"
+        },
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "GetOrderListRequest",
@@ -10869,6 +10912,14 @@
         "user_subscribe_id": {
           "type": "integer",
           "format": "int64"
+        },
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_admin": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "GetUserListRequest",
@@ -12846,6 +12897,16 @@
         "total",
         "errors"
       ]
+    },
+    "QueryStatisticsRequest": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "QueryStatisticsRequest"
     },
     "QuerySubscribeGroupListResponse": {
       "type": "object",
