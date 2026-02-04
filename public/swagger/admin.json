@@ -12459,6 +12459,62 @@
         "key_file": {
           "type": "string",
           "description": "Private key file content (PEM format) for file mode"
+        },
+        "ssh_host_key_path": {
+          "type": "string",
+          "description": "Path to SSH host key file"
+        },
+        "ssh_banner": {
+          "type": "string",
+          "description": "Custom SSH banner message"
+        },
+        "shadowtls_version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Version: 2 or 3"
+        },
+        "shadowtls_handshake": {
+          "type": "string",
+          "description": "Handshake server (e.g., www.google.com:443)"
+        },
+        "shadowtls_strict_mode": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": "Require TLS 1.3"
+        },
+        "shadowsocks_port": {
+          "type": "integer",
+          "format": "uin16",
+          "description": "Inner Shadowsocks port for chain"
+        },
+        "shadowsocks_method": {
+          "type": "string",
+          "description": "Shadowsocks cipher for chain"
+        },
+        "wireguard_interface": {
+          "type": "string",
+          "description": "Interface name (e.g., wg0)"
+        },
+        "wireguard_private_key": {
+          "type": "string",
+          "description": "Server private key (auto-generated)"
+        },
+        "wireguard_public_key": {
+          "type": "string",
+          "description": "Server public key (auto-generated)"
+        },
+        "wireguard_address": {
+          "type": "string",
+          "description": "Server IP and subnet (e.g., 10.0.0.1/24)"
+        },
+        "wireguard_mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "MTU size (default: 1420)"
+        },
+        "wireguard_dns": {
+          "type": "string",
+          "description": "DNS servers (e.g., 1.1.1.1,8.8.8.8)"
         }
       },
       "title": "Protocol",
