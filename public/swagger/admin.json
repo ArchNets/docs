@@ -8261,6 +8261,9 @@
         "domain": {
           "type": "string"
         },
+        "payment_bridge_domain": {
+          "type": "string"
+        },
         "config": {
           "type": "object"
         },
@@ -12090,6 +12093,9 @@
         "domain": {
           "type": "string"
         },
+        "payment_bridge_domain": {
+          "type": "string"
+        },
         "config": {
           "type": "object"
         },
@@ -12121,6 +12127,7 @@
         "description",
         "icon",
         "domain",
+        "payment_bridge_domain",
         "config",
         "fee_mode",
         "fee_percent",
@@ -15534,6 +15541,9 @@
           "type": "string"
         },
         "domain": {
+          "type": "string"
+        },
+        "payment_bridge_domain": {
           "type": "string"
         },
         "config": {

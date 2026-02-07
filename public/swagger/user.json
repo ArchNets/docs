@@ -525,6 +525,47 @@
         ]
       }
     },
+    "/v1/public/portal/order/checkout/redirect": {
+      "get": {
+        "summary": "Purchase Checkout Redirect (Bridge)",
+        "operationId": "PurchaseCheckoutRedirect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "returnUrl",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/public/portal"
+        ]
+      }
+    },
     "/v1/public/portal/order/status": {
       "get": {
         "summary": "Query Purchase Order",
@@ -2825,6 +2866,21 @@
         "expired_at"
       ]
     },
+    "CheckoutOrderRedirectRequest": {
+      "type": "object",
+      "properties": {
+        "orderNo": {
+          "type": "string"
+        },
+        "returnUrl": {
+          "type": "string"
+        }
+      },
+      "title": "CheckoutOrderRedirectRequest",
+      "required": [
+        "orderNo"
+      ]
+    },
     "CheckoutOrderRequest": {
       "type": "object",
       "properties": {
@@ -4332,6 +4388,9 @@
         "domain": {
           "type": "string"
         },
+        "payment_bridge_domain": {
+          "type": "string"
+        },
         "config": {
           "type": "object"
         },
@@ -4363,6 +4422,7 @@
         "description",
         "icon",
         "domain",
+        "payment_bridge_domain",
         "config",
         "fee_mode",
         "fee_percent",
