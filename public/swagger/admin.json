@@ -12283,6 +12283,10 @@
           "type": "integer",
           "format": "uin16"
         },
+        "listen_ip": {
+          "type": "string",
+          "description": "Listen IP (default: 0.0.0.0, use 127.0.0.1 for reverse proxy)"
+        },
         "enable": {
           "type": "boolean",
           "format": "boolean"

@@ -918,6 +918,48 @@
         ]
       }
     },
+    "/v1/common/qr": {
+      "get": {
+        "summary": "Get QR Code",
+        "operationId": "GetQrCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/common_tool"
+        ]
+      }
+    },
     "/v1/common/send_code": {
       "post": {
         "summary": "Get verification code",
@@ -2263,6 +2305,22 @@
         "web_ad"
       ]
     },
+    "GetQrCodeRequest": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetQrCodeRequest",
+      "required": [
+        "text"
+      ]
+    },
     "GetStatResponse": {
       "type": "object",
       "properties": {
@@ -3223,6 +3281,10 @@
         "port": {
           "type": "integer",
           "format": "uin16"
+        },
+        "listen_ip": {
+          "type": "string",
+          "description": "Listen IP (default: 0.0.0.0, use 127.0.0.1 for reverse proxy)"
         },
         "enable": {
           "type": "boolean",
