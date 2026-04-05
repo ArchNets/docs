@@ -889,6 +889,47 @@
         ]
       }
     },
+    "/v1/common/device/ws": {
+      "get": {
+        "summary": "Device WebSocket Connection",
+        "operationId": "DeviceWs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
     "/v1/common/heartbeat": {
       "get": {
         "summary": "Heartbeat",
@@ -1152,6 +1193,46 @@
         },
         "tags": [
           "archnets/common"
+        ]
+      }
+    },
+    "/v1/internal/payment/bridge/confirm": {
+      "post": {
+        "summary": "Bridge Confirm Payment",
+        "operationId": "BridgeConfirm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/BridgeConfirmResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Bridge confirm payment (Iran payment bridge -\u003e Germany backend)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BridgeConfirmRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/bridge"
         ]
       }
     }
@@ -1696,6 +1777,64 @@
         "timestamp"
       ]
     },
+    "BridgeConfirmRequest": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        },
+        "payment_ref_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmRequest",
+      "required": [
+        "order_no",
+        "payment_ref_id",
+        "payment_code",
+        "amount",
+        "status",
+        "timestamp",
+        "signature"
+      ]
+    },
+    "BridgeConfirmResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmResponse",
+      "required": [
+        "status",
+        "result"
+      ]
+    },
     "CheckUserRequest": {
       "type": "object",
       "properties": {
@@ -2011,6 +2150,22 @@
         "show_ads",
         "enable_security",
         "only_real_device"
+      ]
+    },
+    "DeviceConnectionRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      },
+      "title": "DeviceConnectionRequest",
+      "required": [
+        "token",
+        "identifier"
       ]
     },
     "DeviceLoginRequest": {
@@ -2669,6 +2824,15 @@
           "items": {
             "$ref": "#/definitions/NodeOutbound"
           }
+        },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
         }
       },
       "title": "NodeConfig",
@@ -2680,7 +2844,9 @@
         "ip_strategy",
         "dns",
         "block",
-        "outbound"
+        "outbound",
+        "routing",
+        "stats_policy"
       ]
     },
     "NodeDNS": {
@@ -2725,11 +2891,57 @@
         "password": {
           "type": "string"
         },
-        "rules": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "transport": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "string"
+        },
+        "tcp_header_path": {
+          "type": "string"
+        },
+        "security": {
+          "type": "string"
+        },
+        "sni": {
+          "type": "string"
+        },
+        "allow_insecure": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "reality_public_key": {
+          "type": "string"
+        },
+        "reality_short_id": {
+          "type": "string"
+        },
+        "reality_spider_x": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "string"
+        },
+        "cipher": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
         }
       },
       "title": "NodeOutbound",
@@ -2738,8 +2950,7 @@
         "protocol",
         "address",
         "port",
-        "password",
-        "rules"
+        "password"
       ]
     },
     "NodeRelay": {
@@ -2761,6 +2972,94 @@
         "host",
         "port",
         "prefix"
+      ]
+    },
+    "NodeRoutingRule": {
+      "type": "object",
+      "properties": {
+        "inbound_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outbound_tag": {
+          "type": "string"
+        },
+        "balancer_tag": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "port": {
+          "type": "string"
+        },
+        "source_ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_port": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attrs": {
+          "type": "string"
+        }
+      },
+      "title": "NodeRoutingRule"
+    },
+    "NodeStatsPolicy": {
+      "type": "object",
+      "properties": {
+        "inbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "inbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "NodeStatsPolicy",
+      "required": [
+        "inbound_uplink",
+        "inbound_downlink",
+        "outbound_uplink",
+        "outbound_downlink"
       ]
     },
     "OAthLoginRequest": {
@@ -2868,6 +3167,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -2901,6 +3203,7 @@
         "payment",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "created_at",
@@ -2969,6 +3272,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -3006,6 +3312,7 @@
         "method",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "subscribe",
@@ -3279,6 +3586,9 @@
     "Protocol": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
@@ -3330,6 +3640,18 @@
           "type": "string"
         },
         "path": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tcp_header_path": {
           "type": "string"
         },
         "service_name": {
@@ -3522,6 +3844,50 @@
         "wireguard_dns": {
           "type": "string",
           "description": "DNS servers (e.g., 1.1.1.1,8.8.8.8)"
+        },
+        "amnezia_jc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmax": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "Xray tunnel client UUID"
+        },
+        "address": {
+          "type": "string",
+          "description": "Xray tunnel target address (clean IP / CDN)"
         }
       },
       "title": "Protocol",
@@ -4701,6 +5067,13 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -4735,6 +5108,8 @@
         "reset_cycle",
         "renewal_reset",
         "show_original_price",
+        "reseller_subscription_id",
+        "reseller_subscription_name",
         "created_at",
         "updated_at"
       ]
@@ -4758,6 +5133,12 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
+        "output_format": {
+          "type": "string"
+        },
         "is_default": {
           "type": "boolean",
           "format": "boolean"
@@ -4770,6 +5151,7 @@
       "required": [
         "id",
         "name",
+        "output_format",
         "is_default"
       ]
     },

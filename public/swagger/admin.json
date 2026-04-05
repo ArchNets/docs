@@ -867,6 +867,35 @@
         ]
       }
     },
+    "/v1/admin/console/app_metrics": {
+      "get": {
+        "summary": "Get App Metrics",
+        "operationId": "GetAppMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/AppMetricsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/admin/console"
+        ]
+      }
+    },
     "/v1/admin/console/revenue": {
       "get": {
         "summary": "Query revenue statistics",
@@ -3605,6 +3634,46 @@
       }
     },
     "/v1/admin/reseller/subscription": {
+      "delete": {
+        "summary": "Delete reseller subscription",
+        "operationId": "DeleteResellerSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAdminResellerSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
       "post": {
         "summary": "Create subscription for reseller (admin assigns package)",
         "operationId": "CreateResellerSubscription",
@@ -3637,6 +3706,104 @@
             "schema": {
               "$ref": "#/definitions/CreateResellerSubscriptionRequest"
             }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update reseller subscription",
+        "operationId": "UpdateResellerSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAdminResellerSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/reseller/subscription/list": {
+      "get": {
+        "summary": "Get reseller subscription list",
+        "operationId": "GetResellerSubscriptionList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetAdminResellerSubscriptionListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "user_id",
+            "description": "Filter by reseller user ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -3718,6 +3885,35 @@
             }
           }
         ],
+        "tags": [
+          "archnets/admin/server"
+        ]
+      }
+    },
+    "/v1/admin/server/inbound_tags": {
+      "get": {
+        "summary": "Get inbound tags",
+        "operationId": "GetInboundTags",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/InboundTagsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
         "tags": [
           "archnets/admin/server"
         ]
@@ -4034,6 +4230,35 @@
             }
           }
         ],
+        "tags": [
+          "archnets/admin/server"
+        ]
+      }
+    },
+    "/v1/admin/server/outbound_traffic": {
+      "get": {
+        "summary": "Get outbound traffic",
+        "operationId": "GetOutboundTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/OutboundTrafficResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
         "tags": [
           "archnets/admin/server"
         ]
@@ -7049,6 +7274,75 @@
     }
   },
   "definitions": {
+    "AdminResellerSubscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_name": {
+          "type": "string",
+          "description": "Enhanced with package name"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nodes": {
+          "type": "string"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Timestamp"
+        },
+        "reset_cycle": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_reset_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Timestamp"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AdminResellerSubscription",
+      "required": [
+        "id",
+        "user_id",
+        "package_id",
+        "package_name",
+        "traffic",
+        "traffic_total",
+        "nodes",
+        "expire_at",
+        "reset_cycle",
+        "next_reset_date",
+        "status",
+        "created_at"
+      ]
+    },
     "Ads": {
       "type": "object",
       "properties": {
@@ -7185,6 +7479,46 @@
       "required": [
         "port",
         "security_config"
+      ]
+    },
+    "AppMetricsResponse": {
+      "type": "object",
+      "properties": {
+        "total_users": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "active_users_today": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "online_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_data_usage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "graph_data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeviceGraphMetrics"
+          }
+        }
+      },
+      "title": "AppMetricsResponse",
+      "required": [
+        "total_users",
+        "active_users_today",
+        "total_devices",
+        "online_devices",
+        "total_data_usage",
+        "graph_data"
       ]
     },
     "AppUserSubcbribe": {
@@ -7734,6 +8068,64 @@
         "current",
         "created_at",
         "updated_at"
+      ]
+    },
+    "BridgeConfirmRequest": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        },
+        "payment_ref_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmRequest",
+      "required": [
+        "order_no",
+        "payment_ref_id",
+        "payment_code",
+        "amount",
+        "status",
+        "timestamp",
+        "signature"
+      ]
+    },
+    "BridgeConfirmResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmResponse",
+      "required": [
+        "status",
+        "result"
       ]
     },
     "CheckoutOrderRequest": {
@@ -8518,6 +8910,9 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
         "user_agent": {
           "type": "string"
         },
@@ -8538,6 +8933,7 @@
       "title": "CreateSubscribeApplicationRequest",
       "required": [
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",
@@ -8897,6 +9293,19 @@
         "updated_at"
       ]
     },
+    "DeleteAdminResellerSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteAdminResellerSubscriptionRequest",
+      "required": [
+        "id"
+      ]
+    },
     "DeleteAdsRequest": {
       "type": "object",
       "properties": {
@@ -9122,6 +9531,33 @@
         "show_ads",
         "enable_security",
         "only_real_device"
+      ]
+    },
+    "DeviceGraphMetrics": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "online_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uptime_seconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "new_devices": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeviceGraphMetrics",
+      "required": [
+        "date",
+        "online_devices",
+        "uptime_seconds",
+        "new_devices"
       ]
     },
     "Document": {
@@ -10015,6 +10451,50 @@
         "total_traffic_used",
         "total_reseller_users",
         "active_subscriptions"
+      ]
+    },
+    "GetAdminResellerSubscriptionListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Filter by reseller user ID"
+        }
+      },
+      "title": "GetAdminResellerSubscriptionListRequest",
+      "required": [
+        "page",
+        "size",
+        "user_id"
+      ]
+    },
+    "GetAdminResellerSubscriptionListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminResellerSubscription"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetAdminResellerSubscriptionListResponse",
+      "required": [
+        "list",
+        "total"
       ]
     },
     "GetAdsDetailRequest": {
@@ -11334,6 +11814,46 @@
         "security_config"
       ]
     },
+    "InboundTagItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "server": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InboundTagItem",
+      "required": [
+        "tag",
+        "server",
+        "protocol",
+        "server_id"
+      ]
+    },
+    "InboundTagsResponse": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InboundTagItem"
+          }
+        }
+      },
+      "title": "InboundTagsResponse",
+      "required": [
+        "tags"
+      ]
+    },
     "InviteConfig": {
       "type": "object",
       "properties": {
@@ -11644,6 +12164,15 @@
           "items": {
             "$ref": "#/definitions/NodeOutbound"
           }
+        },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
         }
       },
       "title": "NodeConfig",
@@ -11655,7 +12184,9 @@
         "ip_strategy",
         "dns",
         "block",
-        "outbound"
+        "outbound",
+        "routing",
+        "stats_policy"
       ]
     },
     "NodeDNS": {
@@ -11700,11 +12231,57 @@
         "password": {
           "type": "string"
         },
-        "rules": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "transport": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "string"
+        },
+        "tcp_header_path": {
+          "type": "string"
+        },
+        "security": {
+          "type": "string"
+        },
+        "sni": {
+          "type": "string"
+        },
+        "allow_insecure": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "reality_public_key": {
+          "type": "string"
+        },
+        "reality_short_id": {
+          "type": "string"
+        },
+        "reality_spider_x": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "string"
+        },
+        "cipher": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
         }
       },
       "title": "NodeOutbound",
@@ -11713,8 +12290,7 @@
         "protocol",
         "address",
         "port",
-        "password",
-        "rules"
+        "password"
       ]
     },
     "NodeRelay": {
@@ -11736,6 +12312,94 @@
         "host",
         "port",
         "prefix"
+      ]
+    },
+    "NodeRoutingRule": {
+      "type": "object",
+      "properties": {
+        "inbound_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outbound_tag": {
+          "type": "string"
+        },
+        "balancer_tag": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "port": {
+          "type": "string"
+        },
+        "source_ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_port": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attrs": {
+          "type": "string"
+        }
+      },
+      "title": "NodeRoutingRule"
+    },
+    "NodeStatsPolicy": {
+      "type": "object",
+      "properties": {
+        "inbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "inbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "NodeStatsPolicy",
+      "required": [
+        "inbound_uplink",
+        "inbound_downlink",
+        "outbound_uplink",
+        "outbound_downlink"
       ]
     },
     "Order": {
@@ -11797,6 +12461,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -11830,6 +12497,7 @@
         "payment",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "created_at",
@@ -11898,6 +12566,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -11935,6 +12606,7 @@
         "method",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "subscribe",
@@ -11972,6 +12644,43 @@
         "amount_total",
         "new_order_amount",
         "renewal_order_amount"
+      ]
+    },
+    "OutboundTrafficItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "OutboundTrafficItem",
+      "required": [
+        "tag",
+        "upload",
+        "download"
+      ]
+    },
+    "OutboundTrafficResponse": {
+      "type": "object",
+      "properties": {
+        "traffic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OutboundTrafficItem"
+          }
+        }
+      },
+      "title": "OutboundTrafficResponse",
+      "required": [
+        "traffic"
       ]
     },
     "PaymentConfig": {
@@ -12245,9 +12954,11 @@
     "PreviewSubscribeTemplateRequest": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "template": {
+          "type": "string"
+        },
+        "output_format": {
+          "type": "string"
         }
       },
       "title": "PreviewSubscribeTemplateRequest",
@@ -12283,6 +12994,9 @@
     "Protocol": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
@@ -12334,6 +13048,18 @@
           "type": "string"
         },
         "path": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tcp_header_path": {
           "type": "string"
         },
         "service_name": {
@@ -12526,6 +13252,50 @@
         "wireguard_dns": {
           "type": "string",
           "description": "DNS servers (e.g., 1.1.1.1,8.8.8.8)"
+        },
+        "amnezia_jc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmax": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "Xray tunnel client UUID"
+        },
+        "address": {
+          "type": "string",
+          "description": "Xray tunnel target address (clean IP / CDN)"
         }
       },
       "title": "Protocol",
@@ -14456,6 +15226,13 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -14490,6 +15267,8 @@
         "reset_cycle",
         "renewal_reset",
         "show_original_price",
+        "reseller_subscription_id",
+        "reseller_subscription_name",
         "created_at",
         "updated_at"
       ]
@@ -14511,6 +15290,9 @@
           "type": "string"
         },
         "scheme": {
+          "type": "string"
+        },
+        "match_query": {
           "type": "string"
         },
         "user_agent": {
@@ -14542,6 +15324,7 @@
       "required": [
         "id",
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",
@@ -14731,6 +15514,13 @@
         "show_original_price": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
         },
         "created_at": {
           "type": "integer",
@@ -15185,6 +15975,36 @@
         "udp_relay_mode",
         "congestion_controller",
         "security_config"
+      ]
+    },
+    "UpdateAdminResellerSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8",
+          "description": "0=inactive, 1=active"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateAdminResellerSubscriptionRequest",
+      "required": [
+        "id"
       ]
     },
     "UpdateAdsRequest": {
@@ -15762,6 +16582,9 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
         "user_agent": {
           "type": "string"
         },
@@ -15783,6 +16606,7 @@
       "required": [
         "id",
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",

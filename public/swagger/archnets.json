@@ -867,6 +867,35 @@
         ]
       }
     },
+    "/v1/admin/console/app_metrics": {
+      "get": {
+        "summary": "Get App Metrics",
+        "operationId": "GetAppMetrics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/AppMetricsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "tags": [
+          "archnets/admin/console"
+        ]
+      }
+    },
     "/v1/admin/console/revenue": {
       "get": {
         "summary": "Query revenue statistics",
@@ -3605,6 +3634,46 @@
       }
     },
     "/v1/admin/reseller/subscription": {
+      "delete": {
+        "summary": "Delete reseller subscription",
+        "operationId": "DeleteResellerSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAdminResellerSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
       "post": {
         "summary": "Create subscription for reseller (admin assigns package)",
         "operationId": "CreateResellerSubscription",
@@ -3637,6 +3706,104 @@
             "schema": {
               "$ref": "#/definitions/CreateResellerSubscriptionRequest"
             }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update reseller subscription",
+        "operationId": "UpdateResellerSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAdminResellerSubscriptionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/reseller/subscription/list": {
+      "get": {
+        "summary": "Get reseller subscription list",
+        "operationId": "GetResellerSubscriptionList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetAdminResellerSubscriptionListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "user_id",
+            "description": "Filter by reseller user ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -3718,6 +3885,35 @@
             }
           }
         ],
+        "tags": [
+          "archnets/admin/server"
+        ]
+      }
+    },
+    "/v1/admin/server/inbound_tags": {
+      "get": {
+        "summary": "Get inbound tags",
+        "operationId": "GetInboundTags",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/InboundTagsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
         "tags": [
           "archnets/admin/server"
         ]
@@ -4034,6 +4230,35 @@
             }
           }
         ],
+        "tags": [
+          "archnets/admin/server"
+        ]
+      }
+    },
+    "/v1/admin/server/outbound_traffic": {
+      "get": {
+        "summary": "Get outbound traffic",
+        "operationId": "GetOutboundTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/OutboundTrafficResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
         "tags": [
           "archnets/admin/server"
         ]
@@ -5717,6 +5942,594 @@
         },
         "tags": [
           "archnets/admin/tool"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/create": {
+      "post": {
+        "summary": "Create Tunnel",
+        "operationId": "CreateTunnel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTunnelRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/delete": {
+      "post": {
+        "summary": "Delete Tunnel",
+        "operationId": "DeleteTunnel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTunnelRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/forwarder/create": {
+      "post": {
+        "summary": "Create Forwarder",
+        "operationId": "CreateForwarder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateForwarderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/forwarder/delete": {
+      "post": {
+        "summary": "Delete Forwarder",
+        "operationId": "DeleteForwarder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteForwarderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/forwarder/list": {
+      "get": {
+        "summary": "Filter Forwarder List",
+        "operationId": "FilterForwarderList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/FilterForwarderListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tunnel_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/forwarder/update": {
+      "post": {
+        "summary": "Update Forwarder",
+        "operationId": "UpdateForwarder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateForwarderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/list": {
+      "get": {
+        "summary": "Filter Tunnel List",
+        "operationId": "FilterTunnelList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/FilterTunnelListResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "entry_server_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "exit_server_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/protoswap/scan": {
+      "post": {
+        "summary": "Start ProtoSwap Scan",
+        "operationId": "StartProtoswapScan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "ProtoSwap Scan Types",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StartProtoswapScanRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/protoswap/scan/control": {
+      "post": {
+        "summary": "Control ProtoSwap Scan (cancel/pause/resume)",
+        "operationId": "ControlProtoswapScan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ControlProtoswapScanRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/protoswap/scan/results": {
+      "get": {
+        "summary": "Get ProtoSwap Scan Results",
+        "operationId": "GetProtoswapScanResults",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetProtoswapScanResultsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tunnel_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/settings": {
+      "get": {
+        "summary": "Get Tunnel Settings",
+        "operationId": "GetTunnelSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetTunnelSettingsResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/settings/update": {
+      "post": {
+        "summary": "Update Tunnel Settings",
+        "operationId": "UpdateTunnelSettings",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTunnelSettingsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/status": {
+      "get": {
+        "summary": "Get Tunnel Status",
+        "operationId": "GetTunnelStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetTunnelStatusResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/status/toggle": {
+      "post": {
+        "summary": "Toggle Tunnel Status",
+        "operationId": "ToggleTunnelStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ToggleTunnelStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
+        ]
+      }
+    },
+    "/v1/admin/tunnel/update": {
+      "post": {
+        "summary": "Update Tunnel",
+        "operationId": "UpdateTunnel",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateTunnelRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/admin/tunnel"
         ]
       }
     },
@@ -7921,6 +8734,47 @@
         ]
       }
     },
+    "/v1/common/device/ws": {
+      "get": {
+        "summary": "Device WebSocket Connection",
+        "operationId": "DeviceWs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/common"
+        ]
+      }
+    },
     "/v1/common/heartbeat": {
       "get": {
         "summary": "Heartbeat",
@@ -8184,6 +9038,46 @@
         },
         "tags": [
           "archnets/common"
+        ]
+      }
+    },
+    "/v1/internal/payment/bridge/confirm": {
+      "post": {
+        "summary": "Bridge Confirm Payment",
+        "operationId": "BridgeConfirm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/BridgeConfirmResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Bridge confirm payment (Iran payment bridge -\u003e Germany backend)",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BridgeConfirmRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/bridge"
         ]
       }
     },
@@ -8938,6 +9832,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -8989,6 +9889,12 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -10870,51 +11776,6 @@
         ]
       }
     },
-    "/v1/reseller/user/assign": {
-      "post": {
-        "summary": "Assign subscription to client",
-        "operationId": "AssignSubscription",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/Response"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "$ref": "#/definitions/AssignSubscriptionResponse"
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "description": "Assign Subscription",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AssignSubscriptionRequest"
-            }
-          }
-        ],
-        "tags": [
-          "archnets/reseller"
-        ],
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      }
-    },
     "/v1/reseller/user/list": {
       "get": {
         "summary": "Get client user list",
@@ -11002,6 +11863,143 @@
             "required": true,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "archnets/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete client user subscription",
+        "operationId": "DeleteResellerUserSubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteResellerUserSubscribeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create client user subscription",
+        "operationId": "CreateResellerUserSubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/CreateResellerUserSubscribeResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Assign Subscription, Assign Subscription (Deprecated/Removed), AssignSubscriptionRequest { ... }, AssignSubscriptionResponse { ... }, User Subscription CRUD",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateResellerUserSubscribeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/reseller"
+        ],
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update client user subscription",
+        "operationId": "UpdateResellerUserSubscribe",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateResellerUserSubscribeRequest"
+            }
           }
         ],
         "tags": [
@@ -11162,6 +12160,62 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/OnlineUsersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
+    "/v1/server/outbound_traffic": {
+      "post": {
+        "summary": "Push outbound traffic",
+        "operationId": "ServerPushOutboundTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServerPushOutboundTrafficRequest"
             }
           }
         ],
@@ -11381,9 +12435,222 @@
           "archnets/serverV2"
         ]
       }
+    },
+    "/v2/server/{server_id}/tunnel": {
+      "get": {
+        "summary": "Get Tunnel Config for Server",
+        "operationId": "GetServerTunnelConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetServerTunnelConfigResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
+    },
+    "/v2/server/{server_id}/tunnel/scan/results": {
+      "post": {
+        "summary": "Report ProtoSwap Scan Results",
+        "operationId": "ReportProtoswapScanResults",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportProtoswapScanResultsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
+    },
+    "/v2/server/{server_id}/tunnel/status": {
+      "post": {
+        "summary": "Report Tunnel Status",
+        "operationId": "ReportTunnelStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportTunnelStatusRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
     }
   },
   "definitions": {
+    "AdminResellerSubscription": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_name": {
+          "type": "string",
+          "description": "Enhanced with package name"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nodes": {
+          "type": "string"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Timestamp"
+        },
+        "reset_cycle": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_reset_date": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Timestamp"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AdminResellerSubscription",
+      "required": [
+        "id",
+        "user_id",
+        "package_id",
+        "package_name",
+        "traffic",
+        "traffic_total",
+        "nodes",
+        "expire_at",
+        "reset_cycle",
+        "next_reset_date",
+        "status",
+        "created_at"
+      ]
+    },
     "Ads": {
       "type": "object",
       "properties": {
@@ -11532,6 +12799,46 @@
       "required": [
         "port",
         "security_config"
+      ]
+    },
+    "AppMetricsResponse": {
+      "type": "object",
+      "properties": {
+        "total_users": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "active_users_today": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "online_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_data_usage": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "graph_data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeviceGraphMetrics"
+          }
+        }
+      },
+      "title": "AppMetricsResponse",
+      "required": [
+        "total_users",
+        "active_users_today",
+        "total_devices",
+        "online_devices",
+        "total_data_usage",
+        "graph_data"
       ]
     },
     "AppUserSubcbribe": {
@@ -11849,43 +13156,6 @@
         "is_default"
       ]
     },
-    "AssignSubscriptionRequest": {
-      "type": "object",
-      "properties": {
-        "user_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "subscribe_id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int64",
-          "exclusiveMinimum": true
-        }
-      },
-      "title": "AssignSubscriptionRequest",
-      "required": [
-        "user_id",
-        "subscribe_id",
-        "quantity"
-      ]
-    },
-    "AssignSubscriptionResponse": {
-      "type": "object",
-      "properties": {
-        "user_subscribe_id": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "AssignSubscriptionResponse",
-      "required": [
-        "user_subscribe_id"
-      ]
-    },
     "AuthConfig": {
       "type": "object",
       "properties": {
@@ -12201,6 +13471,64 @@
         "expired_at"
       ]
     },
+    "BridgeConfirmRequest": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        },
+        "payment_ref_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmRequest",
+      "required": [
+        "order_no",
+        "payment_ref_id",
+        "payment_code",
+        "amount",
+        "status",
+        "timestamp",
+        "signature"
+      ]
+    },
+    "BridgeConfirmResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmResponse",
+      "required": [
+        "status",
+        "result"
+      ]
+    },
     "CheckUserRequest": {
       "type": "object",
       "properties": {
@@ -12435,6 +13763,24 @@
         "token",
         "identifier",
         "user_agent"
+      ]
+    },
+    "ControlProtoswapScanRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "action": {
+          "type": "string",
+          "description": "cancel, pause, resume"
+        }
+      },
+      "title": "ControlProtoswapScanRequest",
+      "required": [
+        "tunnel_id",
+        "action"
       ]
     },
     "Coupon": {
@@ -12748,6 +14094,49 @@
         "title",
         "content",
         "show"
+      ]
+    },
+    "CreateForwarderRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "listen_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_ip": {
+          "type": "string"
+        },
+        "port_range": {
+          "type": "string"
+        },
+        "forwarder_type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "title": "CreateForwarderRequest",
+      "required": [
+        "tunnel_id",
+        "protocol",
+        "listen_port",
+        "target_port",
+        "forwarder_type"
       ]
     },
     "CreateNodeRequest": {
@@ -13091,6 +14480,10 @@
             "format": "int64"
           }
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "show": {
           "type": "boolean",
           "format": "boolean"
@@ -13112,6 +14505,7 @@
         "speed_limit",
         "device_limit",
         "nodes",
+        "reseller_subscription_id",
         "show",
         "sell"
       ]
@@ -13180,6 +14574,53 @@
         "password"
       ]
     },
+    "CreateResellerUserSubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "custom_name": {
+          "type": "string"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Optional, defaults to plan"
+        },
+        "expired_at": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Optional"
+        }
+      },
+      "title": "CreateResellerUserSubscribeRequest",
+      "required": [
+        "user_id",
+        "subscribe_id",
+        "custom_name",
+        "traffic",
+        "expired_at"
+      ]
+    },
+    "CreateResellerUserSubscribeResponse": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateResellerUserSubscribeResponse",
+      "required": [
+        "user_subscribe_id"
+      ]
+    },
     "CreateServerRequest": {
       "type": "object",
       "properties": {
@@ -13228,6 +14669,9 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
         "user_agent": {
           "type": "string"
         },
@@ -13248,6 +14692,7 @@
       "title": "CreateSubscribeApplicationRequest",
       "required": [
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",
@@ -13411,6 +14856,57 @@
         "from",
         "type",
         "content"
+      ]
+    },
+    "CreateTunnelRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "entry_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exit_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "entry_private_ip": {
+          "type": "string"
+        },
+        "exit_private_ip": {
+          "type": "string"
+        },
+        "device_name": {
+          "type": "string"
+        },
+        "protoswap_tcp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "protoswap_udp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "method": {
+          "type": "string"
+        },
+        "xray_config": {
+          "type": "string"
+        }
+      },
+      "title": "CreateTunnelRequest",
+      "required": [
+        "name",
+        "entry_server_id",
+        "exit_server_id",
+        "entry_private_ip",
+        "exit_private_ip"
       ]
     },
     "CreateUserAuthMethodRequest": {
@@ -13665,6 +15161,19 @@
         "updated_at"
       ]
     },
+    "DeleteAdminResellerSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteAdminResellerSubscriptionRequest",
+      "required": [
+        "id"
+      ]
+    },
     "DeleteAdsRequest": {
       "type": "object",
       "properties": {
@@ -13726,6 +15235,19 @@
         }
       },
       "title": "DeleteDocumentRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteForwarderRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteForwarderRequest",
       "required": [
         "id"
       ]
@@ -13795,6 +15317,19 @@
         "user_id"
       ]
     },
+    "DeleteResellerUserSubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteResellerUserSubscribeRequest",
+      "required": [
+        "user_subscribe_id"
+      ]
+    },
     "DeleteServerRequest": {
       "type": "object",
       "properties": {
@@ -13843,6 +15378,19 @@
         }
       },
       "title": "DeleteSubscribeRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteTunnelRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteTunnelRequest",
       "required": [
         "id"
       ]
@@ -13916,6 +15464,49 @@
         "show_ads",
         "enable_security",
         "only_real_device"
+      ]
+    },
+    "DeviceConnectionRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      },
+      "title": "DeviceConnectionRequest",
+      "required": [
+        "token",
+        "identifier"
+      ]
+    },
+    "DeviceGraphMetrics": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "online_devices": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uptime_seconds": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "new_devices": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeviceGraphMetrics",
+      "required": [
+        "date",
+        "online_devices",
+        "uptime_seconds",
+        "new_devices"
       ]
     },
     "DeviceLoginRequest": {
@@ -14185,6 +15776,34 @@
       "title": "FilterEmailLogResponse",
       "required": [
         "total",
+        "list"
+      ]
+    },
+    "FilterForwarderListRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "FilterForwarderListRequest",
+      "required": [
+        "tunnel_id"
+      ]
+    },
+    "FilterForwarderListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TunnelForwarder"
+          }
+        }
+      },
+      "title": "FilterForwarderListResponse",
+      "required": [
         "list"
       ]
     },
@@ -14682,6 +16301,55 @@
         "list"
       ]
     },
+    "FilterTunnelListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "search": {
+          "type": "string"
+        },
+        "entry_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exit_server_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "FilterTunnelListRequest",
+      "required": [
+        "page",
+        "size"
+      ]
+    },
+    "FilterTunnelListResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tunnel"
+          }
+        }
+      },
+      "title": "FilterTunnelListResponse",
+      "required": [
+        "total",
+        "list"
+      ]
+    },
     "Follow": {
       "type": "object",
       "properties": {
@@ -14857,6 +16525,50 @@
         "total_traffic_used",
         "total_reseller_users",
         "active_subscriptions"
+      ]
+    },
+    "GetAdminResellerSubscriptionListRequest": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Filter by reseller user ID"
+        }
+      },
+      "title": "GetAdminResellerSubscriptionListRequest",
+      "required": [
+        "page",
+        "size",
+        "user_id"
+      ]
+    },
+    "GetAdminResellerSubscriptionListResponse": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminResellerSubscription"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetAdminResellerSubscriptionListResponse",
+      "required": [
+        "list",
+        "total"
       ]
     },
     "GetAdsDetailRequest": {
@@ -15578,6 +17290,54 @@
         "count"
       ]
     },
+    "GetProtoswapScanResultsRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetProtoswapScanResultsRequest",
+      "required": [
+        "tunnel_id"
+      ]
+    },
+    "GetProtoswapScanResultsResponse": {
+      "type": "object",
+      "properties": {
+        "scan_status": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProtoswapScanResultItem"
+          }
+        },
+        "error": {
+          "type": "string"
+        },
+        "started_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetProtoswapScanResultsResponse",
+      "required": [
+        "scan_status",
+        "protocol",
+        "progress",
+        "results"
+      ]
+    },
     "GetQrCodeRequest": {
       "type": "object",
       "properties": {
@@ -15801,11 +17561,21 @@
         "user_id": {
           "type": "integer",
           "format": "int64"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "GetResellerUserSubscribeRequest",
       "required": [
-        "user_id"
+        "user_id",
+        "page",
+        "size"
       ]
     },
     "GetResellerUserSubscribeResponse": {
@@ -15816,11 +17586,16 @@
           "items": {
             "$ref": "#/definitions/UserSubscribe"
           }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "GetResellerUserSubscribeResponse",
       "required": [
-        "list"
+        "list",
+        "total"
       ]
     },
     "GetServerConfigRequest": {
@@ -15885,6 +17660,44 @@
       "title": "GetServerProtocolsResponse",
       "required": [
         "protocols"
+      ]
+    },
+    "GetServerTunnelConfigRequest": {
+      "type": "object",
+      "properties": {
+        "secret_key": {
+          "type": "string"
+        }
+      },
+      "title": "GetServerTunnelConfigRequest",
+      "required": [
+        "secret_key"
+      ]
+    },
+    "GetServerTunnelConfigResponse": {
+      "type": "object",
+      "properties": {
+        "core_config": {
+          "$ref": "#/definitions/TunnelCoreConfig",
+          "description": "WaterWall core.json settings"
+        },
+        "tunnels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeTunnelConfig"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of tunnels"
+        }
+      },
+      "title": "GetServerTunnelConfigResponse",
+      "required": [
+        "core_config",
+        "tunnels",
+        "total"
       ]
     },
     "GetServerUserListRequest": {
@@ -16134,6 +17947,9 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "search": {
+          "type": "string"
         }
       },
       "title": "GetSubscriptionRequest",
@@ -16233,6 +18049,56 @@
       "title": "GetTosResponse",
       "required": [
         "tos_content"
+      ]
+    },
+    "GetTunnelSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTunnelSettingsRequest",
+      "required": [
+        "server_id"
+      ]
+    },
+    "GetTunnelSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "$ref": "#/definitions/TunnelSettings"
+        }
+      },
+      "title": "GetTunnelSettingsResponse",
+      "required": [
+        "settings"
+      ]
+    },
+    "GetTunnelStatusRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTunnelStatusRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "GetTunnelStatusResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/TunnelStatus"
+        }
+      },
+      "title": "GetTunnelStatusResponse",
+      "required": [
+        "status"
       ]
     },
     "GetUserAuthMethodRequest": {
@@ -16853,6 +18719,46 @@
         "security_config"
       ]
     },
+    "InboundTagItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "server": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InboundTagItem",
+      "required": [
+        "tag",
+        "server",
+        "protocol",
+        "server_id"
+      ]
+    },
+    "InboundTagsResponse": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InboundTagItem"
+          }
+        }
+      },
+      "title": "InboundTagsResponse",
+      "required": [
+        "tags"
+      ]
+    },
     "InviteConfig": {
       "type": "object",
       "properties": {
@@ -17247,6 +19153,15 @@
           "items": {
             "$ref": "#/definitions/NodeOutbound"
           }
+        },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
         }
       },
       "title": "NodeConfig",
@@ -17258,7 +19173,9 @@
         "ip_strategy",
         "dns",
         "block",
-        "outbound"
+        "outbound",
+        "routing",
+        "stats_policy"
       ]
     },
     "NodeDNS": {
@@ -17303,11 +19220,57 @@
         "password": {
           "type": "string"
         },
-        "rules": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "transport": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "string"
+        },
+        "tcp_header_path": {
+          "type": "string"
+        },
+        "security": {
+          "type": "string"
+        },
+        "sni": {
+          "type": "string"
+        },
+        "allow_insecure": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "reality_public_key": {
+          "type": "string"
+        },
+        "reality_short_id": {
+          "type": "string"
+        },
+        "reality_spider_x": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "string"
+        },
+        "cipher": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
         }
       },
       "title": "NodeOutbound",
@@ -17316,8 +19279,29 @@
         "protocol",
         "address",
         "port",
-        "password",
-        "rules"
+        "password"
+      ]
+    },
+    "NodeOutboundTrafficItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "NodeOutboundTrafficItem",
+      "required": [
+        "tag",
+        "upload",
+        "download"
       ]
     },
     "NodeRelay": {
@@ -17339,6 +19323,271 @@
         "host",
         "port",
         "prefix"
+      ]
+    },
+    "NodeRoutingRule": {
+      "type": "object",
+      "properties": {
+        "inbound_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outbound_tag": {
+          "type": "string"
+        },
+        "balancer_tag": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "port": {
+          "type": "string"
+        },
+        "source_ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_port": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attrs": {
+          "type": "string"
+        }
+      },
+      "title": "NodeRoutingRule"
+    },
+    "NodeScanCommand": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "tcp, udp, both"
+        },
+        "tcp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "udp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unix timestamp for sync"
+        },
+        "signal": {
+          "type": "string",
+          "description": "cancel, pause (empty = run)"
+        },
+        "resume_from": {
+          "type": "integer",
+          "format": "int32",
+          "description": "protocol to resume from"
+        },
+        "resume_phase": {
+          "type": "string",
+          "description": "tcp or udp"
+        }
+      },
+      "title": "NodeScanCommand",
+      "required": [
+        "protocol",
+        "tcp_test_port",
+        "udp_test_port",
+        "start_time"
+      ]
+    },
+    "NodeScanResultItem": {
+      "type": "object",
+      "properties": {
+        "protocol_number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "upload_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "packet_loss": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "jitter": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "NodeScanResultItem",
+      "required": [
+        "protocol_number",
+        "type",
+        "latency_ms",
+        "upload_speed",
+        "download_speed",
+        "packet_loss",
+        "jitter"
+      ]
+    },
+    "NodeStatsPolicy": {
+      "type": "object",
+      "properties": {
+        "inbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "inbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "NodeStatsPolicy",
+      "required": [
+        "inbound_uplink",
+        "inbound_downlink",
+        "outbound_uplink",
+        "outbound_downlink"
+      ]
+    },
+    "NodeTunnelConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "description": "\"entry\" or \"exit\""
+        },
+        "method": {
+          "type": "string",
+          "description": "\"waterwall\" or \"xray\""
+        },
+        "local_ip": {
+          "type": "string"
+        },
+        "remote_ip": {
+          "type": "string"
+        },
+        "xray_config": {
+          "$ref": "#/definitions/Protocol",
+          "description": "Structured Protocol for xray tunnels"
+        },
+        "waterwall_config": {
+          "type": "string",
+          "description": "Raw WaterWall JSON for waterwall tunnels"
+        },
+        "forwarders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeTunnelForwarder"
+          }
+        },
+        "scan_command": {
+          "$ref": "#/definitions/NodeScanCommand"
+        }
+      },
+      "title": "NodeTunnelConfig",
+      "required": [
+        "id",
+        "name",
+        "role",
+        "method",
+        "local_ip",
+        "remote_ip",
+        "forwarders"
+      ]
+    },
+    "NodeTunnelForwarder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "listen_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_ip": {
+          "type": "string",
+          "description": "Private IP of remote server"
+        },
+        "target_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "forwarder_type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "title": "NodeTunnelForwarder",
+      "required": [
+        "id",
+        "protocol",
+        "listen_port",
+        "target_ip",
+        "target_port",
+        "forwarder_type",
+        "config"
       ]
     },
     "OAthLoginRequest": {
@@ -17478,6 +19727,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -17511,6 +19763,7 @@
         "payment",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "created_at",
@@ -17579,6 +19832,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -17616,6 +19872,7 @@
         "method",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "subscribe",
@@ -17653,6 +19910,43 @@
         "amount_total",
         "new_order_amount",
         "renewal_order_amount"
+      ]
+    },
+    "OutboundTrafficItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "OutboundTrafficItem",
+      "required": [
+        "tag",
+        "upload",
+        "download"
+      ]
+    },
+    "OutboundTrafficResponse": {
+      "type": "object",
+      "properties": {
+        "traffic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OutboundTrafficItem"
+          }
+        }
+      },
+      "title": "OutboundTrafficResponse",
+      "required": [
+        "traffic"
       ]
     },
     "PaymentConfig": {
@@ -18077,9 +20371,11 @@
     "PreviewSubscribeTemplateRequest": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "template": {
+          "type": "string"
+        },
+        "output_format": {
+          "type": "string"
         }
       },
       "title": "PreviewSubscribeTemplateRequest",
@@ -18115,6 +20411,9 @@
     "Protocol": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
@@ -18166,6 +20465,18 @@
           "type": "string"
         },
         "path": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tcp_header_path": {
           "type": "string"
         },
         "service_name": {
@@ -18358,6 +20669,50 @@
         "wireguard_dns": {
           "type": "string",
           "description": "DNS servers (e.g., 1.1.1.1,8.8.8.8)"
+        },
+        "amnezia_jc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmax": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "Xray tunnel client UUID"
+        },
+        "address": {
+          "type": "string",
+          "description": "Xray tunnel target address (clean IP / CDN)"
         }
       },
       "title": "Protocol",
@@ -18365,6 +20720,48 @@
         "type",
         "port",
         "enable"
+      ]
+    },
+    "ProtoswapScanResultItem": {
+      "type": "object",
+      "properties": {
+        "protocol_number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "upload_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "packet_loss": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "jitter": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ProtoswapScanResultItem",
+      "required": [
+        "protocol_number",
+        "type",
+        "latency_ms",
+        "upload_speed",
+        "download_speed",
+        "packet_loss",
+        "jitter"
       ]
     },
     "PubilcRegisterConfig": {
@@ -18938,6 +21335,15 @@
             "$ref": "#/definitions/NodeOutbound"
           }
         },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
+        },
         "protocols": {
           "type": "array",
           "items": {
@@ -18958,6 +21364,8 @@
         "dns",
         "block",
         "outbound",
+        "routing",
+        "stats_policy",
         "protocols",
         "total"
       ]
@@ -19005,6 +21413,9 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "search": {
+          "type": "string"
         }
       },
       "title": "QuerySubscribeListRequest",
@@ -19470,6 +21881,65 @@
       "title": "RenewalOrderResponse",
       "required": [
         "order_no"
+      ]
+    },
+    "ReportProtoswapScanResultsRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "running, completed, failed, cancelled, paused"
+        },
+        "error": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeScanResultItem"
+          }
+        },
+        "last_tested": {
+          "type": "integer",
+          "format": "int32",
+          "description": "last protocol tested"
+        },
+        "phase": {
+          "type": "string",
+          "description": "tcp or udp"
+        }
+      },
+      "title": "ReportProtoswapScanResultsRequest",
+      "required": [
+        "secret_key",
+        "tunnel_id",
+        "status",
+        "progress",
+        "results"
+      ]
+    },
+    "ReportTunnelStatusRequest": {
+      "type": "object",
+      "properties": {
+        "tunnels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TunnelStatusItem"
+          }
+        }
+      },
+      "title": "ReportTunnelStatusRequest",
+      "required": [
+        "secret_key",
+        "tunnels"
       ]
     },
     "ResellerDashboardResponse": {
@@ -20287,6 +22757,21 @@
         "expired_at"
       ]
     },
+    "ServerPushOutboundTrafficRequest": {
+      "type": "object",
+      "properties": {
+        "traffic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeOutboundTrafficItem"
+          }
+        }
+      },
+      "title": "ServerPushOutboundTrafficRequest",
+      "required": [
+        "traffic"
+      ]
+    },
     "ServerPushStatusRequest": {
       "type": "object",
       "properties": {
@@ -20735,6 +23220,33 @@
         "sort"
       ]
     },
+    "StartProtoswapScanRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "tcp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "udp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "StartProtoswapScanRequest",
+      "required": [
+        "tunnel_id",
+        "protocol",
+        "tcp_test_port",
+        "udp_test_port"
+      ]
+    },
     "StopBatchSendEmailTaskRequest": {
       "type": "object",
       "properties": {
@@ -20866,6 +23378,13 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -20900,6 +23419,8 @@
         "reset_cycle",
         "renewal_reset",
         "show_original_price",
+        "reseller_subscription_id",
+        "reseller_subscription_name",
         "created_at",
         "updated_at"
       ]
@@ -20921,6 +23442,9 @@
           "type": "string"
         },
         "scheme": {
+          "type": "string"
+        },
+        "match_query": {
           "type": "string"
         },
         "user_agent": {
@@ -20952,6 +23476,7 @@
       "required": [
         "id",
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",
@@ -20979,6 +23504,12 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
+        "output_format": {
+          "type": "string"
+        },
         "is_default": {
           "type": "boolean",
           "format": "boolean"
@@ -20991,6 +23522,7 @@
       "required": [
         "id",
         "name",
+        "output_format",
         "is_default"
       ]
     },
@@ -21175,6 +23707,13 @@
         "show_original_price": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
         },
         "created_at": {
           "type": "integer",
@@ -21608,6 +24147,24 @@
         "enable"
       ]
     },
+    "ToggleTunnelStatusRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "enable": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "ToggleTunnelStatusRequest",
+      "required": [
+        "id",
+        "enable"
+      ]
+    },
     "ToggleUserSubscribeStatusRequest": {
       "type": "object",
       "properties": {
@@ -21842,6 +24399,286 @@
         "security_config"
       ]
     },
+    "Tunnel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "entry_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exit_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "entry_private_ip": {
+          "type": "string"
+        },
+        "exit_private_ip": {
+          "type": "string"
+        },
+        "device_name": {
+          "type": "string"
+        },
+        "protoswap_tcp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "protoswap_udp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "method": {
+          "type": "string"
+        },
+        "xray_config": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/TunnelStatus"
+        },
+        "scan_status": {
+          "type": "string"
+        },
+        "scan_progress": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Tunnel",
+      "required": [
+        "id",
+        "name",
+        "entry_server_id",
+        "exit_server_id",
+        "entry_private_ip",
+        "exit_private_ip",
+        "device_name",
+        "protoswap_tcp",
+        "protoswap_udp",
+        "mtu",
+        "enabled",
+        "method",
+        "status",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "TunnelCoreConfig": {
+      "type": "object",
+      "properties": {
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Default: 1450"
+        },
+        "log_level": {
+          "type": "string",
+          "description": "FATAL/DEBUG/INFO"
+        },
+        "workers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 = auto"
+        },
+        "ram_profile": {
+          "type": "string",
+          "description": "server/client"
+        }
+      },
+      "title": "TunnelCoreConfig",
+      "required": [
+        "mtu",
+        "log_level",
+        "workers",
+        "ram_profile"
+      ]
+    },
+    "TunnelForwarder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "listen_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_ip": {
+          "type": "string"
+        },
+        "port_range": {
+          "type": "string"
+        },
+        "forwarder_type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TunnelForwarder",
+      "required": [
+        "id",
+        "tunnel_id",
+        "name",
+        "protocol",
+        "listen_port",
+        "target_port",
+        "port_range",
+        "forwarder_type",
+        "config",
+        "enabled",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "TunnelSettings": {
+      "type": "object",
+      "properties": {
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "log_level": {
+          "type": "string"
+        },
+        "workers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ram_profile": {
+          "type": "string"
+        }
+      },
+      "title": "TunnelSettings",
+      "required": [
+        "server_id",
+        "mtu",
+        "log_level",
+        "workers",
+        "ram_profile"
+      ]
+    },
+    "TunnelStatus": {
+      "type": "object",
+      "properties": {
+        "entry_online": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "exit_online": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TunnelStatus",
+      "required": [
+        "entry_online",
+        "exit_online",
+        "latency_ms",
+        "total_upload",
+        "total_download"
+      ]
+    },
+    "TunnelStatusItem": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "online": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TunnelStatusItem",
+      "required": [
+        "tunnel_id",
+        "online",
+        "latency_ms",
+        "total_upload",
+        "total_download"
+      ]
+    },
     "UnbindDeviceRequest": {
       "type": "object",
       "properties": {
@@ -21876,6 +24713,36 @@
         }
       },
       "title": "UnsubscribeRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateAdminResellerSubscriptionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "uint8",
+          "description": "0=inactive, 1=active"
+        },
+        "expire_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic_total": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateAdminResellerSubscriptionRequest",
       "required": [
         "id"
       ]
@@ -22173,6 +25040,54 @@
         "title",
         "content",
         "show"
+      ]
+    },
+    "UpdateForwarderRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "listen_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_ip": {
+          "type": "string"
+        },
+        "port_range": {
+          "type": "string"
+        },
+        "forwarder_type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "UpdateForwarderRequest",
+      "required": [
+        "id",
+        "protocol",
+        "listen_port",
+        "target_port",
+        "forwarder_type",
+        "enabled"
       ]
     },
     "UpdateNodeRequest": {
@@ -22478,6 +25393,10 @@
             "format": "int64"
           }
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "show": {
           "type": "boolean",
           "format": "boolean"
@@ -22500,6 +25419,7 @@
         "speed_limit",
         "device_limit",
         "nodes",
+        "reseller_subscription_id",
         "show",
         "sell"
       ]
@@ -22523,6 +25443,44 @@
       "required": [
         "user_id",
         "enable"
+      ]
+    },
+    "UpdateResellerUserSubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "user_subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "subscribe_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "custom_name": {
+          "type": "string"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expired_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1=Active, 0=Disabled"
+        }
+      },
+      "title": "UpdateResellerUserSubscribeRequest",
+      "required": [
+        "user_subscribe_id",
+        "subscribe_id",
+        "custom_name",
+        "traffic",
+        "expired_at",
+        "status"
       ]
     },
     "UpdateServerRequest": {
@@ -22582,6 +25540,9 @@
         "scheme": {
           "type": "string"
         },
+        "match_query": {
+          "type": "string"
+        },
         "user_agent": {
           "type": "string"
         },
@@ -22603,6 +25564,7 @@
       "required": [
         "id",
         "name",
+        "match_query",
         "user_agent",
         "is_default",
         "template",
@@ -22772,6 +25734,98 @@
       "required": [
         "id",
         "status"
+      ]
+    },
+    "UpdateTunnelRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "entry_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exit_server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "entry_private_ip": {
+          "type": "string"
+        },
+        "exit_private_ip": {
+          "type": "string"
+        },
+        "device_name": {
+          "type": "string"
+        },
+        "protoswap_tcp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "protoswap_udp": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "method": {
+          "type": "string"
+        },
+        "xray_config": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateTunnelRequest",
+      "required": [
+        "id",
+        "name",
+        "entry_server_id",
+        "exit_server_id",
+        "entry_private_ip",
+        "exit_private_ip",
+        "enabled"
+      ]
+    },
+    "UpdateTunnelSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "server_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "mtu": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "log_level": {
+          "type": "string"
+        },
+        "workers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ram_profile": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateTunnelSettingsRequest",
+      "required": [
+        "server_id",
+        "mtu",
+        "log_level",
+        "workers",
+        "ram_profile"
       ]
     },
     "UpdateUserAuthMethodRequest": {

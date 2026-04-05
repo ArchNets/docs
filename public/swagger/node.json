@@ -171,6 +171,62 @@
         ]
       }
     },
+    "/v1/server/outbound_traffic": {
+      "post": {
+        "summary": "Push outbound traffic",
+        "operationId": "ServerPushOutboundTraffic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "server_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServerPushOutboundTrafficRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/server"
+        ]
+      }
+    },
     "/v1/server/push": {
       "post": {
         "summary": "Push user Traffic",
@@ -376,6 +432,150 @@
             "in": "query",
             "required": false,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
+    },
+    "/v2/server/{server_id}/tunnel": {
+      "get": {
+        "summary": "Get Tunnel Config for Server",
+        "operationId": "GetServerTunnelConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/definitions/GetServerTunnelConfigResponse"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
+    },
+    "/v2/server/{server_id}/tunnel/scan/results": {
+      "post": {
+        "summary": "Report ProtoSwap Scan Results",
+        "operationId": "ReportProtoswapScanResults",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportProtoswapScanResultsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "archnets/serverV2"
+        ]
+      }
+    },
+    "/v2/server/{server_id}/tunnel/status": {
+      "post": {
+        "summary": "Report Tunnel Status",
+        "operationId": "ReportTunnelStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Response"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "data": {}
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "server_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "secret_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReportTunnelStatusRequest"
+            }
           }
         ],
         "tags": [
@@ -916,6 +1116,64 @@
         "timestamp"
       ]
     },
+    "BridgeConfirmRequest": {
+      "type": "object",
+      "properties": {
+        "order_no": {
+          "type": "string"
+        },
+        "payment_ref_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "payment_code": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "signature": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmRequest",
+      "required": [
+        "order_no",
+        "payment_ref_id",
+        "payment_code",
+        "amount",
+        "status",
+        "timestamp",
+        "signature"
+      ]
+    },
+    "BridgeConfirmResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "title": "BridgeConfirmResponse",
+      "required": [
+        "status",
+        "result"
+      ]
+    },
     "CheckoutOrderRequest": {
       "type": "object",
       "properties": {
@@ -1357,6 +1615,44 @@
         "config"
       ]
     },
+    "GetServerTunnelConfigRequest": {
+      "type": "object",
+      "properties": {
+        "secret_key": {
+          "type": "string"
+        }
+      },
+      "title": "GetServerTunnelConfigRequest",
+      "required": [
+        "secret_key"
+      ]
+    },
+    "GetServerTunnelConfigResponse": {
+      "type": "object",
+      "properties": {
+        "core_config": {
+          "$ref": "#/definitions/TunnelCoreConfig",
+          "description": "WaterWall core.json settings"
+        },
+        "tunnels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeTunnelConfig"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Total number of tunnels"
+        }
+      },
+      "title": "GetServerTunnelConfigResponse",
+      "required": [
+        "core_config",
+        "tunnels",
+        "total"
+      ]
+    },
     "GetServerUserListRequest": {
       "type": "object",
       "properties": {
@@ -1626,6 +1922,15 @@
           "items": {
             "$ref": "#/definitions/NodeOutbound"
           }
+        },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
         }
       },
       "title": "NodeConfig",
@@ -1637,7 +1942,9 @@
         "ip_strategy",
         "dns",
         "block",
-        "outbound"
+        "outbound",
+        "routing",
+        "stats_policy"
       ]
     },
     "NodeDNS": {
@@ -1682,11 +1989,57 @@
         "password": {
           "type": "string"
         },
-        "rules": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "transport": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "service_name": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "string"
+        },
+        "tcp_header_path": {
+          "type": "string"
+        },
+        "security": {
+          "type": "string"
+        },
+        "sni": {
+          "type": "string"
+        },
+        "allow_insecure": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "reality_public_key": {
+          "type": "string"
+        },
+        "reality_short_id": {
+          "type": "string"
+        },
+        "reality_spider_x": {
+          "type": "string"
+        },
+        "flow": {
+          "type": "string"
+        },
+        "cipher": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
         }
       },
       "title": "NodeOutbound",
@@ -1695,8 +2048,29 @@
         "protocol",
         "address",
         "port",
-        "password",
-        "rules"
+        "password"
+      ]
+    },
+    "NodeOutboundTrafficItem": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "NodeOutboundTrafficItem",
+      "required": [
+        "tag",
+        "upload",
+        "download"
       ]
     },
     "NodeRelay": {
@@ -1718,6 +2092,271 @@
         "host",
         "port",
         "prefix"
+      ]
+    },
+    "NodeRoutingRule": {
+      "type": "object",
+      "properties": {
+        "inbound_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outbound_tag": {
+          "type": "string"
+        },
+        "balancer_tag": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "port": {
+          "type": "string"
+        },
+        "source_ip": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_port": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attrs": {
+          "type": "string"
+        }
+      },
+      "title": "NodeRoutingRule"
+    },
+    "NodeScanCommand": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "tcp, udp, both"
+        },
+        "tcp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "udp_test_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "start_time": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Unix timestamp for sync"
+        },
+        "signal": {
+          "type": "string",
+          "description": "cancel, pause (empty = run)"
+        },
+        "resume_from": {
+          "type": "integer",
+          "format": "int32",
+          "description": "protocol to resume from"
+        },
+        "resume_phase": {
+          "type": "string",
+          "description": "tcp or udp"
+        }
+      },
+      "title": "NodeScanCommand",
+      "required": [
+        "protocol",
+        "tcp_test_port",
+        "udp_test_port",
+        "start_time"
+      ]
+    },
+    "NodeScanResultItem": {
+      "type": "object",
+      "properties": {
+        "protocol_number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "upload_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "download_speed": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "packet_loss": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "jitter": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "NodeScanResultItem",
+      "required": [
+        "protocol_number",
+        "type",
+        "latency_ms",
+        "upload_speed",
+        "download_speed",
+        "packet_loss",
+        "jitter"
+      ]
+    },
+    "NodeStatsPolicy": {
+      "type": "object",
+      "properties": {
+        "inbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "inbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_uplink": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "outbound_downlink": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "NodeStatsPolicy",
+      "required": [
+        "inbound_uplink",
+        "inbound_downlink",
+        "outbound_uplink",
+        "outbound_downlink"
+      ]
+    },
+    "NodeTunnelConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "description": "\"entry\" or \"exit\""
+        },
+        "method": {
+          "type": "string",
+          "description": "\"waterwall\" or \"xray\""
+        },
+        "local_ip": {
+          "type": "string"
+        },
+        "remote_ip": {
+          "type": "string"
+        },
+        "xray_config": {
+          "$ref": "#/definitions/Protocol",
+          "description": "Structured Protocol for xray tunnels"
+        },
+        "waterwall_config": {
+          "type": "string",
+          "description": "Raw WaterWall JSON for waterwall tunnels"
+        },
+        "forwarders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeTunnelForwarder"
+          }
+        },
+        "scan_command": {
+          "$ref": "#/definitions/NodeScanCommand"
+        }
+      },
+      "title": "NodeTunnelConfig",
+      "required": [
+        "id",
+        "name",
+        "role",
+        "method",
+        "local_ip",
+        "remote_ip",
+        "forwarders"
+      ]
+    },
+    "NodeTunnelForwarder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "listen_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "target_ip": {
+          "type": "string",
+          "description": "Private IP of remote server"
+        },
+        "target_port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "forwarder_type": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "title": "NodeTunnelForwarder",
+      "required": [
+        "id",
+        "protocol",
+        "listen_port",
+        "target_ip",
+        "target_port",
+        "forwarder_type",
+        "config"
       ]
     },
     "OnlineUser": {
@@ -1811,6 +2450,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -1844,6 +2486,7 @@
         "payment",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "created_at",
@@ -1912,6 +2555,9 @@
         "trade_no": {
           "type": "string"
         },
+        "currency": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "uint8"
@@ -1949,6 +2595,7 @@
         "method",
         "fee_amount",
         "trade_no",
+        "currency",
         "status",
         "subscribe_id",
         "subscribe",
@@ -2222,6 +2869,9 @@
     "Protocol": {
       "type": "object",
       "properties": {
+        "name": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
@@ -2273,6 +2923,18 @@
           "type": "string"
         },
         "path": {
+          "type": "string"
+        },
+        "tcp_header_type": {
+          "type": "string"
+        },
+        "tcp_header_host": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tcp_header_path": {
           "type": "string"
         },
         "service_name": {
@@ -2465,6 +3127,50 @@
         "wireguard_dns": {
           "type": "string",
           "description": "DNS servers (e.g., 1.1.1.1,8.8.8.8)"
+        },
+        "amnezia_jc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmin": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_jmax": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_s2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h1": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h2": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h3": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "amnezia_h4": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "Xray tunnel client UUID"
+        },
+        "address": {
+          "type": "string",
+          "description": "Xray tunnel target address (clean IP / CDN)"
         }
       },
       "title": "Protocol",
@@ -2748,6 +3454,15 @@
             "$ref": "#/definitions/NodeOutbound"
           }
         },
+        "routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeRoutingRule"
+          }
+        },
+        "stats_policy": {
+          "$ref": "#/definitions/NodeStatsPolicy"
+        },
         "protocols": {
           "type": "array",
           "items": {
@@ -2768,6 +3483,8 @@
         "dns",
         "block",
         "outbound",
+        "routing",
+        "stats_policy",
         "protocols",
         "total"
       ]
@@ -2981,6 +3698,65 @@
       "title": "RenewalOrderResponse",
       "required": [
         "order_no"
+      ]
+    },
+    "ReportProtoswapScanResultsRequest": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string",
+          "description": "running, completed, failed, cancelled, paused"
+        },
+        "error": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeScanResultItem"
+          }
+        },
+        "last_tested": {
+          "type": "integer",
+          "format": "int32",
+          "description": "last protocol tested"
+        },
+        "phase": {
+          "type": "string",
+          "description": "tcp or udp"
+        }
+      },
+      "title": "ReportProtoswapScanResultsRequest",
+      "required": [
+        "secret_key",
+        "tunnel_id",
+        "status",
+        "progress",
+        "results"
+      ]
+    },
+    "ReportTunnelStatusRequest": {
+      "type": "object",
+      "properties": {
+        "tunnels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TunnelStatusItem"
+          }
+        }
+      },
+      "title": "ReportTunnelStatusRequest",
+      "required": [
+        "secret_key",
+        "tunnels"
       ]
     },
     "ResellerDiscount": {
@@ -3404,6 +4180,21 @@
         "updated_at"
       ]
     },
+    "ServerPushOutboundTrafficRequest": {
+      "type": "object",
+      "properties": {
+        "traffic": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeOutboundTrafficItem"
+          }
+        }
+      },
+      "title": "ServerPushOutboundTrafficRequest",
+      "required": [
+        "traffic"
+      ]
+    },
     "ServerPushStatusRequest": {
       "type": "object",
       "properties": {
@@ -3771,6 +4562,13 @@
           "type": "boolean",
           "format": "boolean"
         },
+        "reseller_subscription_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "reseller_subscription_name": {
+          "type": "string"
+        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -3805,6 +4603,8 @@
         "reset_cycle",
         "renewal_reset",
         "show_original_price",
+        "reseller_subscription_id",
+        "reseller_subscription_name",
         "created_at",
         "updated_at"
       ]
@@ -4197,6 +4997,69 @@
         "udp_relay_mode",
         "congestion_controller",
         "security_config"
+      ]
+    },
+    "TunnelCoreConfig": {
+      "type": "object",
+      "properties": {
+        "mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Default: 1450"
+        },
+        "log_level": {
+          "type": "string",
+          "description": "FATAL/DEBUG/INFO"
+        },
+        "workers": {
+          "type": "integer",
+          "format": "int32",
+          "description": "0 = auto"
+        },
+        "ram_profile": {
+          "type": "string",
+          "description": "server/client"
+        }
+      },
+      "title": "TunnelCoreConfig",
+      "required": [
+        "mtu",
+        "log_level",
+        "workers",
+        "ram_profile"
+      ]
+    },
+    "TunnelStatusItem": {
+      "type": "object",
+      "properties": {
+        "tunnel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "online": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "latency_ms": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_upload": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_download": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TunnelStatusItem",
+      "required": [
+        "tunnel_id",
+        "online",
+        "latency_ms",
+        "total_upload",
+        "total_download"
       ]
     },
     "User": {
