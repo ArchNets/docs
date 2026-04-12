@@ -19271,6 +19271,31 @@
         },
         "user": {
           "type": "string"
+        },
+        "wireguard_private_key": {
+          "type": "string",
+          "description": "Client private key"
+        },
+        "wireguard_address": {
+          "type": "string",
+          "description": "Client tunnel address (e.g., 172.16.0.2/32)"
+        },
+        "wireguard_mtu": {
+          "type": "integer",
+          "format": "int32",
+          "description": "MTU size (e.g., 1280)"
+        },
+        "wireguard_peer_public_key": {
+          "type": "string",
+          "description": "Peer/server public key"
+        },
+        "wireguard_peer_endpoint": {
+          "type": "string",
+          "description": "Peer endpoint (e.g., engage.cloudflareclient.com:2408)"
+        },
+        "wireguard_reserved": {
+          "type": "string",
+          "description": "Reserved bytes, comma-separated (e.g., 0,0,0 for WARP)"
         }
       },
       "title": "NodeOutbound",
